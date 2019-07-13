@@ -1,0 +1,40 @@
+{
+  "name": "pdf-to-printer",
+  "version": "0.0.1",
+  "description": "A utility to print PDF files from Node.js apps on Windows and Unix-like platforms",
+  "license": "MIT",
+  "author": "Artur Khusaenov <artur.khusaenov@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/artiebits/pdf-to-printer.git"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src",
+    "copy-PDFtoPrinter.exe": "cp ./src/win32/PDFtoPrinter.exe ./dist/win32",
+    "build": "babel src --out-dir dist --source-maps inline && npm run copy-PDFtoPrinter.exe",
+    "prebuild": "rimraf dist && npm run lint && npm run test",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.5.0",
+    "@babel/core": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "babel-jest": "24.8.0",
+    "eslint": "6.0.1",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "jest": "24.8.0",
+    "prettier": "1.18.2",
+    "rimraf": "2.6.3"
+  },
+  "keywords": [
+    "printer",
+    "PDF printer",
+    "Node.js printer"
+  ]
+}
