@@ -17,8 +17,7 @@
     "lint": "eslint src",
     "copy-PDFtoPrinter.exe": "cp ./src/win32/PDFtoPrinter.exe ./dist/win32",
     "build": "babel src --out-dir dist --source-maps inline && npm run copy-PDFtoPrinter.exe",
-    "prebuild": "rimraf dist && npm run lint && npm run test",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "rimraf dist && npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
     "@babel/cli": "7.5.0",
