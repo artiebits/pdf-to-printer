@@ -1,5 +1,7 @@
 # Node.js PDF printing
 
+[![Build Status](https://api.cirrus-ci.com/github/artiebits/pdf-to-printer.svg)](https://cirrus-ci.com/github/artiebits/pdf-to-printer)
+
 A utility to print PDF files from Node.js on Windows and Unix-like operating systems.
 
 ## Getting Started
