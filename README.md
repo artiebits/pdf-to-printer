@@ -1,6 +1,6 @@
-# Node.js PDF prining
+# Node.js PDF printing
 
-A utility to print PDF files from Node.js apps on Windows and Unix-like platforms.
+A utility to print PDF files from Node.js on Windows and Unix-like operating systems.
 
 ## Getting Started
 
