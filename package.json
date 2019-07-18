@@ -20,7 +20,7 @@
     "prepublishOnly": "rimraf dist && npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.0",
+    "@babel/cli": "7.5.5",
     "@babel/core": "7.5.4",
     "@babel/preset-env": "7.5.4",
     "babel-jest": "24.8.0",
