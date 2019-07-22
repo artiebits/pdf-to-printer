@@ -4,7 +4,7 @@
 
 A utility to print PDF files from Node.js on Windows and Unix-like operating systems.
 
-## 👨‍💻 Getting Started
+## Getting Started
 
 Install using [`yarn`](https://yarnpkg.com/):
 
@@ -18,7 +18,7 @@ Or [`npm`](https://www.npmjs.com/):
 npm install --save pdf-to-printer
 ```
 
-## 👩‍🏫 Basic Usage
+## Basic Usage
 
 Print a PDF file to the default printer:
 
@@ -31,7 +31,7 @@ printer
   .catch(console.error);
 ```
 
-## 📖 API
+## API
 
 ### `.print(pdf[, options]) => Promise<void>`
 
