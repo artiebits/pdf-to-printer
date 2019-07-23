@@ -15,8 +15,8 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint src",
-    "copy-PDFtoPrinter.exe": "cp ./src/win32/PDFtoPrinter.exe ./dist/win32",
-    "build": "babel src --out-dir dist --source-maps inline && npm run copy-PDFtoPrinter.exe",
+    "copy-SumatraPDF.exe": "cp ./src/win32/SumatraPDF.exe ./dist/win32",
+    "build": "babel src --out-dir dist --source-maps inline && npm run copy-SumatraPDF.exe",
     "prepublishOnly": "rimraf dist && npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
