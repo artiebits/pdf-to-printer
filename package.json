@@ -1,6 +1,6 @@
 {
   "name": "pdf-to-printer",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A utility to print PDF files from Node.js apps on Windows and Unix-like platforms",
   "license": "MIT",
   "author": "Artur Khusaenov <artur.khusaenov@gmail.com>",
