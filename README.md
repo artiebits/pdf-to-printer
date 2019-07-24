@@ -2,7 +2,10 @@
 
 [![Build Status](https://api.cirrus-ci.com/github/artiebits/pdf-to-printer.svg)](https://cirrus-ci.com/github/artiebits/pdf-to-printer) [![codecov](https://codecov.io/gh/artiebits/pdf-to-printer/branch/master/graph/badge.svg)](https://codecov.io/gh/artiebits/pdf-to-printer)
 
-A utility to print PDF files from Node.js on Windows and Unix-like operating systems.
+A utility to print PDF files from Node.js and Electron.
+
+* ✅ Works on Windows and Unix-like operating systems.
+* ✅ Supports label printers such as [Rollo](https://www.rolloprinter.com/) and [Zebra](https://www.zebra.com/us/en/products/printers.html).
 
 ## Getting Started
 

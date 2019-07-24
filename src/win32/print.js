@@ -5,11 +5,17 @@ const fs = require("fs");
 const execAsync = require("../execAsync");
 
 const getCommand = (pdf, options) => {
-  const ptp = path.join(__dirname, "PDFtoPrinter.exe");
-  let command = `${ptp} ${pdf}`;
-  if (options.printer) {
-    command += ` "${options.printer}"`;
+  let command = path.join(__dirname, "SumatraPDF.exe");
+
+  const { printer } = options;
+  if (printer) {
+    command += ` -print-to "${printer}"`;
+  } else {
+    command += " -print-to-default";
   }
+  command += " -silent";
+  command += ` ${pdf}`;
+
   return command;
 };
 
