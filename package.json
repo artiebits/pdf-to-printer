@@ -32,8 +32,15 @@
     "rimraf": "2.6.3"
   },
   "keywords": [
+    "pdf",
     "printer",
-    "PDF printer",
-    "Node.js printer"
+    "pdf-printer",
+    "zebra-printer",
+    "rollo-printer",
+    "node.js",
+    "electron",
+    "windows",
+    "macos",
+    "linux"
   ]
 }
