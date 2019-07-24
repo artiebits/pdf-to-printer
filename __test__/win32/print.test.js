@@ -55,14 +55,3 @@ test("sends PDF file to the specific printer", () => {
     );
   });
 });
-
-test("has an option to set scaling", () => {
-  const filename = "assets/pdf-sample.pdf";
-  const scale = "noscale";
-  const options = { scale };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(
-      `mocked_path_SumatraPDF.exe -print-to-default -silent ${filename}`
-    );
-  });
-});
