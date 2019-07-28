@@ -3,9 +3,10 @@
 const path = require("path");
 const fs = require("fs");
 const execAsync = require("../execAsync");
+const { fixPathForAsarUnpack } = require("../electron-util");
 
 const getCommand = (pdf, options) => {
-  let command = path.join(__dirname, "SumatraPDF.exe");
+  let command = path.join(fixPathForAsarUnpack(__dirname), "SumatraPDF.exe");
 
   const { printer } = options;
   if (printer) {

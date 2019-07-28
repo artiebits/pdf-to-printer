@@ -2,20 +2,24 @@
 
 import { existsSync } from "fs";
 import execAsync from "../../src/execAsync";
+import { fixPathForAsarUnpack } from "../../src/electron-util";
 import { print } from "../../src/win32";
 
 jest.mock("fs");
 jest.mock("path");
 jest.mock("../../src/execAsync");
+jest.mock("../../src/electron-util");
 
 beforeEach(() => {
   // override the implementations
+  fixPathForAsarUnpack.mockImplementation(path => path);
   existsSync.mockImplementation(() => true);
   execAsync.mockImplementation(() => Promise.resolve());
 });
 
 afterEach(() => {
   // restore the original implementations
+  fixPathForAsarUnpack.mockRestore();
   existsSync.mockRestore();
   execAsync.mockRestore();
 });
