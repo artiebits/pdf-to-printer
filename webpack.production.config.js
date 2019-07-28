@@ -1,5 +1,6 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -9,7 +10,10 @@ module.exports = {
     filename: "bundle.js",
     libraryTarget: "umd"
   },
-  plugins: [new CopyPlugin([{ from: "./src/win32/SumatraPDF.exe" }])],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new CopyPlugin([{ from: "./src/win32/SumatraPDF.exe" }])
+  ],
   target: "node",
   node: {
     __dirname: false
