@@ -1,7 +1,7 @@
 module.exports = {
   env: {
-    browser: true,
-    node: true
+    node: true,
+    browser: false
   },
   extends: "plugin:prettier/recommended",
   parserOptions: {
