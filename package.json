@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "lint": "eslint src webpack.production.config.js ",
+    "lint": "eslint src webpack.production.config.js examples",
     "build": "webpack --config webpack.production.config.js",
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
@@ -28,6 +28,7 @@
     "eslint": "6.0.1",
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.14.3",
     "jest": "24.8.0",
     "prettier": "1.18.2",
     "webpack": "4.37.0",
