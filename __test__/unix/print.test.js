@@ -53,3 +53,31 @@ test("sends PDF file to the specific printer", () => {
     expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
   });
 });
+
+test("appends additional options with -o flag", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const printer = "Zebra";
+  const options = {
+    printer,
+    'fit-to-page': true,
+    media: 'A4',
+    landscape: true
+  };
+  return print(filename, options).then(() => {
+    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer} -o fit-to-page -o media=A4 -o landscape`);
+  })
+});
+
+test("ignores options set to false", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const printer = "Zebra";
+  const options = {
+    printer,
+    'fit-to-page': true,
+    media: 'A4',
+    landscape: false
+  };
+  return print(filename, options).then(() => {
+    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer} -o fit-to-page -o media=A4`);
+  })
+});
