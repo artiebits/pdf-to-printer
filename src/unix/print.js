@@ -8,6 +8,18 @@ const getCommand = (pdf, options) => {
   if (options.printer) {
     command += " -d " + options.printer;
   }
+  // check for other options
+  Object.keys(options).forEach(function(key) {
+    if (key !== "printer") {
+      const value = options[key];
+      if (value !== false) {
+        command += " -o " + key;
+        if (typeof value !== "boolean") {
+          command += "=" + value;
+        }
+      }
+    }
+  });
   return command;
 };
 
