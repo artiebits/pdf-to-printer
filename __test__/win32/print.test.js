@@ -3,13 +3,13 @@
 import { existsSync } from "fs";
 import { join } from "path";
 import execAsync from "../../src/execAsync";
-import { fixPathForAsarUnpack } from "../../src/utils/electron-util";
+import { fixPathForAsarUnpack } from "../../src/electron-util";
 import { print } from "../../src/win32";
 
 jest.mock("fs");
 jest.mock("path");
 jest.mock("../../src/execAsync");
-jest.mock("../../src/utils/electron-util");
+jest.mock("../../src/electron-util");
 
 beforeEach(() => {
   // override the implementations
@@ -47,7 +47,7 @@ test("sends the PDF file to the default printer", () => {
   const filename = "assets/pdf-sample.pdf";
   return print(filename).then(() => {
     expect(execAsync).toHaveBeenCalledWith(
-      `mocked_path_SumatraPDF.exe -print-to-default -silent ${filename}`
+      `"mocked_path_SumatraPDF.exe" -print-to-default -silent "${filename}"`
     );
   });
 });
@@ -58,17 +58,7 @@ test("sends PDF file to the specific printer", () => {
   const options = { printer };
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith(
-      `mocked_path_SumatraPDF.exe -print-to "${printer}" -silent ${filename}`
-    );
-  });
-});
-
-test("escapes whitespaces in the path", () => {
-  join.mockImplementation((_, filename) => "mocked path/" + filename);
-  const filename = "my assets/pdf-sample.pdf";
-  return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(
-      "mocked\\ path/SumatraPDF.exe -print-to-default -silent my\\ assets/pdf-sample.pdf"
+      `"mocked_path_SumatraPDF.exe" -print-to "${printer}" -silent "${filename}"`
     );
   });
 });

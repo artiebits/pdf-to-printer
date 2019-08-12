@@ -2,7 +2,8 @@
 
 const fs = require("fs");
 const execAsync = require("../execAsync");
-const escapeWhitespaces = require("../utils/escape-whitespaces");
+
+const escapeWhitespaces = path => path.replace(/(\s+)/g, "\\$1");
 
 const getCommand = (pdf, options) => {
   let command = "lp " + escapeWhitespaces(pdf);
