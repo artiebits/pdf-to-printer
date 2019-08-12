@@ -59,13 +59,15 @@ test("appends additional options with -o flag", () => {
   const printer = "Zebra";
   const options = {
     printer,
-    'fit-to-page': true,
-    media: 'A4',
+    "fit-to-page": true,
+    media: "A4",
     landscape: true
   };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer} -o fit-to-page -o media=A4 -o landscape`);
-  })
+    expect(execAsync).toHaveBeenCalledWith(
+      `lp ${filename} -d ${printer} -o fit-to-page -o media=A4 -o landscape`
+    );
+  });
 });
 
 test("ignores options set to false", () => {
@@ -78,6 +80,8 @@ test("ignores options set to false", () => {
     landscape: false
   };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer} -o fit-to-page -o media=A4`);
+    expect(execAsync).toHaveBeenCalledWith(
+      `lp ${filename} -d ${printer} -o fit-to-page -o media=A4`
+    );
   });
 });
