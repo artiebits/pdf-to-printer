@@ -44,6 +44,26 @@ printer
 2. `options` (`Object` [optional]):
    - `options.printer`: (`string` [optional]): Print to the specified printer. Will print to the default printer if name not specified. If the printer name mistyped or specified printer does not exist, nothing will print.
 
+##### UNIX only:
+
+On UNIX systems you can add more options to the `options` object. Some examples are:
+
+```javascript
+const options = {
+  printer: "Zebra",
+  "fit-to-page": true,
+  landscape: true,
+  media: "A4"
+);
+  
+printer
+  .print("assets/pdf-sample.pdf", options)
+  .then(console.log)
+  .catch(console.error);
+```
+
+Please checkout [Command-line Printing and Options](https://www.cups.org/doc/options.html) or `man lp` to get all available options.
+
 #### Returns
 
 `Promise<void>`.

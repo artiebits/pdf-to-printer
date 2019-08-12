@@ -73,11 +73,11 @@ test("ignores options set to false", () => {
   const printer = "Zebra";
   const options = {
     printer,
-    'fit-to-page': true,
-    media: 'A4',
+    "fit-to-page": true,
+    media: "A4",
     landscape: false
   };
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer} -o fit-to-page -o media=A4`);
-  })
+  });
 });
