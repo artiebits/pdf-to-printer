@@ -2,9 +2,10 @@
 
 const fs = require("fs");
 const execAsync = require("../execAsync");
+const escapeWhitespaces = require("../utils/escape-whitespaces");
 
 const getCommand = (pdf, options) => {
-  let command = "lp " + pdf;
+  let command = "lp " + escapeWhitespaces(pdf);
   if (options.printer) {
     command += " -d " + options.printer;
   }
