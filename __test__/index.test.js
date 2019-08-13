@@ -2,47 +2,22 @@
 
 jest.mock("os");
 
-describe("Linux", () => {
-  test("has `print` and `list` methods", () => {
-    jest.resetModules();
+describe.each([["Linux", "linux"], ["Darwin", "darwin"], ["Windows", "win32"]])(
+  "%i operating system",
+  (_, alias) => {
+    test("has `print` and `list` methods", () => {
+      jest.resetModules();
 
-    const os = require("os");
-    os.platform.mockImplementation(() => "darwin");
+      const os = require("os");
+      os.platform.mockImplementation(() => alias);
 
-    const printer = require("../src");
+      const printer = require("../src");
 
-    expect(printer.print).toBeDefined();
-    expect(printer.list).toBeDefined();
-  });
-});
-
-describe("Darwin", () => {
-  test("has `print` and `list` methods", () => {
-    jest.resetModules();
-
-    const os = require("os");
-    os.platform.mockImplementation(() => "darwin");
-
-    const printer = require("../src");
-
-    expect(printer.print).toBeDefined();
-    expect(printer.list).toBeDefined();
-  });
-});
-
-describe("Windows", () => {
-  test("has `print` and `list` methods", () => {
-    jest.resetModules();
-
-    const os = require("os");
-    os.platform.mockImplementation(() => "win32");
-
-    const printer = require("../src");
-
-    expect(printer.print).toBeDefined();
-    expect(printer.list).toBeDefined();
-  });
-});
+      expect(printer.print).toBeDefined();
+      expect(printer.list).toBeDefined();
+    });
+  }
+);
 
 describe("Unsupported platform", () => {
   test("throws on unsupported platforms", () => {
