@@ -6,7 +6,10 @@ const execAsync = require("../execAsync");
 const { fixPathForAsarUnpack } = require("../electron-util");
 
 const getCommand = (pdf, options) => {
-  let command = path.join(fixPathForAsarUnpack(__dirname), "SumatraPDF.exe");
+  let command = path.join(__dirname, "SumatraPDF.exe");
+
+  command = fixPathForAsarUnpack(command);
+  command = `"${command}"`;
 
   const { printer } = options;
   if (printer) {
@@ -15,7 +18,7 @@ const getCommand = (pdf, options) => {
     command += " -print-to-default";
   }
   command += " -silent";
-  command += ` ${pdf}`;
+  command += ` "${pdf}"`;
 
   return command;
 };

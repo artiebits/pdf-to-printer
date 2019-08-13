@@ -1,6 +1,7 @@
 "use strict";
 
 import { existsSync } from "fs";
+import { join } from "path";
 import execAsync from "../../src/execAsync";
 import { fixPathForAsarUnpack } from "../../src/electron-util";
 import { print } from "../../src/win32";
@@ -15,6 +16,7 @@ beforeEach(() => {
   fixPathForAsarUnpack.mockImplementation(path => path);
   existsSync.mockImplementation(() => true);
   execAsync.mockImplementation(() => Promise.resolve());
+  join.mockImplementation((_, filename) => "mocked_path_" + filename);
 });
 
 afterEach(() => {
@@ -22,6 +24,7 @@ afterEach(() => {
   fixPathForAsarUnpack.mockRestore();
   existsSync.mockRestore();
   execAsync.mockRestore();
+  join.mockRestore();
 });
 
 test("throws if no PDF specified", () => {
@@ -44,7 +47,7 @@ test("sends the PDF file to the default printer", () => {
   const filename = "assets/pdf-sample.pdf";
   return print(filename).then(() => {
     expect(execAsync).toHaveBeenCalledWith(
-      `mocked_path_SumatraPDF.exe -print-to-default -silent ${filename}`
+      `"mocked_path_SumatraPDF.exe" -print-to-default -silent "${filename}"`
     );
   });
 });
@@ -55,7 +58,7 @@ test("sends PDF file to the specific printer", () => {
   const options = { printer };
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith(
-      `mocked_path_SumatraPDF.exe -print-to "${printer}" -silent ${filename}`
+      `"mocked_path_SumatraPDF.exe" -print-to "${printer}" -silent "${filename}"`
     );
   });
 });
