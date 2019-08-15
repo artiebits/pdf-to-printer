@@ -46,9 +46,11 @@ test("throws if PDF doesn't exist", () => {
 test("sends the PDF file to the default printer", () => {
   const filename = "assets/pdf-sample.pdf";
   return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(
-      `"mocked_path_SumatraPDF.exe" -print-to-default -silent "${filename}"`
-    );
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to-default",
+      "-silent",
+      filename
+    ]);
   });
 });
 
@@ -57,8 +59,11 @@ test("sends PDF file to the specific printer", () => {
   const printer = "Zebra";
   const options = { printer };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(
-      `"mocked_path_SumatraPDF.exe" -print-to "${printer}" -silent "${filename}"`
-    );
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to",
+      printer,
+      "-silent",
+      filename
+    ]);
   });
 });

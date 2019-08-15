@@ -39,7 +39,7 @@ test("throws if PDF doesn't exist", () => {
 test("sends the PDF file to the default printer", () => {
   const filename = "assets/pdf-sample.pdf";
   return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp ${filename}`);
+    expect(execAsync).toHaveBeenCalledWith("lp", [filename]);
   });
 });
 
@@ -50,13 +50,15 @@ test("sends PDF file to the specific printer", () => {
     printer
   };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
+    expect(execAsync).toHaveBeenCalledWith(`lp`, [filename, "-d", printer]);
   });
 });
 
 test("escapes whitespaces in the file name", () => {
   const filename = "my assets/pdf-sample.pdf";
   return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("lp my\\ assets/pdf-sample.pdf");
+    expect(execAsync).toHaveBeenCalledWith("lp", [
+      "my\\ assets/pdf-sample.pdf"
+    ]);
   });
 });

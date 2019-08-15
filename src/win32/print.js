@@ -5,31 +5,26 @@ const fs = require("fs");
 const execAsync = require("../execAsync");
 const { fixPathForAsarUnpack } = require("../electron-util");
 
-const getCommand = (pdf, options) => {
-  let command = path.join(__dirname, "SumatraPDF.exe");
-
-  command = fixPathForAsarUnpack(command);
-  command = `"${command}"`;
-
-  const { printer } = options;
-  if (printer) {
-    command += ` -print-to "${printer}"`;
-  } else {
-    command += " -print-to-default";
-  }
-  command += " -silent";
-  command += ` "${pdf}"`;
-
-  return command;
-};
-
 const print = (pdf, options = {}) => {
   if (!pdf) throw "No PDF specified";
   if (typeof pdf !== "string") throw "Invalid PDF name";
   if (!fs.existsSync(pdf)) throw "No such file";
 
-  const command = getCommand(pdf, options);
-  return execAsync(command);
+  let command = path.join(__dirname, "SumatraPDF.exe");
+
+  command = fixPathForAsarUnpack(command);
+
+  const params = [];
+
+  const { printer } = options;
+  if (printer) {
+    params.push("-print-to", printer);
+  } else {
+    params.push("-print-to-default");
+  }
+  params.push("-silent", pdf);
+
+  return execAsync(command, params);
 };
 
 module.exports = print;

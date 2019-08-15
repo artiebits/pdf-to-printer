@@ -1,10 +1,10 @@
 "use strict";
 
-const { exec } = require("child_process");
+const { execFile } = require("child_process");
 
-const execAsync = (command, callback) => {
+const execAsync = (command, params = [], callback) => {
   return new Promise((resolve, reject) => {
-    exec(command, (error, stdout) => {
+    execFile(command, params, (error, stdout) => {
       if (error) {
         reject(error);
         return;
