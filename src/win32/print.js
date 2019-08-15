@@ -16,12 +16,19 @@ const print = (pdf, options = {}) => {
 
   const params = [];
 
-  const { printer } = options;
+  const { printer, win32 } = options;
+
   if (printer) {
     params.push("-print-to", printer);
   } else {
     params.push("-print-to-default");
   }
+
+  if (win32) {
+    if (!Array.isArray(win32)) throw "options.win32 should be an array";
+    params.concat(win32);
+  }
+
   params.push("-silent", pdf);
 
   return execAsync(command, params);

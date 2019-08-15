@@ -12,7 +12,13 @@ const print = (pdf, options = {}) => {
 
   const params = [escapeWhitespaces(pdf)];
 
-  const { printer } = options;
+  const { printer, unix } = options;
+
+  if (unix) {
+    if (!Array.isArray(unix)) throw "options.unix should be an array";
+    params.concat(unix);
+  }
+
   if (printer) {
     params.push("-d", printer);
   }
