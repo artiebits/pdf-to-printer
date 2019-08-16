@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "lint": "eslint src webpack.production.config.js examples",
+    "lint": "eslint src __test__ webpack.production.config.js examples",
     "build": "webpack --config webpack.production.config.js",
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
