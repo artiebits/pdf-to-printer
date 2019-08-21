@@ -8,6 +8,20 @@ A utility to print PDF files from Node.js and Electron.
 * ✅ Works on Windows and Unix-like operating systems.
 * ✅ Supports label printers such as [Rollo](https://www.rolloprinter.com/) and [Zebra](https://www.zebra.com/us/en/products/printers.html).
 
+## Installation
+
+Install using [`yarn`](https://yarnpkg.com/):
+
+```bash
+yarn add pdf-to-printer
+```
+
+Or [`npm`](https://www.npmjs.com/):
+
+```bash
+npm install --save pdf-to-printer
+```
+
 ## Basic Usage
 
 Print a PDF file to the default printer:
@@ -25,18 +39,18 @@ printer
 
 ### `.print(pdf[, options]) => Promise<void>`
 
-#### Arguments
+**Arguments**
 
 1. `pdf` (`string`): PDF file to print. Will throw an error if no PDF specified. **Note**: It must be a path to a PDF existing in the file system.
 You may take a look at [this example](/examples/express-server) if you need to download your PDF file first.
 2. `options` (`Object` [optional]):
    - `options.printer`: (`string` [optional]): Print to the specified printer. Will print to the default printer if name not specified. If the printer name mistyped or specified printer does not exist, nothing will print.
 
-#### Returns
+**Returns**
 
 `Promise<void>`.
 
-#### Examples
+**Examples**
 
 To print a PDF file to the default printer:
 
@@ -62,31 +76,17 @@ printer
 
 ### `.list() => Promise<string[]>`
 
-#### Returns
+**Returns**
 
 `Promise<string[]>`: List of available printers.
 
-#### Examples
+**Examples**
 
 ```javascript
 printer
   .list()
   .then(console.log)
   .catch(console.error);
-```
-
-## Installation
-
-Install using [`yarn`](https://yarnpkg.com/):
-
-```bash
-yarn add pdf-to-printer
-```
-
-Or [`npm`](https://www.npmjs.com/):
-
-```bash
-npm install --save pdf-to-printer
 ```
 
 ## More examples
