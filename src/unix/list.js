@@ -3,8 +3,15 @@
 const execAsync = require("../execAsync");
 
 const list = () => {
-  const command = "lpstat -e";
-  const stdoutHandler = stdout => stdout.trim().split("\n");
+  const command = "lpstat -a";
+  const stdoutHandler = stdout => {
+    const result = stdout
+      .trim()
+      .split("\n")
+      .map(e => e.substr(0, e.indexOf(" ")));
+    console.log(result);
+    return result;
+  };
 
   return execAsync(command, stdoutHandler);
 };
