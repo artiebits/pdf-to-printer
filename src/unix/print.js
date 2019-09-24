@@ -8,9 +8,15 @@ const getCommand = (pdf, options) => {
   if (options.printer) {
     command += " -d " + options.printer;
   }
+  if (options.pages) {
+    const pages = Array.isArray(options.pages)
+      ? options.pages
+      : [options.pages];
+    command += ` -P ${pages.join(",")}`;
+  }
   // check for other options
   Object.keys(options).forEach(function(key) {
-    if (key !== "printer") {
+    if (key !== "printer" && key !== "pages") {
       const value = options[key];
       if (value !== false) {
         command += " -o " + key;
