@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "name": "pdf-to-printer",
   "version": "1.0.2",
+=======
+  "name": "@bondvet/pdf-to-printer",
+  "version": "1.0.1",
+>>>>>>> origin/master
   "description": "A utility to print PDF files from Node.js apps on Windows and Unix-like platforms",
   "license": "MIT",
   "author": "Artur Khusaenov <artur.khusaenov@gmail.com>",
