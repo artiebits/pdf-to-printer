@@ -1,6 +1,6 @@
 {
   "name": "pdf-to-printer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A utility to print PDF files from Node.js and Electron",
   "license": "MIT",
   "author": "Artur Khusaenov <artur.khusaenov@gmail.com>",
@@ -19,20 +19,20 @@
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
-    "@babel/cli": "7.5.5",
-    "@babel/core": "7.5.5",
-    "@babel/preset-env": "7.5.5",
+    "@babel/cli": "7.6.0",
+    "@babel/core": "7.6.0",
+    "@babel/preset-env": "7.6.0",
     "babel-jest": "24.9.0",
     "clean-webpack-plugin": "3.0.0",
     "copy-webpack-plugin": "5.0.4",
     "eslint": "6.0.1",
-    "eslint-config-prettier": "6.0.0",
+    "eslint-config-prettier": "6.2.0",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "webpack": "4.39.3",
-    "webpack-cli": "3.3.7"
+    "webpack-cli": "3.3.8"
   },
   "keywords": [
     "pdf",
