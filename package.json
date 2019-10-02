@@ -32,7 +32,7 @@
     "jest": "24.9.0",
     "prettier": "1.18.2",
     "webpack": "4.39.3",
-    "webpack-cli": "3.3.8"
+    "webpack-cli": "3.3.9"
   },
   "keywords": [
     "pdf",
