@@ -5,21 +5,20 @@ const execAsync = require("../execAsync");
 
 const escapeWhitespaces = path => path.replace(/(\s+)/g, "\\$1");
 
-const getCommand = (pdf, options) => {
-  let command = "lp " + escapeWhitespaces(pdf);
-  if (options.printer) {
-    command += " -d " + options.printer;
-  }
-  return command;
-};
-
 const print = (pdf, options = {}) => {
   if (!pdf) throw "No PDF specified";
   if (typeof pdf !== "string") throw "Invalid PDF name";
   if (!fs.existsSync(pdf)) throw "No such file";
 
-  const command = getCommand(pdf, options);
-  return execAsync(command);
+  const args = [escapeWhitespaces(pdf)];
+
+  const { printer } = options;
+
+  if (printer) {
+    args.push("-d", printer);
+  }
+
+  return execAsync("lp", args);
 };
 
 module.exports = print;

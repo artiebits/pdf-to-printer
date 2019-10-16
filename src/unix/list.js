@@ -2,16 +2,12 @@
 
 const execAsync = require("../execAsync");
 
-const list = () => {
-  const command = "lpstat -a";
-  const stdoutHandler = stdout => {
-    return stdout
-      .trim()
-      .split("\n")
-      .map(e => e.substr(0, e.indexOf(" ")));
-  };
+const stdoutHandler = stdout =>
+  stdout
+    .trim()
+    .split("\n")
+    .map(e => e.substr(0, e.indexOf(" ")));
 
-  return execAsync(command, stdoutHandler);
-};
+const list = () => execAsync("lpstat", ["-a"], stdoutHandler);
 
 module.exports = list;

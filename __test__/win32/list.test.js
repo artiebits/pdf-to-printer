@@ -20,7 +20,7 @@ Zebra
         `;
 
 test("returns list of available printers", () => {
-  execAsync.mockImplementation((_, callback) =>
+  execAsync.mockImplementation((_, [], callback) =>
     Promise.resolve(callback(mockStdout))
   );
   // We do not expect "Name" to be in the result because
