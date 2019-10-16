@@ -10,20 +10,15 @@ const print = (pdf, options = {}) => {
   if (typeof pdf !== "string") throw "Invalid PDF name";
   if (!fs.existsSync(pdf)) throw "No such file";
 
-  const params = [escapeWhitespaces(pdf)];
+  const args = [escapeWhitespaces(pdf)];
 
-  const { printer, unix } = options;
-
-  if (unix) {
-    if (!Array.isArray(unix)) throw "options.unix should be an array";
-    params.concat(unix);
-  }
+  const { printer } = options;
 
   if (printer) {
-    params.push("-d", printer);
+    args.push("-d", printer);
   }
 
-  return execAsync("lp", params);
+  return execAsync("lp", args);
 };
 
 module.exports = print;
