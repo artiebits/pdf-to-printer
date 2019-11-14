@@ -53,12 +53,3 @@ test("sends PDF file to the specific printer", () => {
     expect(execAsync).toHaveBeenCalledWith(`lp`, [filename, "-d", printer]);
   });
 });
-
-test("escapes whitespaces in the file name", () => {
-  const filename = "my assets/pdf-sample.pdf";
-  return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("lp", [
-      "my\\ assets/pdf-sample.pdf"
-    ]);
-  });
-});
