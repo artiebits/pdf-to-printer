@@ -67,3 +67,27 @@ test("sends PDF file to the specific printer", () => {
     ]);
   });
 });
+
+test("allows users to pass OS specific options", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const printer = "Zebra";
+  const options = { printer, win32: ['-print-settings "1,2,fit"'] };
+  return print(filename, options).then(() => {
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to",
+      printer,
+      '-print-settings "1,2,fit"',
+      "-silent",
+      filename
+    ]);
+  });
+});
+
+test("it throws if OS-specific options passed not as an array.", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const options = { win32: '-print-settings "fit"' };
+  const isNotArray = () => print(filename, options);
+  expect(isNotArray).toThrowError(
+    new Error("options.win32 should be an array")
+  );
+});

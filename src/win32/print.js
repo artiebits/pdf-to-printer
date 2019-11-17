@@ -15,12 +15,16 @@ const print = (pdf, options = {}) => {
 
   const args = [];
 
-  const { printer } = options;
+  const { printer, win32 } = options;
 
   if (printer) {
     args.push("-print-to", printer);
   } else {
     args.push("-print-to-default");
+  }
+  if (win32) {
+    if (!Array.isArray(win32)) throw "options.win32 should be an array";
+    win32.map(win32Arg => args.push(win32Arg));
   }
 
   args.push("-silent", pdf);

@@ -45,6 +45,8 @@ printer
 You may take a look at [this example](/examples/express-server) if you need to download your PDF file first.
 2. `options` (`Object` [optional]):
    - `options.printer`: (`string` [optional]): Print to the specified printer. Will print to the default printer if name not specified. If the printer name mistyped or specified printer does not exist, nothing will print.
+   - `options.unix`: (`array` [optional]):  Since we use **lp** to print documents on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulp.htm).
+   - `options.win32`: (`array` [optional]): And since we use **SumatraPDF** to print documents on Windows you can pass any available in [this list option](https://www.sumatrapdfreader.org/free-pdf-reader.html).
 
 **Returns**
 
@@ -66,6 +68,21 @@ To print to a specific printer, add the name of the printer to options:
 ```javascript
 const options = {
   printer: "Zebra"
+};
+
+printer
+  .print("assets/pdf-sample.pdf", options)
+  .then(console.log)
+  .catch(console.error);
+```
+
+To scale the PDF to fit into the printable area of the paper on both Windows and Unix operating systems:
+
+```javascript
+const options = {
+  printer: "Zebra",
+  unix: ["-o fit-to-page"],
+  win32: ['"-print-settings "fit"']
 };
 
 printer
