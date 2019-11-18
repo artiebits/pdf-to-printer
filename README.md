@@ -82,7 +82,7 @@ To scale the PDF to fit into the printable area of the paper on both Windows and
 const options = {
   printer: "Zebra",
   unix: ["-o fit-to-page"],
-  win32: ['"-print-settings "fit"']
+  win32: ['-print-settings "fit"']
 };
 
 printer
