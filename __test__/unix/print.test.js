@@ -50,6 +50,26 @@ test("sends PDF file to the specific printer", () => {
     printer
   };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp`, [filename, "-d", printer]);
+    expect(execAsync).toHaveBeenCalledWith("lp", [filename, `-d ${printer}`]);
   });
+});
+
+test("allows users to pass OS specific options", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const printer = "Zebra";
+  const options = { printer, unix: ["-o sides=one-sided"] };
+  return print(filename, options).then(() => {
+    expect(execAsync).toHaveBeenCalledWith("lp", [
+      filename,
+      `-d ${printer}`,
+      "-o sides=one-sided"
+    ]);
+  });
+});
+
+test("it throws if OS-specific options passed not as an array.", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const options = { unix: "-o sides=one-sided" };
+  const isNotArray = () => print(filename, options);
+  expect(isNotArray).toThrowError(new Error("options.unix should be an array"));
 });

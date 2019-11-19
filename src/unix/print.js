@@ -10,10 +10,15 @@ const print = (pdf, options = {}) => {
 
   const args = [pdf];
 
-  const { printer } = options;
+  const { printer, unix } = options;
 
   if (printer) {
-    args.push("-d", printer);
+    args.push(`-d ${printer}`);
+  }
+
+  if (unix) {
+    if (!Array.isArray(unix)) throw "options.unix should be an array";
+    unix.map(unixArg => args.push(unixArg));
   }
 
   return execAsync("lp", args);
