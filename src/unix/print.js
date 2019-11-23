@@ -13,7 +13,7 @@ const print = (pdf, options = {}) => {
   const { printer, unix } = options;
 
   if (printer) {
-    args.push(`-d ${printer}`);
+    args.push("-d", printer);
   }
 
   if (unix) {

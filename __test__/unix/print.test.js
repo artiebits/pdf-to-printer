@@ -50,7 +50,7 @@ test("sends PDF file to the specific printer", () => {
     printer
   };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("lp", [filename, `-d ${printer}`]);
+    expect(execAsync).toHaveBeenCalledWith("lp", [filename, "-d", printer]);
   });
 });
 
@@ -61,7 +61,8 @@ test("allows users to pass OS specific options", () => {
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith("lp", [
       filename,
-      `-d ${printer}`,
+      "-d",
+      printer,
       "-o sides=one-sided"
     ]);
   });
