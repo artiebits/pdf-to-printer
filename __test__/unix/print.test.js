@@ -63,7 +63,8 @@ test("allows users to pass OS specific options", () => {
       filename,
       "-d",
       printer,
-      "-o sides=one-sided"
+      "-o",
+      "sides=one-sided"
     ]);
   });
 });
