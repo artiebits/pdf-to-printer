@@ -76,7 +76,8 @@ test("allows users to pass OS specific options", () => {
     expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
       "-print-to",
       printer,
-      '-print-settings "1,2,fit"',
+      "-print-settings",
+      '"1,2,fit"',
       "-silent",
       filename
     ]);
