@@ -9,7 +9,7 @@
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
   "dependencies": {
-    "pdf-to-printer": "1.0.3",
+    "pdf-to-printer": "1.1.1",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "source-map-support": "0.5.12"
