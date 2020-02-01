@@ -19,7 +19,7 @@
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
-    "@babel/cli": "7.7.7",
+    "@babel/cli": "7.8.4",
     "@babel/core": "7.8.4",
     "@babel/preset-env": "7.7.7",
     "babel-eslint": "^10.0.3",
