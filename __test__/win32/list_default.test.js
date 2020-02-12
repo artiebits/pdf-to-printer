@@ -10,33 +10,15 @@ afterEach(() => {
   execAsync.mockRestore();
 });
 
-const mockPrinterListStdout = `
-Name                        
-
-Windows Printer         
-
-Zebra                            
-
-        `;
-
-const mockPrinterListWithDefaultStdout = `
+const mockStdout = `
 Default     Name                        
 FALSE       Windows Printer         
 TRUE        Zebra                            
         `;
 
-test("returns list of available printers", () => {
-  execAsync.mockImplementation((_, [], callback) =>
-    Promise.resolve(callback(mockPrinterListStdout))
-  );
-  // We do not expect "Name" to be in the result because
-  // Windows will write to stdout a list of printers under "Name" title.
-  return expect(list()).resolves.toStrictEqual(["Windows Printer", "Zebra"]);
-});
-
 test("gets the default printer", () => {
   execAsync.mockImplementation((_, [], callback) =>
-    Promise.resolve(callback(mockPrinterListWithDefaultStdout))
+    Promise.resolve(callback(mockStdout))
   );
   // We do not expect "Name" to be in the result because
   // Windows will write to stdout a list of printers under "Name" title.
