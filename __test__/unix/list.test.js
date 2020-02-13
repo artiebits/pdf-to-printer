@@ -5,9 +5,13 @@ import { list } from "../../src/unix";
 
 jest.mock("../../src/execAsync");
 
-const mockStdout = `
+const mockPrinterListStdout = `
 macOS_Printer accepting requests since Tue Aug  9 14:11:49 2016
 Zebra accepting requests since Mon Aug 12 18:29:56 2019
+    `;
+
+const mockDefaultPrinterStdout = `
+system default destination: EPSON
     `;
 
 afterEach(() => {
@@ -17,9 +21,16 @@ afterEach(() => {
 
 test("returns list of available printers", () => {
   execAsync.mockImplementation((_, [], callback) =>
-    Promise.resolve(callback(mockStdout))
+    Promise.resolve(callback(mockPrinterListStdout))
   );
   return expect(list()).resolves.toStrictEqual(["macOS_Printer", "Zebra"]);
+});
+
+test("returns the system default printer", () => {
+  execAsync.mockImplementation((_, [], callback) =>
+    Promise.resolve(callback(mockDefaultPrinterStdout))
+  );
+  return expect(list(true)).resolves.toStrictEqual("EPSON");
 });
 
 test("fails with an error", () => {
