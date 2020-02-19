@@ -1,7 +1,7 @@
 "use strict";
 
 import execAsync from "../../src/execAsync";
-import { list } from "../../src/win32";
+import { getPrinters, getDefaultPrinter } from "../../src/win32";
 
 jest.mock("../../src/execAsync");
 
@@ -31,7 +31,10 @@ test("returns list of available printers", () => {
   );
   // We do not expect "Name" to be in the result because
   // Windows will write to stdout a list of printers under "Name" title.
-  return expect(list()).resolves.toStrictEqual(["Windows Printer", "Zebra"]);
+  return expect(getPrinters()).resolves.toStrictEqual([
+    "Windows Printer",
+    "Zebra"
+  ]);
 });
 
 test("gets the default printer", () => {
@@ -40,17 +43,17 @@ test("gets the default printer", () => {
   );
   // We do not expect "Name" to be in the result because
   // Windows will write to stdout a list of printers under "Name" title.
-  return expect(list(true)).resolves.toStrictEqual("Zebra");
+  return expect(getDefaultPrinter()).resolves.toStrictEqual("Zebra");
 });
 
 test("test no default printer defined", () => {
   execAsync.mockImplementation((_, [], callback) =>
     Promise.resolve(callback(""))
   );
-  return expect(list(true)).resolves.toStrictEqual("");
+  return expect(getDefaultPrinter()).resolves.toStrictEqual("");
 });
 
 test("fails with an error", () => {
   execAsync.mockImplementation(() => Promise.reject("error"));
-  return expect(list()).rejects.toBe("error");
+  return expect(getPrinters()).rejects.toBe("error");
 });

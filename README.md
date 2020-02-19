@@ -27,9 +27,9 @@ npm install --save pdf-to-printer
 Print a PDF file to the default printer:
 
 ```javascript
-import printer from "pdf-to-printer";
+import ptp from "pdf-to-printer";
 
-printer
+ptp
   .print("assets/pdf-sample.pdf")
   .then(console.log)
   .catch(console.error);
@@ -57,7 +57,7 @@ You may take a look at [this example](/examples/express-server) if you need to d
 To print a PDF file to the default printer:
 
 ```javascript
-printer
+ptp
   .print("assets/pdf-sample.pdf")
   .then(console.log)
   .catch(console.error);
@@ -70,7 +70,7 @@ const options = {
   printer: "Zebra"
 };
 
-printer
+ptp
   .print("assets/pdf-sample.pdf", options)
   .then(console.log)
   .catch(console.error);
@@ -85,13 +85,13 @@ const options = {
   win32: ['-print-settings "fix"']
 };
 
-printer
+ptp
   .print("assets/pdf-sample.pdf", options)
   .then(console.log)
   .catch(console.error);
 ```
 
-### `.list() => Promise<string[]>`
+### `.getPrinters() => Promise<string[]>`
 
 **Returns**
 
@@ -100,8 +100,23 @@ printer
 **Examples**
 
 ```javascript
-printer
-  .list()
+ptp
+  .getPrinters()
+  .then(console.log)
+  .catch(console.error);
+```
+
+### `.getDefaultPrinter() => Promise<string>`
+
+**Returns**
+
+`Promise<string>`: Default printer.
+
+**Examples**
+
+```javascript
+ptp
+  .getDefaultPrinter()
   .then(console.log)
   .catch(console.error);
 ```

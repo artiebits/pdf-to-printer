@@ -1,7 +1,7 @@
 "use strict";
 
 import execAsync from "../../src/execAsync";
-import { list } from "../../src/unix";
+import { getPrinters, getDefaultPrinter } from "../../src/unix";
 
 jest.mock("../../src/execAsync");
 
@@ -23,17 +23,20 @@ test("returns list of available printers", () => {
   execAsync.mockImplementation((_, [], callback) =>
     Promise.resolve(callback(mockPrinterListStdout))
   );
-  return expect(list()).resolves.toStrictEqual(["macOS_Printer", "Zebra"]);
+  return expect(getPrinters()).resolves.toStrictEqual([
+    "macOS_Printer",
+    "Zebra"
+  ]);
 });
 
 test("returns the system default printer", () => {
   execAsync.mockImplementation((_, [], callback) =>
     Promise.resolve(callback(mockDefaultPrinterStdout))
   );
-  return expect(list(true)).resolves.toStrictEqual("EPSON");
+  return expect(getDefaultPrinter()).resolves.toStrictEqual("EPSON");
 });
 
 test("fails with an error", () => {
   execAsync.mockImplementation(() => Promise.reject("error"));
-  return expect(list()).rejects.toBe("error");
+  return expect(getPrinters()).rejects.toBe("error");
 });
