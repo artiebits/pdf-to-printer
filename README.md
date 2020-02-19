@@ -1,6 +1,5 @@
 # Node.js PDF printing
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12492daabeec4f87851f36616817afc1)](https://app.codacy.com/app/artur.khusaenov/pdf-to-printer?utm_source=github.com&utm_medium=referral&utm_content=artiebits/pdf-to-printer&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://api.cirrus-ci.com/github/artiebits/pdf-to-printer.svg)](https://cirrus-ci.com/github/artiebits/pdf-to-printer) [![codecov](https://codecov.io/gh/artiebits/pdf-to-printer/branch/master/graph/badge.svg)](https://codecov.io/gh/artiebits/pdf-to-printer)
 
 A utility to print PDF files from Node.js and Electron.
@@ -90,6 +89,10 @@ ptp
   .then(console.log)
   .catch(console.error);
 ```
+
+### `.list() => Promise<string[]>`
+
+**This method is deprecated since version 1.3.0**. Use `.getPrinters()` or `.getDefaultPrinter()` instead.
 
 ### `.getPrinters() => Promise<string[]>`
 
