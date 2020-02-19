@@ -11,13 +11,13 @@ switch (os.platform()) {
   case "linux":
     module.exports = {
       print: require("./unix/print"),
-      list: require("./unix/list")
+      list: require("./unix/printers")
     };
     break;
   case "win32":
     module.exports = {
       print: require("./win32/print"),
-      list: require("./win32/list")
+      list: require("./win32/printers")
     };
     break;
   default:

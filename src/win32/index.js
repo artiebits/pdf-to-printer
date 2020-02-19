@@ -1,2 +1,2 @@
-export { default as list } from "./list";
+export * from "./printers";
 export { default as print } from "./print";
