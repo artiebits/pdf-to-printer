@@ -13,7 +13,7 @@ const getPrinters = () => {
 };
 
 const getDefaultPrinter = () => {
-  const parseResult = output => output.trim().substr(output.indexOf(":") + 1);
+  const parseResult = output => output.trim().substr(output.indexOf(":") + 2);
   return execAsync("lpstat", ["-d"], parseResult);
 };
 
