@@ -12,12 +12,4 @@ const getPrinters = () => {
   return execAsync("lpstat", ["-a"], parseResult);
 };
 
-const getDefaultPrinter = () => {
-  const parseResult = output => output.trim().substr(output.indexOf(":") + 1);
-  return execAsync("lpstat", ["-d"], parseResult);
-};
-
-module.exports = {
-  getPrinters,
-  getDefaultPrinter
-};
+module.exports = getPrinters;
