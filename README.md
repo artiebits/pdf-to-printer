@@ -90,10 +90,6 @@ ptp
   .catch(console.error);
 ```
 
-### `.list() => Promise<string[]>`
-
-**This method is deprecated since version 1.3.0**. Use `.getPrinters()` or `.getDefaultPrinter()` instead.
-
 ### `.getPrinters() => Promise<string[]>`
 
 **Returns**
