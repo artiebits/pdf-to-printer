@@ -11,15 +11,13 @@ switch (os.platform()) {
   case "linux":
     module.exports = {
       print: require("./unix/print"),
-      getPrinters: require("./unix/get-printers"),
-      getDefaultPrinter: require("./unix/get-default-printer")
+      list: require("./unix/printers")
     };
     break;
   case "win32":
     module.exports = {
       print: require("./win32/print"),
-      getPrinters: require("./win32/get-printers"),
-      getDefaultPrinter: require("./win32/get-default-printer")
+      list: require("./win32/printers")
     };
     break;
   default:

@@ -7,7 +7,7 @@ describe.each([
   ["Darwin", "darwin"],
   ["Windows", "win32"]
 ])("%i operating system", (_, alias) => {
-  test("has `print`, `getDefaultPrinter` and `getPrinters` methods", () => {
+  test("has `print` and `list` methods", () => {
     jest.resetModules();
 
     const os = require("os");
@@ -16,8 +16,7 @@ describe.each([
     const printer = require("../src");
 
     expect(printer.print).toBeDefined();
-    expect(printer.getDefaultPrinter).toBeDefined();
-    expect(printer.getPrinters).toBeDefined();
+    expect(printer.list).toBeDefined();
   });
 });
 
