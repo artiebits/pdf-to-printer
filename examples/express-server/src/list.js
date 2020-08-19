@@ -1,4 +1,4 @@
-const printer = require('pdf-to-printer');
+const printer = require("pdf-to-printer");
 
 function list(request, response) {
   function onSuccess(data) {
@@ -6,10 +6,13 @@ function list(request, response) {
   }
 
   function onError(error) {
-    response.send({ status: 'error', error });
+    response.send({ status: "error", error });
   }
 
-  printer.getPrinters().then(onSuccess).catch(onError);
+  printer
+  .getPrinters()
+  .then(onSuccess)
+  .catch(onError);
 }
 
 module.exports = list;
