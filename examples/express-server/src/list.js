@@ -10,9 +10,9 @@ function list(request, response) {
   }
 
   printer
-  .getPrinters()
-  .then(onSuccess)
-  .catch(onError);
+    .getPrinters()
+    .then(onSuccess)
+    .catch(onError);
 }
 
 module.exports = list;
