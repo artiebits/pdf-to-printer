@@ -10,7 +10,7 @@ function list(request, response) {
   }
 
   printer
-    .list()
+    .getPrinters()
     .then(onSuccess)
     .catch(onError);
 }

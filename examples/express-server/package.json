@@ -10,6 +10,6 @@
   "dependencies": {
     "express": "4.17.1",
     "node-fetch": "2.6.0",
-    "pdf-to-printer": "1.1.1"
+    "pdf-to-printer": "^1.4.1"
   }
 }
