@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     printer
-      .list()
+      .getPrinters()
       .then(setPrinters)
       .catch(console.error);
   }, []);
