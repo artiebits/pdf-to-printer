@@ -12,7 +12,10 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyPlugin([{ from: "./src/win32/SumatraPDF.exe" }])
+    new CopyPlugin([
+      { from: "./src/win32/SumatraPDF.exe" },
+      { from: "./src/types.d.ts" }
+    ])
   ],
   target: "node",
   node: {
