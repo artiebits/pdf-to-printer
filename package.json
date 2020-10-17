@@ -33,7 +33,7 @@
     "eslint-plugin-react": "7.20.0",
     "jest": "26.2.2",
     "prettier": "1.19.1",
-    "webpack": "4.43.0",
+    "webpack": "4.44.2",
     "webpack-cli": "3.3.12"
   },
   "keywords": [
