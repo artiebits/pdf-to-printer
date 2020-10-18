@@ -1,30 +1,23 @@
 "use strict";
 
 import { existsSync } from "fs";
-import { join } from "path";
-import execAsync from "../../src/execAsync";
-import { fixPathForAsarUnpack } from "../../src/electron-util";
-import { print } from "../../src/win32";
+import execAsync from "../execAsync";
+import print from "./print";
 
 jest.mock("fs");
 jest.mock("path");
 jest.mock("../../src/execAsync");
-jest.mock("../../src/electron-util");
 
 beforeEach(() => {
   // override the implementations
-  fixPathForAsarUnpack.mockImplementation(path => path);
   existsSync.mockImplementation(() => true);
   execAsync.mockImplementation(() => Promise.resolve());
-  join.mockImplementation((_, filename) => "mocked_path_" + filename);
 });
 
 afterEach(() => {
   // restore the original implementations
-  fixPathForAsarUnpack.mockRestore();
   existsSync.mockRestore();
   execAsync.mockRestore();
-  join.mockRestore();
 });
 
 test("throws if no PDF specified", () => {
@@ -38,7 +31,7 @@ test("throws if PDF name is invalid", () => {
 });
 
 test("throws if PDF doesn't exist", () => {
-  const noSuchFile = () => print("assets/no-such-file.pdf");
+  const noSuchFile = () => print("assets/pdf-sample.pdf");
   existsSync.mockImplementation(() => false);
   expect(noSuchFile).toThrowError(new Error("No such file"));
 });
@@ -46,49 +39,39 @@ test("throws if PDF doesn't exist", () => {
 test("sends the PDF file to the default printer", () => {
   const filename = "assets/pdf-sample.pdf";
   return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to-default",
-      "-silent",
-      filename
-    ]);
+    expect(execAsync).toHaveBeenCalledWith("lp", [filename]);
   });
 });
 
 test("sends PDF file to the specific printer", () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
-  const options = { printer };
+  const options = {
+    printer
+  };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to",
-      printer,
-      "-silent",
-      filename
-    ]);
+    expect(execAsync).toHaveBeenCalledWith("lp", [filename, "-d", printer]);
   });
 });
 
 test("allows users to pass OS specific options", () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
-  const options = { printer, win32: ['-print-settings "1,2,fit"'] };
+  const options = { printer, unix: ["-o sides=one-sided"] };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to",
+    expect(execAsync).toHaveBeenCalledWith("lp", [
+      filename,
+      "-d",
       printer,
-      "-print-settings",
-      '"1,2,fit"',
-      "-silent",
-      filename
+      "-o",
+      "sides=one-sided"
     ]);
   });
 });
 
 test("it throws if OS-specific options passed not as an array.", () => {
   const filename = "assets/pdf-sample.pdf";
-  const options = { win32: '-print-settings "fit"' };
+  const options = { unix: "-o sides=one-sided" };
   const isNotArray = () => print(filename, options);
-  expect(isNotArray).toThrowError(
-    new Error("options.win32 should be an array")
-  );
+  expect(isNotArray).toThrowError(new Error("options.unix should be an array"));
 });
