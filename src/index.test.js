@@ -13,7 +13,7 @@ describe.each([
     const os = require("os");
     os.platform.mockImplementation(() => alias);
 
-    const printer = require("../src");
+    const printer = require("./index");
 
     expect(printer.print).toBeDefined();
     expect(printer.getDefaultPrinter).toBeDefined();
@@ -28,7 +28,7 @@ describe("Unsupported platform", () => {
     const os = require("os");
     os.platform.mockImplementation(() => "test");
 
-    expect(() => require("../src")).toThrowError(
+    expect(() => require("./index")).toThrowError(
       new Error("Platform not supported")
     );
   });

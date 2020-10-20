@@ -1,7 +1,7 @@
 "use strict";
 
 import { execFile } from "child_process";
-import execAsync from "../src/execAsync";
+import execAsync from "./execAsync";
 
 jest.mock("child_process");
 

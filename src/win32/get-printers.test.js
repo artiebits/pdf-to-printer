@@ -1,7 +1,8 @@
 "use strict";
 
-import execAsync from "../../src/execAsync";
-import { getPrinters, getDefaultPrinter } from "../../src/win32";
+import execAsync from "../execAsync";
+import getDefaultPrinter from "./get-default-printer";
+import getPrinters from "./get-printers";
 
 jest.mock("../../src/execAsync");
 
