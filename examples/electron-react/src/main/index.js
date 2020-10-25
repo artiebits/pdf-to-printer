@@ -1,9 +1,10 @@
 "use strict";
 
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow,ipcMain } from "electron";
 import * as path from "path";
 import { format as formatUrl } from "url";
 
+const EXEC_PDF_PATH = '/node_modules/pdf-to-printer/dist'
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
@@ -63,3 +64,10 @@ app.on("activate", () => {
 app.on("ready", () => {
   mainWindow = createMainWindow();
 });
+
+
+ipcMain.on('print_event', (event, data) => {
+  var pref = isDevelopment ? '../..' : ''
+  var execPath = path.join(__dirname, pref + EXEC_PDF_PATH)
+  event.sender.send('exec_print', { execPath, selectedPrinter: data })
+})
