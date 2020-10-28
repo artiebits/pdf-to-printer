@@ -2,7 +2,7 @@
 
 [![Build Status](https://api.cirrus-ci.com/github/artiebits/pdf-to-printer.svg)](https://cirrus-ci.com/github/artiebits/pdf-to-printer) 
 [![codecov](https://codecov.io/gh/artiebits/pdf-to-printer/branch/master/graph/badge.svg)](https://codecov.io/gh/artiebits/pdf-to-printer)
-[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/artiebits)
+![npm](https://img.shields.io/npm/dw/pdf-to-printer)
 
 
 A utility to print PDF files from Node.js and Electron.
@@ -130,6 +130,11 @@ We have a few examples in the [source code](/examples).
 ## Contact
 
 Please do not hesitate to report a bug or suggest an idea. You can do it [here](https://github.com/artiebits/pdf-to-printer/issues/new/choose).
+
+## Sponsor this project
+
+If you rely on this package please consider supporting it https://www.buymeacoffee.com/artiebits. I would appreciate it.
+
 
 ## License
 
