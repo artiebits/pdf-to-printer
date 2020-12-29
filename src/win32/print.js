@@ -17,18 +17,19 @@ const print = (pdf, options = {}) => {
 
   const { printer, win32 } = options;
 
-  if (printer) {
-    args.push("-print-to", printer);
-  } else {
-    args.push("-print-to-default");
-  }
-
   if (win32) {
     if (!Array.isArray(win32)) throw "options.win32 should be an array";
-    win32.map(win32Arg => args.push(...win32Arg.split(" ")));
+    win32.map((win32Arg) => args.push(...win32Arg.split(" ")));
+  } else {
+    if (printer) {
+      args.push("-print-to", printer);
+    } else {
+      args.push("-print-to-default");
+    }
+    args.push("-silent");
   }
 
-  args.push("-silent", pdf);
+  args.push(pdf);
 
   return execAsync(file, args);
 };
