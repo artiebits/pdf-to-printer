@@ -3,7 +3,7 @@
 const execAsync = require("../execAsync");
 
 const getPrinters = () => {
-  const stdoutHandler = stdout =>
+  const stdoutHandler = (stdout) =>
     stdout
       .trim()
       .split(/\s*[\r\n]+/)

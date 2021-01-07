@@ -9,10 +9,7 @@ function list(request, response) {
     response.send({ status: "error", error });
   }
 
-  printer
-    .getPrinters()
-    .then(onSuccess)
-    .catch(onError);
+  printer.getPrinters().then(onSuccess).catch(onError);
 }
 
 module.exports = list;

@@ -15,11 +15,11 @@ test("fixes path for Electron apps", () => {
   global.process = {
     ...originalProcess,
     versions: {
-      electron: "0.0.0"
+      electron: "0.0.0",
     },
     mainModule: {
-      filename: "/app.asar/index.html"
-    }
+      filename: "/app.asar/index.html",
+    },
   };
 
   expect(require("./electron-util").fixPathForAsarUnpack(path)).toBe(

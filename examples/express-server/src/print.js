@@ -13,8 +13,8 @@ function print(request, response) {
   }
 
   fetch(request.query.url)
-    .then(res => res.buffer())
-    .then(buffer => {
+    .then((res) => res.buffer())
+    .then((buffer) => {
       const pdf = save(buffer);
 
       printer
@@ -36,9 +36,7 @@ function remove(pdf) {
 }
 
 function randomString() {
-  return Math.random()
-    .toString(36)
-    .substring(7);
+  return Math.random().toString(36).substring(7);
 }
 
 module.exports = print;

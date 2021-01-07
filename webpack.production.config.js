@@ -8,17 +8,17 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    libraryTarget: "umd"
+    libraryTarget: "umd",
   },
   plugins: [
     new CleanWebpackPlugin(),
     new CopyPlugin([
       { from: "./src/win32/SumatraPDF.exe" },
-      { from: "./src/types.d.ts" }
-    ])
+      { from: "./src/types.d.ts" },
+    ]),
   ],
   target: "node",
   node: {
-    __dirname: false
-  }
+    __dirname: false,
+  },
 };

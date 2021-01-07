@@ -26,7 +26,7 @@ test("returns list of available printers", () => {
   );
   return expect(getPrinters()).resolves.toStrictEqual([
     "macOS_Printer",
-    "Zebra"
+    "Zebra",
   ]);
 });
 

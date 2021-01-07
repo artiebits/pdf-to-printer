@@ -18,7 +18,7 @@ const print = (pdf, options = {}) => {
 
   if (unix) {
     if (!Array.isArray(unix)) throw "options.unix should be an array";
-    unix.map(unixArg => args.push(...unixArg.split(" ")));
+    unix.map((unixArg) => args.push(...unixArg.split(" ")));
   }
 
   return execAsync("lp", args);

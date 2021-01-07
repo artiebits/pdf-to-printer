@@ -5,7 +5,7 @@ jest.mock("os");
 describe.each([
   ["Linux", "linux"],
   ["Darwin", "darwin"],
-  ["Windows", "win32"]
+  ["Windows", "win32"],
 ])("%i operating system", (_, alias) => {
   test("has `print`, `getDefaultPrinter` and `getPrinters` methods", () => {
     jest.resetModules();

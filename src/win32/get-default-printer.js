@@ -3,14 +3,14 @@
 const execAsync = require("../execAsync");
 
 const getDefaultPrinter = () => {
-  const stdoutHandler = stdout => {
+  const stdoutHandler = (stdout) => {
     const printers = stdout
       .trim()
       .split(/\s*[\r\n]+/)
       // We remove the first element from the result because
       // <code>wmic printer get name</code> will show a list of printers under "Name" title.
       .slice(1);
-    const defaultPrinter = printers.filter(e => e.indexOf("TRUE") === 0);
+    const defaultPrinter = printers.filter((e) => e.indexOf("TRUE") === 0);
     if (defaultPrinter.length === 0) {
       return "";
     }

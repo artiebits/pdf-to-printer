@@ -47,7 +47,7 @@ test("sends PDF file to the specific printer", () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
   const options = {
-    printer
+    printer,
   };
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith("lp", [filename, "-d", printer]);
@@ -64,7 +64,7 @@ test("allows users to pass OS specific options", () => {
       "-d",
       printer,
       "-o",
-      "sides=one-sided"
+      "sides=one-sided",
     ]);
   });
 });

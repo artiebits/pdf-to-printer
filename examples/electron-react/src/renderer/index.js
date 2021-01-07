@@ -10,17 +10,14 @@ function App() {
   const [selectedPrinter, selectPrinter] = useState(null);
 
   useEffect(() => {
-    printer
-      .getPrinters()
-      .then(setPrinters)
-      .catch(console.error);
+    printer.getPrinters().then(setPrinters).catch(console.error);
   }, []);
 
-  const onPrinterChangeHandler = event => {
+  const onPrinterChangeHandler = (event) => {
     selectPrinter(event.target.value);
   };
 
-  const onSubmitHandler = event => {
+  const onSubmitHandler = (event) => {
     event.preventDefault();
 
     const options = {};
@@ -28,10 +25,7 @@ function App() {
       options.printer = selectedPrinter;
     }
 
-    printer
-      .print(pdfUrl, options)
-      .then(console.log)
-      .catch(console.error);
+    printer.print(pdfUrl, options).then(console.log).catch(console.error);
   };
 
   const renderPrinter = (printer, index) => {

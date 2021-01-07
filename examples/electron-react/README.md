@@ -10,7 +10,6 @@ yarn
 yarn dev
 ```
 
-
 ### Scripts
 
 ```bash
