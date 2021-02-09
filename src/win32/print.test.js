@@ -68,6 +68,20 @@ test("sends PDF file to the specific printer", () => {
   });
 });
 
+test("sends PDF file to the specific printer with a space in its name", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const printer = "Adobe PDF";
+  const options = { printer };
+  return print(filename, options).then(() => {
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to",
+      printer,
+      "-silent",
+      filename,
+    ]);
+  });
+});
+
 test("allows users to pass OS specific options", () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
@@ -75,7 +89,7 @@ test("allows users to pass OS specific options", () => {
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
       "-print-settings",
-      '"1,2,fit"',
+      "1,2,fit",
       filename,
     ]);
   });
