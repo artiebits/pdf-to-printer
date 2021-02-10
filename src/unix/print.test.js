@@ -54,6 +54,15 @@ test("sends PDF file to the specific printer", () => {
   });
 });
 
+test("sends PDF file to the specific printer with a space in its name", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const printer = "Brother HL-L2340WD";
+  const options = { printer };
+  return print(filename, options).then(() => {
+    expect(execAsync).toHaveBeenCalledWith("lp", [filename, "-d", printer]);
+  });
+});
+
 test("allows users to pass OS specific options", () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
