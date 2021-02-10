@@ -6,6 +6,12 @@ const splitArgs = require("../split-args");
 const execAsync = require("../execAsync");
 const { fixPathForAsarUnpack } = require("../electron-util");
 
+const validDestinationArgs = [
+  "-print-to",
+  "-print-to-default",
+  "-print-dialog",
+];
+
 const print = (pdf, options = {}) => {
   if (!pdf) throw "No PDF specified";
   if (typeof pdf !== "string") throw "Invalid PDF name";
@@ -24,7 +30,20 @@ const print = (pdf, options = {}) => {
       .map(splitArgs)
       .reduce((acc, arg) => acc.concat(arg), [])
       .forEach((arg) => args.push(arg));
-  } else {
+  }
+
+  let validDestination = false;
+  args.some((a) => {
+    const fullMatch = validDestinationArgs.indexOf(a) > -1;
+    if (fullMatch) {
+      validDestination = true;
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  if (!validDestination) {
     if (printer) {
       args.push("-print-to", printer);
     } else {
