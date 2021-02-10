@@ -1,6 +1,7 @@
 "use strict";
 
 const fs = require("fs");
+const splitArgs = require("../split-args");
 const execAsync = require("../execAsync");
 
 const print = (pdf, options = {}) => {
@@ -18,7 +19,10 @@ const print = (pdf, options = {}) => {
 
   if (unix) {
     if (!Array.isArray(unix)) throw "options.unix should be an array";
-    unix.map((unixArg) => args.push(...unixArg.split(" ")));
+    unix
+      .map(splitArgs)
+      .reduce((acc, arg) => acc.concat(arg), [])
+      .forEach((arg) => args.push(arg));
   }
 
   return execAsync("lp", args);

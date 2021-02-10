@@ -2,6 +2,7 @@
 
 const path = require("path");
 const fs = require("fs");
+const splitArgs = require("../split-args");
 const execAsync = require("../execAsync");
 const { fixPathForAsarUnpack } = require("../electron-util");
 
@@ -25,7 +26,10 @@ const print = (pdf, options = {}) => {
 
   if (win32) {
     if (!Array.isArray(win32)) throw "options.win32 should be an array";
-    win32.map((win32Arg) => args.push(...win32Arg.split(" ")));
+    win32
+      .map(splitArgs)
+      .reduce((acc, arg) => acc.concat(arg), [])
+      .forEach((arg) => args.push(arg));
   }
 
   let validDestination = false;

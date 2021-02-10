@@ -68,6 +68,20 @@ test("sends PDF file to the specific printer", () => {
   });
 });
 
+test("sends PDF file to the specific printer with a space in its name", () => {
+  const filename = "assets/pdf-sample.pdf";
+  const printer = "Microsoft Print to PDF";
+  const options = { printer };
+  return print(filename, options).then(() => {
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to",
+      printer,
+      "-silent",
+      filename,
+    ]);
+  });
+});
+
 test("allows users to pass OS specific options and a printer", () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
@@ -75,7 +89,7 @@ test("allows users to pass OS specific options and a printer", () => {
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
       "-print-settings",
-      '"1,2,fit"',
+      "1,2,fit",
       "-print-to",
       printer,
       "-silent",
@@ -90,7 +104,7 @@ test("allows users to pass OS specific options without a printer", () => {
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
       "-print-settings",
-      '"1,3,fit"',
+      "1,3,fit",
       "-print-to-default",
       "-silent",
       filename,
@@ -105,7 +119,7 @@ test("does not set a printer when -print-dialog is set", () => {
     expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
       "-print-dialog",
       "-print-settings",
-      '"1,4,fit"',
+      "1,4,fit",
       filename,
     ]);
   });
@@ -122,7 +136,7 @@ test("ignores the passed printer when -print-dialog is set", () => {
     expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
       "-print-dialog",
       "-print-settings",
-      '"1,4,fit"',
+      "1,4,fit",
       filename,
     ]);
   });
