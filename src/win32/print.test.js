@@ -70,7 +70,7 @@ test("sends PDF file to the specific printer", () => {
 
 test("sends PDF file to the specific printer with a space in its name", () => {
   const filename = "assets/pdf-sample.pdf";
-  const printer = "Adobe PDF";
+  const printer = "Microsoft Print to PDF";
   const options = { printer };
   return print(filename, options).then(() => {
     expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
