@@ -12,18 +12,19 @@ afterEach(() => {
 });
 
 const mockPrinterListStdout = `
-Name                        
+DeviceID                       Name
+OneNote                        OneNote
+Microsoft XPS Document Writer  Microsoft XPS Document Writer
+Microsoft Print to PDF         Microsoft Print to PDF
+Fax                            Fax
 
-Windows Printer         
 
-Zebra                            
-
-        `;
+`;
 
 const mockPrinterListWithDefaultStdout = `
-Default     Name                        
-FALSE       Windows Printer         
-TRUE        Zebra                            
+Default     Name
+FALSE       Windows Printer
+TRUE        Zebra
         `;
 
 test("returns list of available printers", () => {
@@ -33,8 +34,19 @@ test("returns list of available printers", () => {
   // We do not expect "Name" to be in the result because
   // Windows will write to stdout a list of printers under "Name" title.
   return expect(getPrinters()).resolves.toStrictEqual([
-    "Windows Printer",
-    "Zebra",
+    { name: "OneNote", displayName: "OneNote" },
+    {
+      name: "Microsoft XPS Document Writer",
+      displayName: "Microsoft XPS Document Writer",
+    },
+    {
+      name: "Microsoft Print to PDF",
+      displayName: "Microsoft Print to PDF",
+    },
+    {
+      name: "Fax",
+      displayName: "Fax",
+    },
   ]);
 });
 

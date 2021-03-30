@@ -3,15 +3,22 @@
 const execAsync = require("../execAsync");
 
 const getPrinters = () => {
-  const stdoutHandler = (stdout) =>
-    stdout
+  const stdoutHandler = (stdout) => {
+    const result = stdout
       .trim()
-      .split(/\s*[\r\n]+/)
-      // We remove the first element from the result because
-      // <code>wmic printer get name</code> will show a list of printers under "Name" title.
-      .slice(1);
+      .split(/[\r\n]+/)
+      .map((line) => line.trim().split(/\s{2,}/));
+    const headers = result[0].reduce((acc, curr, index) => {
+      acc[curr] = index;
+      return acc;
+    }, {});
+    return result.slice(1).map((printerData) => ({
+      name: printerData[headers["DeviceID"]],
+      displayName: printerData[headers["Name"]],
+    }));
+  };
   // https://ss64.com/nt/wmic.html#alias_options
-  return execAsync("wmic", ["printer", "get", "name"], stdoutHandler);
+  return execAsync("wmic", ["printer", "get", "deviceid,name"], stdoutHandler);
 };
 
 module.exports = getPrinters;
