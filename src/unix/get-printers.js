@@ -15,7 +15,7 @@ const getPrinters = () => {
             .split("\n")
             .slice(1)
             .find((line) => line.indexOf("Description") !== -1)
-            ?.split(":")[1]
+            .split(":")[1]
             .trim(),
         };
       });
