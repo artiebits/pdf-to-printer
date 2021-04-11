@@ -6,10 +6,49 @@ import getPrinters from "./get-printers";
 
 jest.mock("../../src/execAsync");
 
-const mockPrinterListStdout = `
-macOS_Printer accepting requests since Tue Aug  9 14:11:49 2016
-Zebra accepting requests since Mon Aug 12 18:29:56 2019
-    `;
+const mockPrinterListStdout = `printer Virtual_Braille_BRF_Printer is idle.  enabled since Tue 30 Mar 2021 11:54:05 PM EEST
+Form mounted:
+Content types: any
+Printer types: unknown
+Description: Virtual Braille BRF Printer
+Alerts: none
+Location:
+Connection: direct
+Interface: /etc/cups/ppd/Virtual_Braille_BRF_Printer.ppd
+On fault: no alert
+After fault: continue
+Users allowed:
+        (all)
+Forms allowed:
+        (none)
+Banner required
+Charset sets:
+        (none)
+Default pitch:
+Default page size:
+Default port settings:
+printer Virtual_PDF_Printer is idle.  enabled since Tue 09 Feb 2021 12:32:35 AM EET
+Form mounted:
+Content types: any
+Printer types: unknown
+Description: Virtual PDF Printer
+Alerts: none
+Location:
+Connection: direct
+Interface: /etc/cups/ppd/Virtual_PDF_Printer.ppd
+On fault: no alert
+After fault: continue
+Users allowed:
+        (all)
+Forms allowed:
+        (none)
+Banner required
+Charset sets:
+        (none)
+Default pitch:
+Default page size:
+Default port settings:
+`;
 
 const mockDefaultPrinterStdout = `
 system default destination: EPSON
@@ -25,8 +64,14 @@ test("returns list of available printers", () => {
     Promise.resolve(callback(mockPrinterListStdout))
   );
   return expect(getPrinters()).resolves.toStrictEqual([
-    "macOS_Printer",
-    "Zebra",
+    {
+      name: "Virtual_Braille_BRF_Printer",
+      displayName: "Virtual Braille BRF Printer",
+    },
+    {
+      name: "Virtual_PDF_Printer",
+      displayName: "Virtual PDF Printer",
+    },
   ]);
 });
 
