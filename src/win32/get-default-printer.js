@@ -4,21 +4,34 @@ const execAsync = require("../execAsync");
 
 const getDefaultPrinter = () => {
   const stdoutHandler = (stdout) => {
-    const printers = stdout
+    const result = stdout
       .trim()
-      .split(/\s*[\r\n]+/)
-      // We remove the first element from the result because
-      // <code>wmic printer get name</code> will show a list of printers under "Name" title.
-      .slice(1);
-    const defaultPrinter = printers.filter((e) => e.indexOf("TRUE") === 0);
-    if (defaultPrinter.length === 0) {
-      return "";
-    }
-    return defaultPrinter[0].replace(/TRUE\s+/, "");
+      .split(/[\r\n]+/)
+      .map((line) => line.trim().split(/\s{2,}/));
+
+    const headers = result[0].reduce((acc, curr, index) => {
+      acc[curr] = index;
+      return acc;
+    }, {});
+
+    const defaultPrinter = result
+      .slice(1)
+      .find((printerData) => printerData[headers["Default"]] === "TRUE");
+
+    if (!defaultPrinter) return false;
+
+    return {
+      deviceId: defaultPrinter[headers["DeviceID"]],
+      name: defaultPrinter[headers["Name"]],
+    };
   };
 
   // https://ss64.com/nt/wmic.html#alias_options
-  return execAsync("wmic", ["printer", "get", "name,default"], stdoutHandler);
+  return execAsync(
+    "wmic",
+    ["printer", "get", "default,deviceid,name"],
+    stdoutHandler
+  );
 };
 
 module.exports = getDefaultPrinter;
