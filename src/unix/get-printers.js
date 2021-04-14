@@ -10,8 +10,8 @@ const getPrinters = () => {
       .map((e) => {
         e = e.trim();
         return {
-          name: e.substr(0, e.indexOf(" ")),
-          displayName: e
+          deviceId: e.substr(0, e.indexOf(" ")),
+          name: e
             .split("\n")
             .slice(1)
             .find((line) => line.indexOf("Description") !== -1)
@@ -20,6 +20,7 @@ const getPrinters = () => {
         };
       });
   };
+
   return execAsync("lpstat", ["-lp"], parseResult);
 };
 

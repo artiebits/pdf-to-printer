@@ -11,8 +11,7 @@ afterEach(() => {
   execAsync.mockRestore();
 });
 
-const mockPrinterListStdout = `
-DeviceID                       Name
+const mockPrinterListStdout = `DeviceID                       Name
 OneNote                        OneNote
 Microsoft XPS Document Writer  Microsoft XPS Document Writer
 Microsoft Print to PDF         Microsoft Print to PDF
@@ -21,11 +20,13 @@ Fax                            Fax
 
 `;
 
-const mockPrinterListWithDefaultStdout = `
-Default     Name
-FALSE       Windows Printer
-TRUE        Zebra
-        `;
+const mockPrinterListWithDefaultStdout = `Default  DeviceID                       Name
+FALSE    OneNote for Windows 10         OneNote for Windows 10
+FALSE    Microsoft XPS Document Writer  Microsoft XPS Document Writer
+TRUE     Microsoft Print to PDF         Microsoft Print to PDF
+FALSE    Fax                            Fax
+
+`;
 
 test("returns list of available printers", () => {
   execAsync.mockImplementation((_, [], callback) =>
@@ -34,18 +35,18 @@ test("returns list of available printers", () => {
   // We do not expect "Name" to be in the result because
   // Windows will write to stdout a list of printers under "Name" title.
   return expect(getPrinters()).resolves.toStrictEqual([
-    { name: "OneNote", displayName: "OneNote" },
+    { deviceId: "OneNote", name: "OneNote" },
     {
+      deviceId: "Microsoft XPS Document Writer",
       name: "Microsoft XPS Document Writer",
-      displayName: "Microsoft XPS Document Writer",
     },
     {
+      deviceId: "Microsoft Print to PDF",
       name: "Microsoft Print to PDF",
-      displayName: "Microsoft Print to PDF",
     },
     {
+      deviceId: "Fax",
       name: "Fax",
-      displayName: "Fax",
     },
   ]);
 });
@@ -56,14 +57,17 @@ test("gets the default printer", () => {
   );
   // We do not expect "Name" to be in the result because
   // Windows will write to stdout a list of printers under "Name" title.
-  return expect(getDefaultPrinter()).resolves.toStrictEqual("Zebra");
+  return expect(getDefaultPrinter()).resolves.toStrictEqual({
+    deviceId: "Microsoft Print to PDF",
+    name: "Microsoft Print to PDF",
+  });
 });
 
 test("test no default printer defined", () => {
   execAsync.mockImplementation((_, [], callback) =>
     Promise.resolve(callback(""))
   );
-  return expect(getDefaultPrinter()).resolves.toStrictEqual("");
+  return expect(getDefaultPrinter()).resolves.toStrictEqual(false);
 });
 
 test("fails with an error", () => {
