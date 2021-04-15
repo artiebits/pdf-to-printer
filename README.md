@@ -107,11 +107,11 @@ ptp
   .catch(console.error);
 ```
 
-### `.getDefaultPrinter() => Promise<PrinterObject>`
+### `.getDefaultPrinter() => Promise<PrinterObject> | false`
 
 **Returns**
 
-`Promise<PrinterObject>`: Default printer.
+`Promise<PrinterObject> | false`: Default printer or `false` if there is no default printer.
 
 **Examples**
 
