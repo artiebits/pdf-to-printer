@@ -30,7 +30,10 @@ Print a PDF file to the default printer:
 ```javascript
 import ptp from "pdf-to-printer";
 
-ptp.print("assets/pdf-sample.pdf").then(console.log).catch(console.error);
+ptp
+  .print("assets/pdf-sample.pdf")
+  .then(console.log)
+  .catch(console.error);
 ```
 
 ## API
@@ -55,7 +58,10 @@ ptp.print("assets/pdf-sample.pdf").then(console.log).catch(console.error);
 To print a PDF file to the default printer:
 
 ```javascript
-ptp.print("assets/pdf-sample.pdf").then(console.log).catch(console.error);
+ptp
+  .print("assets/pdf-sample.pdf")
+  .then(console.log)
+  .catch(console.error);
 ```
 
 To print to a specific printer, add the device id of the printer to options:
@@ -95,19 +101,25 @@ ptp
 **Examples**
 
 ```javascript
-ptp.getPrinters().then(console.log).catch(console.error);
+ptp
+  .getPrinters()
+  .then(console.log)
+  .catch(console.error);
 ```
 
-### `.getDefaultPrinter() => Promise<PrinterObject>`
+### `.getDefaultPrinter() => Promise<PrinterObject> | false`
 
 **Returns**
 
-`Promise<PrinterObject>`: Default printer.
+`Promise<PrinterObject> | false`: Default printer or `false` if there is no default printer.
 
 **Examples**
 
 ```javascript
-ptp.getDefaultPrinter().then(console.log).catch(console.error);
+ptp
+  .getDefaultPrinter()
+  .then(console.log)
+  .catch(console.error);
 ```
 
 ## Objects
