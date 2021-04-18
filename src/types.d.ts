@@ -9,7 +9,7 @@ export interface PrinterData {
   name: string;
 }
 
-export function print(path: string, options?: any): Promise<void>;
+export function print(path: string, options?: Options): Promise<void>;
 
 export function getPrinters(): Promise<PrinterData[]>;
 
