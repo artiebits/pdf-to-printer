@@ -26,7 +26,7 @@ function print(request, response) {
 }
 
 function save(buffer) {
-  const pdfPath = path.join(__dirname, "./" + randomString() + ".pdf");
+  const pdfPath = path.join(__dirname, randomString() + ".pdf");
   fs.writeFileSync(pdfPath, buffer, "binary");
   return pdfPath;
 }

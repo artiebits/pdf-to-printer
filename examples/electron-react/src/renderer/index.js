@@ -30,8 +30,8 @@ function App() {
 
   const renderPrinter = (printer, index) => {
     return (
-      <option key={printer + index} value={printer}>
-        {printer}
+      <option key={printer.deviceId + index} value={printer.deviceId}>
+        {printer.name}
       </option>
     );
   };
