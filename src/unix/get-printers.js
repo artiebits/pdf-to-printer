@@ -5,7 +5,7 @@ const execAsync = require("../execAsync");
 const getPrinters = () => {
   const parseResult = (output) => {
     return output
-      .split("printer")
+      .split(/^printer/m)
       .slice(1)
       .map((e) => {
         e = e.trim();
