@@ -4,13 +4,13 @@ export interface Options {
   win32?: string[];
 }
 
-export interface PrinterData {
+export interface Printer {
   deviceId: string;
   name: string;
 }
 
 export function print(path: string, options?: Options): Promise<void>;
 
-export function getPrinters(): Promise<PrinterData[]>;
+export function getPrinters(): Promise<Printer[]>;
 
-export function getDefaultPrinter(): Promise<PrinterData> | false;
+export function getDefaultPrinter(): Promise<Printer> | false;

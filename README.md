@@ -92,11 +92,11 @@ ptp
   .catch(console.error);
 ```
 
-### `.getPrinters() => Promise<PrinterObject[]>`
+### `.getPrinters() => Promise<Printer[]>`
 
 **Returns**
 
-`Promise<PrinterObject[]>`: List of available printers.
+`Promise<Printer[]>`: List of available printers.
 
 **Examples**
 
@@ -107,11 +107,11 @@ ptp
   .catch(console.error);
 ```
 
-### `.getDefaultPrinter() => Promise<PrinterObject> | false`
+### `.getDefaultPrinter() => Promise<Printer> | false`
 
 **Returns**
 
-`Promise<PrinterObject> | false`: Default printer or `false` if there is no default printer.
+`Promise<Printer> | false`: Default printer or `false` if there is no default printer.
 
 **Examples**
 
@@ -120,17 +120,6 @@ ptp
   .getDefaultPrinter()
   .then(console.log)
   .catch(console.error);
-```
-
-## Objects
-
-### PrinterObject
-
-```javascript
-{
-  deviceId: "<string>",
-  name: "<string>"
-}
 ```
 
 ## More examples
