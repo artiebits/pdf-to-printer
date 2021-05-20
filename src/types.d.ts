@@ -9,8 +9,22 @@ export interface PrinterData {
   name: string;
 }
 
-export function print(path: string, options?: Options): Promise<void>;
+export interface JobId extends String {}
+
+declare enum JobStatus {
+  Outdated = "outdated",
+  Completed = "completed",
+}
+
+export function print(path: string, options?: Options): Promise<JobId>;
 
 export function getPrinters(): Promise<PrinterData[]>;
 
 export function getDefaultPrinter(): Promise<PrinterData> | false;
+
+export function observe(
+  jobId: JobId,
+  timeout?: number,
+  delay?: number,
+  options?: Options
+): Promise<JobStatus>;
