@@ -2,9 +2,9 @@
 
 const execAsync = require("../utils/exec-async");
 
-const getPrinters = () => {
-  const parseResult = (output) => {
-    return output
+async function getPrinters() {
+  function parseResult(stdout) {
+    return stdout
       .split("printer")
       .slice(1)
       .map((e) => {
@@ -19,9 +19,14 @@ const getPrinters = () => {
             .trim(),
         };
       });
-  };
+  }
 
-  return execAsync("lpstat -lp", parseResult);
-};
+  try {
+    const { stdout } = await execAsync("lpstat -lp");
+    return parseResult(stdout);
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = getPrinters;

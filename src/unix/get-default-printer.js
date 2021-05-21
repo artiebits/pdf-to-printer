@@ -2,36 +2,42 @@
 
 const execAsync = require("../utils/exec-async");
 
-const getDefaultPrinterDeviceId = (output) => {
-  const startIndex = output.indexOf(":");
-  if (startIndex == -1) return false;
+async function getDefaultPrinter() {
+  try {
+    const { stdout } = await execAsync("lpstat -d");
+    const printer = parsePrinterId(stdout);
+    return printer ? getPrinterDetails(printer) : null;
+  } catch (error) {
+    throw error;
+  }
+}
 
-  return output.substr(startIndex + 1).trim();
-};
-
-const parseDefaultPrinterData = (output) => ({
-  deviceId: output.split(" ")[1],
-  name: output
+function parsePrinterDescription(stdout) {
+  return stdout
     .split("\n")
     .slice(1)
     .find((line) => line.indexOf("Description") !== -1)
     .split(":")[1]
-    .trim(),
-});
+    .trim();
+}
 
-const getDefaultPrinter = () => {
-  const parseResult = (output) => {
-    let defaultPrinterDeviceId = getDefaultPrinterDeviceId(output);
+function parsePrinterId(output) {
+  const startIndex = output.indexOf(":");
+  if (startIndex == -1) return null;
+  return output.substr(startIndex + 1).trim();
+}
 
-    if (!defaultPrinterDeviceId) return false;
-
-    return execAsync(
-      `lpstat -lp ${defaultPrinterDeviceId}`,
-      parseDefaultPrinterData
-    );
-  };
-
-  return execAsync("lpstat -d", parseResult);
-};
+async function getPrinterDetails(printer) {
+  try {
+    const { stdout } = await execAsync(`lpstat -lp ${printer}`);
+    const description = parsePrinterDescription(stdout);
+    return {
+      deviceId: printer,
+      name: description,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = getDefaultPrinter;
