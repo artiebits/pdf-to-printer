@@ -39,7 +39,7 @@ test("throws if PDF doesn't exist", () => {
 test("sends the PDF file to the default printer", () => {
   const filename = "assets/pdf-sample.pdf";
   return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("lp", [filename]);
+    expect(execAsync).toHaveBeenCalledWith(`lp ${filename}`);
   });
 });
 
@@ -50,7 +50,7 @@ test("sends PDF file to the specific printer", () => {
     printer,
   };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("lp", [filename, "-d", printer]);
+    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
   });
 });
 
@@ -59,7 +59,7 @@ test("sends PDF file to the specific printer with a space in its name", () => {
   const printer = "Brother HL-L2340WD";
   const options = { printer };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("lp", [filename, "-d", printer]);
+    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
   });
 });
 
@@ -68,13 +68,9 @@ test("allows users to pass OS specific options", () => {
   const printer = "Zebra";
   const options = { printer, unix: ["-o sides=one-sided"] };
   return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("lp", [
-      filename,
-      "-d",
-      printer,
-      "-o",
-      "sides=one-sided",
-    ]);
+    expect(execAsync).toHaveBeenCalledWith(
+      `lp ${filename} -d ${printer} -o sides=one-sided`
+    );
   });
 });
 

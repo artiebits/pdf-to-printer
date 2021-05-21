@@ -25,7 +25,7 @@ const print = (pdf, options = {}) => {
       .forEach((arg) => args.push(arg));
   }
 
-  return execAsync("lp", args);
+  return execAsync(`lp ${args.join(" ")}`);
 };
 
 module.exports = print;
