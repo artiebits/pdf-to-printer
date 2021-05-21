@@ -1,10 +1,10 @@
 "use strict";
 
-import execAsync from "../execAsync";
+import execAsync from "../exec-file-async";
 import getDefaultPrinter from "./get-default-printer";
 import getPrinters from "./get-printers";
 
-jest.mock("../../src/execAsync");
+jest.mock("../../src/exec-file-async");
 
 afterEach(() => {
   // restore the original implementation

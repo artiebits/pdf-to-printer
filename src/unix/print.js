@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const splitArgs = require("../split-args");
-const execAsync = require("../execAsync");
+const execAsync = require("../exec-async");
 
 const print = (pdf, options = {}) => {
   if (!pdf) throw "No PDF specified";

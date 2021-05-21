@@ -1,6 +1,6 @@
 "use strict";
 
-const execAsync = require("../execAsync");
+const execAsync = require("../exec-async");
 
 const getPrinters = () => {
   const parseResult = (output) => {

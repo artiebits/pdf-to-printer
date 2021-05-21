@@ -2,7 +2,7 @@
 
 const { execFile } = require("child_process");
 
-const execAsync = (file, args = [], callback) => {
+const execFileAsync = (file, args = [], callback) => {
   return new Promise((resolve, reject) => {
     execFile(file, args, (error, stdout) => {
       if (error) {
@@ -14,4 +14,4 @@ const execAsync = (file, args = [], callback) => {
   });
 };
 
-module.exports = execAsync;
+module.exports = execFileAsync;

@@ -1,12 +1,12 @@
 "use strict";
 
 import { existsSync } from "fs";
-import execAsync from "../execAsync";
+import execAsync from "../exec-async";
 import print from "./print";
 
 jest.mock("fs");
 jest.mock("path");
-jest.mock("../../src/execAsync");
+jest.mock("../../src/exec-async");
 
 beforeEach(() => {
   // override the implementations
