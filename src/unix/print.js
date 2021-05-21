@@ -1,8 +1,8 @@
 "use strict";
 
 const fs = require("fs");
-const splitArgs = require("../split-args");
-const execAsync = require("../exec-async");
+const splitArgs = require("../utils/split-args");
+const execAsync = require("../utils/exec-async");
 
 const print = (pdf, options = {}) => {
   if (!pdf) throw "No PDF specified";

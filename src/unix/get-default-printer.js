@@ -1,6 +1,6 @@
 "use strict";
 
-const execAsync = require("../exec-async");
+const execAsync = require("../utils/exec-async");
 
 const getDefaultPrinterDeviceId = (output) => {
   const startIndex = output.indexOf(":");

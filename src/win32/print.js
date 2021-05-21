@@ -2,9 +2,9 @@
 
 const path = require("path");
 const fs = require("fs");
-const splitArgs = require("../split-args");
-const execAsync = require("../exec-file-async");
-const { fixPathForAsarUnpack } = require("../electron-util");
+const splitArgs = require("../utils/split-args");
+const execAsync = require("../utils/exec-file-async");
+const { fixPathForAsarUnpack } = require("../utils/electron-util");
 
 const validDestinationArgs = [
   "-print-to",

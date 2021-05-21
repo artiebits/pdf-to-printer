@@ -1,6 +1,6 @@
 "use strict";
 
-const execAsync = require("../exec-file-async");
+const execAsync = require("../utils/exec-file-async");
 
 const getDefaultPrinter = () => {
   const stdoutHandler = (stdout) => {
