@@ -21,7 +21,7 @@ const getPrinters = () => {
       });
   };
 
-  return execAsync("lpstat", ["-lp"], parseResult);
+  return execAsync("lpstat -lp", parseResult);
 };
 
 module.exports = getPrinters;

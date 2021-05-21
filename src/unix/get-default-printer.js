@@ -26,13 +26,12 @@ const getDefaultPrinter = () => {
     if (!defaultPrinterDeviceId) return false;
 
     return execAsync(
-      "lpstat",
-      ["-lp", defaultPrinterDeviceId],
+      `lpstat -lp ${defaultPrinterDeviceId}`,
       parseDefaultPrinterData
     );
   };
 
-  return execAsync("lpstat", ["-d"], parseResult);
+  return execAsync("lpstat -d", parseResult);
 };
 
 module.exports = getDefaultPrinter;

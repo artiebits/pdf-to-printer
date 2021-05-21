@@ -82,7 +82,7 @@ afterEach(() => {
 });
 
 test("returns list of available printers", () => {
-  execAsync.mockImplementation((_, [], callback) =>
+  execAsync.mockImplementation((_, callback) =>
     Promise.resolve(callback(mockPrinterListStdout))
   );
 
@@ -100,10 +100,10 @@ test("returns list of available printers", () => {
 
 test("returns the system default printer", () => {
   execAsync
-    .mockImplementationOnce((_, [], callback) =>
+    .mockImplementationOnce((_, callback) =>
       Promise.resolve(callback(mockDefaultPrinterStdout))
     )
-    .mockImplementationOnce((_, [], callback) =>
+    .mockImplementationOnce((_, callback) =>
       Promise.resolve(callback(mockDefaultPrinterDataStdout))
     );
 
@@ -114,7 +114,7 @@ test("returns the system default printer", () => {
 });
 
 test("test no default printer defined", () => {
-  execAsync.mockImplementation((_, [], callback) =>
+  execAsync.mockImplementation((_, callback) =>
     Promise.resolve(callback("no system default destination"))
   );
 

@@ -2,9 +2,9 @@
 
 const { exec } = require("child_process");
 
-const execAsync = (file, args = [], callback) => {
+const execAsync = (command, callback) => {
   return new Promise((resolve, reject) => {
-    exec(file, args, (error, stdout) => {
+    exec(command, (error, stdout) => {
       if (error) {
         reject(error);
         return;
