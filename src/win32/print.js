@@ -3,7 +3,7 @@
 const path = require("path");
 const fs = require("fs");
 const splitArgs = require("../split-args");
-const execAsync = require("../execAsync");
+const execAsync = require("../exec-file-async");
 const { fixPathForAsarUnpack } = require("../electron-util");
 
 const validDestinationArgs = [

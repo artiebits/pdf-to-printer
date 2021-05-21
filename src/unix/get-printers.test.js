@@ -1,10 +1,10 @@
 "use strict";
 
-import execAsync from "../execAsync";
+import execAsync from "../exec-async";
 import getDefaultPrinter from "./get-default-printer";
 import getPrinters from "./get-printers";
 
-jest.mock("../../src/execAsync");
+jest.mock("../../src/exec-async");
 
 const mockPrinterListStdout = `printer Virtual_Braille_BRF_Printer is idle.  enabled since Tue 30 Mar 2021 11:54:05 PM EEST
 Form mounted:
