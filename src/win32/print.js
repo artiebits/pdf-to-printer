@@ -17,8 +17,8 @@ const print = (pdf, options = {}) => {
   if (typeof pdf !== "string") throw "Invalid PDF name";
   if (!fs.existsSync(pdf)) throw "No such file";
 
-  let file = path.join(__dirname, "SumatraPDF.exe");
-  file = fixPathForAsarUnpack(file);
+  let file = options.sumatraPdfPath || path.join(__dirname, "SumatraPDF.exe");
+  if (!options.sumatraPdfPath) file = fixPathForAsarUnpack(file);
 
   const args = [];
 

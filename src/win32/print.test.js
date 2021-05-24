@@ -150,3 +150,16 @@ test("it throws if OS-specific options passed not as an array.", () => {
     new Error("options.win32 should be an array")
   );
 });
+
+test("it works when custom sumatra path specified", () => {
+  const mockedSumatraPdfPath = "mocked_SumatraPDF.exe";
+  const filename = "assets/pdf-sample.pdf";
+
+  return print(filename, { sumatraPdfPath: mockedSumatraPdfPath }).then(() => {
+    expect(execAsync).toHaveBeenCalledWith(mockedSumatraPdfPath, [
+      "-print-to-default",
+      "-silent",
+      filename,
+    ]);
+  });
+});

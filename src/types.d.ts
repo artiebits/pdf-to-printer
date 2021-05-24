@@ -2,6 +2,7 @@ export interface Options {
   printer?: string;
   unix?: string[];
   win32?: string[];
+  sumatraPdfPath?: string;
 }
 
 export interface Printer {
