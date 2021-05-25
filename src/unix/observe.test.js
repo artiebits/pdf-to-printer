@@ -1,22 +1,18 @@
 "use strict";
 
-import { existsSync } from "fs";
 import execAsync from "../execAsync";
 import observe from "./observe";
 
-jest.mock("fs");
 jest.mock("path");
 jest.mock("../../src/execAsync");
 
 beforeEach(() => {
   // override the implementations
-  existsSync.mockImplementation(() => true);
   execAsync.mockImplementation(() => Promise.resolve());
 });
 
 afterEach(() => {
   // restore the original implementations
-  existsSync.mockRestore();
   execAsync.mockRestore();
 });
 
@@ -115,6 +111,19 @@ test("it throws if OS-specific options passed not as an array.", async () => {
     await observe("123", 60000, 1000, options);
   } catch (e) {
     expect(e).toMatch("options.unix should be an array");
+  }
+});
+
+test("it throws if an error occurred in exec", async () => {
+  execAsync.mockImplementation(() =>
+    Promise.reject(new Error("Cannot run command"))
+  );
+
+  expect.assertions(1);
+  try {
+    await observe("123");
+  } catch (e) {
+    expect(e).toEqual(new Error("Cannot run command"));
   }
 });
 

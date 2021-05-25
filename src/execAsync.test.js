@@ -23,9 +23,19 @@ test("runs the passed command in a shell", () => {
   });
 });
 
+test("calls callback", () => {
+  // override the implementation
+  execFile.mockImplementation((_, [], callback) =>
+    callback(null, "some output")
+  );
+
+  return execAsync("my_command", [], (stdout) => {
+    expect(stdout).toBe("some output");
+  });
+});
+
 test("fails with an error", () => {
   // override the implementation
-
   execFile.mockImplementation((_, [], callback) => callback("error"));
 
   return expect(execAsync("my_command")).rejects.toBe("error");
