@@ -12,16 +12,9 @@ afterEach(() => {
 
 test("runs the passed command in a shell", () => {
   // override the implementation
-  exec.mockImplementation((_, callback) => callback());
+  exec.mockImplementation((_) => {});
 
-  return execAsync("my_command").then(() => {
-    expect(exec).toHaveBeenCalledWith("my_command", expect.any(Function));
-  });
-});
+  execAsync("my_command");
 
-test("fails with an error", () => {
-  // override the implementation
-  exec.mockImplementation((_, callback) => callback("error"));
-
-  return expect(execAsync("my_command")).rejects.toBe("error");
+  expect(exec).toHaveBeenCalledWith("my_command", expect.any(Function));
 });

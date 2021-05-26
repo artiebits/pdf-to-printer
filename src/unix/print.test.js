@@ -20,63 +20,67 @@ afterEach(() => {
   execAsync.mockRestore();
 });
 
-test("throws if no PDF specified", () => {
-  const noPdfSpecified = () => print();
-  expect(noPdfSpecified).toThrowError(new Error("No PDF specified"));
+test("throws if no PDF specified", async () => {
+  await expect(print()).rejects.toMatch("No PDF specified");
 });
 
-test("throws if PDF name is invalid", () => {
-  const invalidName = () => print(123);
-  expect(invalidName).toThrowError(new Error("Invalid PDF name"));
+test("throws if PDF name is invalid", async () => {
+  await expect(print(123)).rejects.toMatch("Invalid PDF name");
 });
 
-test("throws if PDF doesn't exist", () => {
-  const noSuchFile = () => print("assets/pdf-sample.pdf");
+test("throws if PDF doesn't exist", async () => {
   existsSync.mockImplementation(() => false);
-  expect(noSuchFile).toThrowError(new Error("No such file"));
+
+  await expect(print("assets/pdf-sample.pdf")).rejects.toMatch("No such file");
 });
 
-test("sends the PDF file to the default printer", () => {
+test("sends the PDF file to the default printer", async () => {
   const filename = "assets/pdf-sample.pdf";
-  return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp ${filename}`);
-  });
+
+  await print(filename);
+
+  expect(execAsync).toHaveBeenCalledWith(`lp ${filename}`);
 });
 
-test("sends PDF file to the specific printer", () => {
+test("sends PDF file to the specific printer", async () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
   const options = {
     printer,
   };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
 });
 
-test("sends PDF file to the specific printer with a space in its name", () => {
+test("sends PDF file to the specific printer with a space in its name", async () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Brother HL-L2340WD";
   const options = { printer };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith(`lp ${filename} -d ${printer}`);
 });
 
-test("allows users to pass OS specific options", () => {
+test("allows users to pass OS specific options", async () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
   const options = { printer, unix: ["-o sides=one-sided"] };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(
-      `lp ${filename} -d ${printer} -o sides=one-sided`
-    );
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith(
+    `lp ${filename} -d ${printer} -o sides=one-sided`
+  );
 });
 
-test("it throws if OS-specific options passed not as an array.", () => {
+test("throws if OS-specific options passed not as an array", async () => {
   const filename = "assets/pdf-sample.pdf";
   const options = { unix: "-o sides=one-sided" };
-  const isNotArray = () => print(filename, options);
-  expect(isNotArray).toThrowError(new Error("options.unix should be an array"));
+
+  await expect(print(filename, options)).rejects.toMatch(
+    "options.unix should be an array"
+  );
 });

@@ -4,7 +4,7 @@ const fs = require("fs");
 const splitArgs = require("../utils/split-args");
 const execAsync = require("../utils/exec-async");
 
-const print = (pdf, options = {}) => {
+async function print(pdf, options = {}) {
   if (!pdf) throw "No PDF specified";
   if (typeof pdf !== "string") throw "Invalid PDF name";
   if (!fs.existsSync(pdf)) throw "No such file";
@@ -26,6 +26,6 @@ const print = (pdf, options = {}) => {
   }
 
   return execAsync(`lp ${args.join(" ")}`);
-};
+}
 
 module.exports = print;
