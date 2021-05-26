@@ -23,21 +23,17 @@ function parsePrinterDescription(stdout) {
 
 function parsePrinterId(output) {
   const startIndex = output.indexOf(":");
-  if (startIndex == -1) return null;
+  if (startIndex === -1) return null;
   return output.substr(startIndex + 1).trim();
 }
 
 async function getPrinterDetails(printer) {
-  try {
-    const { stdout } = await execAsync(`lpstat -lp ${printer}`);
-    const description = parsePrinterDescription(stdout);
-    return {
-      deviceId: printer,
-      name: description,
-    };
-  } catch (error) {
-    throw error;
-  }
+  const { stdout } = await execAsync(`lpstat -lp ${printer}`);
+  const description = parsePrinterDescription(stdout);
+  return {
+    deviceId: printer,
+    name: description,
+  };
 }
 
 module.exports = getDefaultPrinter;

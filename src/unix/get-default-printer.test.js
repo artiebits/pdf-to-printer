@@ -39,10 +39,15 @@ it("returns the system default printer", async () => {
   await expect(getDefaultPrinter()).resolves.toEqual(expected);
 });
 
-it("returns null when default printer is not defined", () => {
+it("returns null when default printer is not defined", async () => {
   execAsync.mockImplementation(() =>
     Promise.resolve({ stdout: "no system default destination" })
   );
 
-  return expect(getDefaultPrinter()).resolves.toBeNull();
+  await expect(getDefaultPrinter()).resolves.toBeNull();
+});
+
+it("fails with an error", async () => {
+  execAsync.mockImplementation(() => Promise.reject("error"));
+  await expect(getDefaultPrinter()).rejects.toMatch("error");
 });
