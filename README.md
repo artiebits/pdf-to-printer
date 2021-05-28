@@ -40,7 +40,7 @@ ptp
 
 ## API
 
-### `.print(pdf[, options]) => Promise<void>`
+### `.print(pdf[, options]) => Promise<JobId>`
 
 **Arguments**
 
@@ -53,7 +53,7 @@ ptp
 
 **Returns**
 
-`Promise<void>`.
+`Promise<JobId>`: A promise that resolves with string jobId (only unix).
 
 **Examples**
 
@@ -120,6 +120,24 @@ ptp
 ```javascript
 ptp
   .getDefaultPrinter()
+  .then(console.log)
+  .catch(console.error);
+```
+
+### `.observe(jobId, timeout, delay [,options]) => Promise<String>`
+
+This method implemented only for unix yet.
+
+**Returns**
+
+`Promise<String>`: A promise that resolves with the value "complete" if the print job has disappeared from the queue 
+or "outdated" if the timeout has expired.
+
+**Examples**
+
+```javascript
+ptp
+  .observe('354', 60000, 1000)
   .then(console.log)
   .catch(console.error);
 ```

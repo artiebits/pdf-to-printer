@@ -3,6 +3,7 @@
 const fs = require("fs");
 const splitArgs = require("../utils/split-args");
 const execAsync = require("../utils/exec-async");
+const { getRandomJobName, findJobLineByName } = require("./helper");
 
 async function print(pdf, options = {}) {
   if (!pdf) throw "No PDF specified";
@@ -25,7 +26,24 @@ async function print(pdf, options = {}) {
       .forEach((arg) => args.push(arg));
   }
 
-  return execAsync(`lp ${args.join(" ")}`);
+  // we need to set unique job's name for easy finding it in the future
+  const jobName = getRandomJobName();
+  args.push("-t", jobName);
+
+  return execAsync(`lp ${args.join(" ")}`)
+    .then(() => execAsync("lpq"))
+    .then((output) => {
+      const match = findJobLineByName(jobName, output);
+
+      if (null === match) {
+        throw new Error(
+          `Could not find the created job with name "${jobName}"`
+        );
+      }
+
+      // we can use jobName instead of jobId, but this step allow us to check up the result of queueing
+      return match[3];
+    });
 }
 
 module.exports = print;
