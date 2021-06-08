@@ -13,7 +13,12 @@ jest.mock("./helper");
 beforeEach(() => {
   // override the implementations
   existsSync.mockImplementation(() => true);
-  execAsync.mockImplementation(() => Promise.resolve());
+  execAsync.mockImplementation(() =>
+    Promise.resolve({
+      stdout: "some normal result that does not matter for most tests",
+      stderr: "",
+    })
+  );
   getRandomJobName.mockImplementation(() => "om7nzw4arjo");
   findJobLineByName.mockImplementation(() => [
     "active  user   359     om7nzw4arjo 12288 байт",
@@ -110,5 +115,54 @@ test("throws if could not find the created job with name", async () => {
 
   await expect(print(filename)).rejects.toEqual(
     new Error(`Could not find the created job with name "${jobName}"`)
+  );
+});
+
+test("throws if lqp stdout is empty", async () => {
+  const filename = "assets/pdf-sample.pdf";
+
+  execAsync.mockImplementation((cmd) => {
+    switch (true) {
+      case cmd === "lpq":
+        return Promise.resolve({
+          stdout: "",
+          stderr: "",
+        });
+      // for lp
+      default:
+        return Promise.resolve({
+          stdout: "some normal result that does not matter for most tests",
+          stderr: "",
+        });
+    }
+  });
+
+  await expect(print(filename)).rejects.toEqual(
+    new Error('Empty stdout for command "lpq"')
+  );
+});
+
+test("throws if lqp stderr is not empty", async () => {
+  const filename = "assets/pdf-sample.pdf";
+  const jobName = "om7nzw4arjo";
+
+  execAsync.mockImplementation((cmd) => {
+    switch (true) {
+      case cmd === "lpq":
+        return Promise.resolve({
+          stdout: "some normal result that does not matter for most tests",
+          stderr: "error description",
+        });
+      // for lp
+      default:
+        return Promise.resolve({
+          stdout: "some normal result that does not matter for most tests",
+          stderr: "",
+        });
+    }
+  });
+
+  await expect(print(filename)).rejects.toEqual(
+    new Error('Failed to run command lpq: "error description"')
   );
 });
