@@ -27,6 +27,14 @@ beforeEach(() => {
     "om7nzw4arjo",
     "12288",
   ]);
+  getRandomJobName.mockImplementation(() => "om7nzw4arjo");
+  findJobLineByName.mockImplementation(() => [
+    "active  user   359     om7nzw4arjo 12288 байт",
+    "active",
+    "user",
+    "om7nzw4arjo",
+    "12288",
+  ]);
 });
 
 afterEach(() => {
