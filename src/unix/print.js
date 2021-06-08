@@ -33,8 +33,15 @@ async function print(pdf, options = {}) {
   return execAsync(`lp ${args.join(" ")}`)
     .then(() => execAsync("lpq"))
     .then((output) => {
-      const match = findJobLineByName(jobName, output);
+      if (output.stderr) {
+        throw new Error(`Failed to run command lpq: "${output.stderr}"`);
+      }
 
+      if (!output.stdout) {
+        throw new Error('Empty stdout for command "lpq"');
+      }
+
+      const match = findJobLineByName(jobName, output.stdout);
       if (null === match) {
         throw new Error(
           `Could not find the created job with name "${jobName}"`
