@@ -5,13 +5,13 @@ const execAsync = require("../utils/exec-async");
 async function getPrinters() {
   function parseResult(stdout) {
     return stdout
-      .split("printer")
-      .slice(1)
-      .map((e) => {
-        e = e.trim();
+      .split(/^printer(.)/gm)
+      .filter((line) => line.trim() !== "")
+      .map((line) => {
+        const trimmed = line.trim();
         return {
-          deviceId: e.substr(0, e.indexOf(" ")),
-          name: e
+          deviceId: trimmed.substr(0, trimmed.indexOf(" ")),
+          name: trimmed
             .split("\n")
             .slice(1)
             .find((line) => line.indexOf("Description") !== -1)
