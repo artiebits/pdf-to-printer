@@ -16,7 +16,7 @@ const getPrinters = () => {
           name: null,
         };
 
-        printer.split(/\r?\n/).some((line) => {
+        const isValid = printer.split(/\r?\n/).some((line) => {
           const [label, value] = line.split(":").map((el) => el.trim());
 
           const lowerLabel = label.toLowerCase();
@@ -29,6 +29,8 @@ const getPrinters = () => {
 
           return false;
         });
+
+        if (!isValid) return;
 
         printers.push(printerData);
       });

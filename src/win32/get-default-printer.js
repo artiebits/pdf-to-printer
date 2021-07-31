@@ -14,7 +14,7 @@ const getDefaultPrinter = () => {
       name: null,
     };
 
-    const isFound = stdout.split(/\r?\n/).some((line) => {
+    const isValid = stdout.split(/\r?\n/).some((line) => {
       const [label, value] = line.split(":").map((el) => el.trim());
 
       const lowerLabel = label.toLowerCase();
@@ -29,7 +29,7 @@ const getDefaultPrinter = () => {
     });
 
     // DeviceID or Name not found
-    if (!isFound) return null;
+    if (!isValid) return null;
 
     return printerData;
   };
