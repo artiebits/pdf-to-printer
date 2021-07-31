@@ -12,16 +12,18 @@ const getPrinters = () => {
       .filter((printer) => !!printer)
       .forEach((printer) => {
         const printerData = {
-          deviceId: "",
-          name: "",
+          deviceId: null,
+          name: null,
         };
 
         printer.split(/\r?\n/).some((line) => {
           const [label, value] = line.split(":").map((el) => el.trim());
 
-          if (label.toLowerCase() === "deviceid") printerData.deviceId = value;
+          const lowerLabel = label.toLowerCase();
 
-          if (label.toLowerCase() === "name") printerData.name = value;
+          if (lowerLabel === "deviceid") printerData.deviceId = value;
+
+          if (lowerLabel === "name") printerData.name = value;
 
           if (printerData.deviceId && printerData.name) return true;
 
