@@ -1,35 +1,45 @@
 "use strict";
 
-const execAsync = require("../utils/exec-file-async");
+const execFileAsync = require("../utils/exec-file-async");
 
 const getDefaultPrinter = () => {
   const stdoutHandler = (stdout) => {
-    const result = stdout
-      .trim()
-      .split(/[\r\n]+/)
-      .map((line) => line.trim().split(/\s{2,}/));
+    stdout = stdout.trim();
 
-    const headers = result[0].reduce((acc, curr, index) => {
-      acc[curr] = index;
-      return acc;
-    }, {});
+    // If stdout is empty, there is no default printer
+    if (!stdout) return null;
 
-    const defaultPrinter = result
-      .slice(1)
-      .find((printerData) => printerData[headers["Default"]] === "TRUE");
-
-    if (!defaultPrinter) return false;
-
-    return {
-      deviceId: defaultPrinter[headers["DeviceID"]],
-      name: defaultPrinter[headers["Name"]],
+    const printerData = {
+      deviceId: null,
+      name: null,
     };
+
+    const isFound = stdout.split(/\r?\n/).some((line) => {
+      const [label, value] = line.split(":").map((el) => el.trim());
+
+      const lowerLabel = label.toLowerCase();
+
+      if (lowerLabel === "deviceid") printerData.deviceId = value;
+
+      if (lowerLabel === "name") printerData.name = value;
+
+      if (printerData.deviceId && printerData.name) return true;
+
+      return false;
+    });
+
+    // DeviceID or Name not found
+    if (!isFound) return null;
+
+    return printerData;
   };
 
-  // https://ss64.com/nt/wmic.html#alias_options
-  return execAsync(
-    "wmic",
-    ["printer", "get", "default,deviceid,name"],
+  return execFileAsync(
+    "Powershell.exe",
+    [
+      "-Command",
+      "Get-CimInstance Win32_Printer -Property DeviceID,Name -Filter Default=true",
+    ],
     stdoutHandler
   );
 };

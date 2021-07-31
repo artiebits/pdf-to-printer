@@ -1,27 +1,44 @@
 "use strict";
 
-const execAsync = require("../utils/exec-file-async");
+const execFileAsync = require("../utils/exec-file-async");
 
 const getPrinters = () => {
   const stdoutHandler = (stdout) => {
-    const result = stdout
-      .trim()
-      .split(/[\r\n]+/)
-      .map((line) => line.trim().split(/\s{2,}/));
+    const printers = [];
 
-    const headers = result[0].reduce((acc, curr, index) => {
-      acc[curr] = index;
-      return acc;
-    }, {});
+    stdout
+      .split(/(\r?\n){2,}/)
+      .map((printer) => printer.trim())
+      .filter((printer) => !!printer)
+      .forEach((printer) => {
+        const printerData = {
+          deviceId: "",
+          name: "",
+        };
 
-    return result.slice(1).map((printerData) => ({
-      deviceId: printerData[headers["DeviceID"]],
-      name: printerData[headers["Name"]],
-    }));
+        printer.split(/\r?\n/).some((line) => {
+          const [label, value] = line.split(":").map((el) => el.trim());
+
+          if (label.toLowerCase() === "deviceid") printerData.deviceId = value;
+
+          if (label.toLowerCase() === "name") printerData.name = value;
+
+          if (printerData.deviceId && printerData.name) return true;
+
+          return false;
+        });
+
+        printers.push(printerData);
+      });
+
+    return printers;
   };
 
-  // https://ss64.com/nt/wmic.html#alias_options
-  return execAsync("wmic", ["printer", "get", "deviceid,name"], stdoutHandler);
+  return execFileAsync(
+    "Powershell.exe",
+    ["-Command", "Get-CimInstance Win32_Printer -Property DeviceID,Name"],
+    stdoutHandler
+  );
 };
 
 module.exports = getPrinters;

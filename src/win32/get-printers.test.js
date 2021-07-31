@@ -11,20 +11,495 @@ afterEach(() => {
   execAsync.mockRestore();
 });
 
-const mockPrinterListStdout = `DeviceID                       Name
-OneNote                        OneNote
-Microsoft XPS Document Writer  Microsoft XPS Document Writer
-Microsoft Print to PDF         Microsoft Print to PDF
-Fax                            Fax
+const mockPrinterListStdout = `
+
+
+Status                      :
+Name                        : OneNote
+Caption                     :
+Description                 :
+InstallDate                 :
+Availability                :
+ConfigManagerErrorCode      :
+ConfigManagerUserConfig     :
+CreationClassName           :
+DeviceID                    : OneNote
+ErrorCleared                :
+ErrorDescription            :
+LastErrorCode               :
+PNPDeviceID                 :
+PowerManagementCapabilities :
+PowerManagementSupported    :
+StatusInfo                  :
+SystemCreationClassName     :
+SystemName                  :
+AvailableJobSheets          :
+Capabilities                :
+CapabilityDescriptions      :
+CharSetsSupported           :
+CurrentCapabilities         :
+CurrentCharSet              :
+CurrentLanguage             :
+CurrentMimeType             :
+CurrentNaturalLanguage      :
+CurrentPaperType            :
+DefaultCapabilities         :
+DefaultCopies               :
+DefaultLanguage             :
+DefaultMimeType             :
+DefaultNumberUp             :
+DefaultPaperType            :
+DetectedErrorState          :
+ErrorInformation            :
+HorizontalResolution        :
+JobCountSinceLastReset      :
+LanguagesSupported          :
+MarkingTechnology           :
+MaxCopies                   :
+MaxNumberUp                 :
+MaxSizeSupported            :
+MimeTypesSupported          :
+NaturalLanguagesSupported   :
+PaperSizesSupported         :
+PaperTypesAvailable         :
+PrinterStatus               :
+TimeOfLastReset             :
+VerticalResolution          :
+Attributes                  :
+AveragePagesPerMinute       :
+Comment                     :
+Default                     :
+DefaultPriority             :
+Direct                      :
+DoCompleteFirst             :
+DriverName                  :
+EnableBIDI                  :
+EnableDevQueryPrint         :
+ExtendedDetectedErrorState  :
+ExtendedPrinterStatus       :
+Hidden                      :
+KeepPrintedJobs             :
+Local                       :
+Location                    :
+Network                     :
+Parameters                  :
+PortName                    :
+PrinterPaperNames           :
+PrinterState                :
+PrintJobDataType            :
+PrintProcessor              :
+Priority                    :
+Published                   :
+Queued                      :
+RawOnly                     :
+SeparatorFile               :
+ServerName                  :
+Shared                      :
+ShareName                   :
+SpoolEnabled                :
+StartTime                   :
+UntilTime                   :
+WorkOffline                 :
+PSComputerName              :
+CimClass                    : root/cimv2:Win32_Printer
+CimInstanceProperties       : {Caption, Description, InstallDate, Name...}
+CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
+
+
+
+
+
+
+Status                      :
+Name                        : Microsoft XPS Document Writer
+Caption                     :
+Description                 :
+InstallDate                 :
+Availability                :
+ConfigManagerErrorCode      :
+ConfigManagerUserConfig     :
+CreationClassName           :
+DeviceID                    : Microsoft XPS Document Writer
+ErrorCleared                :
+ErrorDescription            :
+LastErrorCode               :
+PNPDeviceID                 :
+PowerManagementCapabilities :
+PowerManagementSupported    :
+StatusInfo                  :
+SystemCreationClassName     :
+SystemName                  :
+AvailableJobSheets          :
+Capabilities                :
+CapabilityDescriptions      :
+CharSetsSupported           :
+CurrentCapabilities         :
+CurrentCharSet              :
+CurrentLanguage             :
+CurrentMimeType             :
+CurrentNaturalLanguage      :
+CurrentPaperType            :
+DefaultCapabilities         :
+DefaultCopies               :
+DefaultLanguage             :
+DefaultMimeType             :
+DefaultNumberUp             :
+DefaultPaperType            :
+DetectedErrorState          :
+ErrorInformation            :
+HorizontalResolution        :
+JobCountSinceLastReset      :
+LanguagesSupported          :
+MarkingTechnology           :
+MaxCopies                   :
+MaxNumberUp                 :
+MaxSizeSupported            :
+MimeTypesSupported          :
+NaturalLanguagesSupported   :
+PaperSizesSupported         :
+PaperTypesAvailable         :
+PrinterStatus               :
+TimeOfLastReset             :
+VerticalResolution          :
+Attributes                  :
+AveragePagesPerMinute       :
+Comment                     :
+Default                     :
+DefaultPriority             :
+Direct                      :
+DoCompleteFirst             :
+DriverName                  :
+EnableBIDI                  :
+EnableDevQueryPrint         :
+ExtendedDetectedErrorState  :
+ExtendedPrinterStatus       :
+Hidden                      :
+KeepPrintedJobs             :
+Local                       :
+Location                    :
+Network                     :
+Parameters                  :
+PortName                    :
+PrinterPaperNames           :
+PrinterState                :
+PrintJobDataType            :
+PrintProcessor              :
+Priority                    :
+Published                   :
+Queued                      :
+RawOnly                     :
+SeparatorFile               :
+ServerName                  :
+Shared                      :
+ShareName                   :
+SpoolEnabled                :
+StartTime                   :
+UntilTime                   :
+WorkOffline                 :
+PSComputerName              :
+CimClass                    : root/cimv2:Win32_Printer
+CimInstanceProperties       : {Caption, Description, InstallDate, Name...}
+CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
+
+
+
+
+
+
+Status                      :
+Name                        : Microsoft Print to PDF
+Caption                     :
+Description                 :
+InstallDate                 :
+Availability                :
+ConfigManagerErrorCode      :
+ConfigManagerUserConfig     :
+CreationClassName           :
+DeviceID                    : Microsoft Print to PDF
+ErrorCleared                :
+ErrorDescription            :
+LastErrorCode               :
+PNPDeviceID                 :
+PowerManagementCapabilities :
+PowerManagementSupported    :
+StatusInfo                  :
+SystemCreationClassName     :
+SystemName                  :
+AvailableJobSheets          :
+Capabilities                :
+CapabilityDescriptions      :
+CharSetsSupported           :
+CurrentCapabilities         :
+CurrentCharSet              :
+CurrentLanguage             :
+CurrentMimeType             :
+CurrentNaturalLanguage      :
+CurrentPaperType            :
+DefaultCapabilities         :
+DefaultCopies               :
+DefaultLanguage             :
+DefaultMimeType             :
+DefaultNumberUp             :
+DefaultPaperType            :
+DetectedErrorState          :
+ErrorInformation            :
+HorizontalResolution        :
+JobCountSinceLastReset      :
+LanguagesSupported          :
+MarkingTechnology           :
+MaxCopies                   :
+MaxNumberUp                 :
+MaxSizeSupported            :
+MimeTypesSupported          :
+NaturalLanguagesSupported   :
+PaperSizesSupported         :
+PaperTypesAvailable         :
+PrinterStatus               :
+TimeOfLastReset             :
+VerticalResolution          :
+Attributes                  :
+AveragePagesPerMinute       :
+Comment                     :
+Default                     :
+DefaultPriority             :
+Direct                      :
+DoCompleteFirst             :
+DriverName                  :
+EnableBIDI                  :
+EnableDevQueryPrint         :
+ExtendedDetectedErrorState  :
+ExtendedPrinterStatus       :
+Hidden                      :
+KeepPrintedJobs             :
+Local                       :
+Location                    :
+Network                     :
+Parameters                  :
+PortName                    :
+PrinterPaperNames           :
+PrinterState                :
+PrintJobDataType            :
+PrintProcessor              :
+Priority                    :
+Published                   :
+Queued                      :
+RawOnly                     :
+SeparatorFile               :
+ServerName                  :
+Shared                      :
+ShareName                   :
+SpoolEnabled                :
+StartTime                   :
+UntilTime                   :
+WorkOffline                 :
+PSComputerName              :
+CimClass                    : root/cimv2:Win32_Printer
+CimInstanceProperties       : {Caption, Description, InstallDate, Name...}
+CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
+
+
+
+
+
+
+Status                      :
+Name                        : Fax
+Caption                     :
+Description                 :
+InstallDate                 :
+Availability                :
+ConfigManagerErrorCode      :
+ConfigManagerUserConfig     :
+CreationClassName           :
+DeviceID                    : Fax
+ErrorCleared                :
+ErrorDescription            :
+LastErrorCode               :
+PNPDeviceID                 :
+PowerManagementCapabilities :
+PowerManagementSupported    :
+StatusInfo                  :
+SystemCreationClassName     :
+SystemName                  :
+AvailableJobSheets          :
+Capabilities                :
+CapabilityDescriptions      :
+CharSetsSupported           :
+CurrentCapabilities         :
+CurrentCharSet              :
+CurrentLanguage             :
+CurrentMimeType             :
+CurrentNaturalLanguage      :
+CurrentPaperType            :
+DefaultCapabilities         :
+DefaultCopies               :
+DefaultLanguage             :
+DefaultMimeType             :
+DefaultNumberUp             :
+DefaultPaperType            :
+DetectedErrorState          :
+ErrorInformation            :
+HorizontalResolution        :
+JobCountSinceLastReset      :
+LanguagesSupported          :
+MarkingTechnology           :
+MaxCopies                   :
+MaxNumberUp                 :
+MaxSizeSupported            :
+MimeTypesSupported          :
+NaturalLanguagesSupported   :
+PaperSizesSupported         :
+PaperTypesAvailable         :
+PrinterStatus               :
+TimeOfLastReset             :
+VerticalResolution          :
+Attributes                  :
+AveragePagesPerMinute       :
+Comment                     :
+Default                     :
+DefaultPriority             :
+Direct                      :
+DoCompleteFirst             :
+DriverName                  :
+EnableBIDI                  :
+EnableDevQueryPrint         :
+ExtendedDetectedErrorState  :
+ExtendedPrinterStatus       :
+Hidden                      :
+KeepPrintedJobs             :
+Local                       :
+Location                    :
+Network                     :
+Parameters                  :
+PortName                    :
+PrinterPaperNames           :
+PrinterState                :
+PrintJobDataType            :
+PrintProcessor              :
+Priority                    :
+Published                   :
+Queued                      :
+RawOnly                     :
+SeparatorFile               :
+ServerName                  :
+Shared                      :
+ShareName                   :
+SpoolEnabled                :
+StartTime                   :
+UntilTime                   :
+WorkOffline                 :
+PSComputerName              :
+CimClass                    : root/cimv2:Win32_Printer
+CimInstanceProperties       : {Caption, Description, InstallDate, Name...}
+CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
+
+
+
+
+
 
 
 `;
 
-const mockPrinterListWithDefaultStdout = `Default  DeviceID                       Name
-FALSE    OneNote for Windows 10         OneNote for Windows 10
-FALSE    Microsoft XPS Document Writer  Microsoft XPS Document Writer
-TRUE     Microsoft Print to PDF         Microsoft Print to PDF
-FALSE    Fax                            Fax
+const mockDefaultPrinterStdout = `
+
+
+Status                      :
+Name                        : Microsoft Print to PDF
+Caption                     :
+Description                 :
+InstallDate                 :
+Availability                :
+ConfigManagerErrorCode      :
+ConfigManagerUserConfig     :
+CreationClassName           :
+DeviceID                    : Microsoft Print to PDF
+ErrorCleared                :
+ErrorDescription            :
+LastErrorCode               :
+PNPDeviceID                 :
+PowerManagementCapabilities :
+PowerManagementSupported    :
+StatusInfo                  :
+SystemCreationClassName     :
+SystemName                  :
+AvailableJobSheets          :
+Capabilities                :
+CapabilityDescriptions      :
+CharSetsSupported           :
+CurrentCapabilities         :
+CurrentCharSet              :
+CurrentLanguage             :
+CurrentMimeType             :
+CurrentNaturalLanguage      :
+CurrentPaperType            :
+DefaultCapabilities         :
+DefaultCopies               :
+DefaultLanguage             :
+DefaultMimeType             :
+DefaultNumberUp             :
+DefaultPaperType            :
+DetectedErrorState          :
+ErrorInformation            :
+HorizontalResolution        :
+JobCountSinceLastReset      :
+LanguagesSupported          :
+MarkingTechnology           :
+MaxCopies                   :
+MaxNumberUp                 :
+MaxSizeSupported            :
+MimeTypesSupported          :
+NaturalLanguagesSupported   :
+PaperSizesSupported         :
+PaperTypesAvailable         :
+PrinterStatus               :
+TimeOfLastReset             :
+VerticalResolution          :
+Attributes                  :
+AveragePagesPerMinute       :
+Comment                     :
+Default                     :
+DefaultPriority             :
+Direct                      :
+DoCompleteFirst             :
+DriverName                  :
+EnableBIDI                  :
+EnableDevQueryPrint         :
+ExtendedDetectedErrorState  :
+ExtendedPrinterStatus       :
+Hidden                      :
+KeepPrintedJobs             :
+Local                       :
+Location                    :
+Network                     :
+Parameters                  :
+PortName                    :
+PrinterPaperNames           :
+PrinterState                :
+PrintJobDataType            :
+PrintProcessor              :
+Priority                    :
+Published                   :
+Queued                      :
+RawOnly                     :
+SeparatorFile               :
+ServerName                  :
+Shared                      :
+ShareName                   :
+SpoolEnabled                :
+StartTime                   :
+UntilTime                   :
+WorkOffline                 :
+PSComputerName              :
+CimClass                    : root/cimv2:Win32_Printer
+CimInstanceProperties       : {Caption, Description, InstallDate, Name...}
+CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
+
+
+
+
+
+
 
 `;
 
@@ -53,7 +528,7 @@ test("returns list of available printers", () => {
 
 test("gets the default printer", () => {
   execAsync.mockImplementation((_, [], callback) =>
-    Promise.resolve(callback(mockPrinterListWithDefaultStdout))
+    Promise.resolve(callback(mockDefaultPrinterStdout))
   );
   // We do not expect "Name" to be in the result because
   // Windows will write to stdout a list of printers under "Name" title.
@@ -67,7 +542,7 @@ test("test no default printer defined", () => {
   execAsync.mockImplementation((_, [], callback) =>
     Promise.resolve(callback(""))
   );
-  return expect(getDefaultPrinter()).resolves.toStrictEqual(false);
+  return expect(getDefaultPrinter()).resolves.toStrictEqual(null);
 });
 
 test("fails with an error", () => {
