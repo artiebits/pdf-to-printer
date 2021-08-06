@@ -1,32 +1,16 @@
 "use strict";
 
 const execFileAsync = require("../utils/exec-file-async");
+const isValidPrinter = require("../utils/windows-printer-valid");
 
 const getDefaultPrinter = () => {
   const stdoutHandler = (stdout) => {
-    stdout = stdout.trim();
+    const printer = stdout.trim();
 
     // If stdout is empty, there is no default printer
     if (!stdout) return null;
 
-    const printerData = {
-      deviceId: null,
-      name: null,
-    };
-
-    const isValid = stdout.split(/\r?\n/).some((line) => {
-      const [label, value] = line.split(":").map((el) => el.trim());
-
-      const lowerLabel = label.toLowerCase();
-
-      if (lowerLabel === "deviceid") printerData.deviceId = value;
-
-      if (lowerLabel === "name") printerData.name = value;
-
-      if (printerData.deviceId && printerData.name) return true;
-
-      return false;
-    });
+    const { isValid, printerData } = isValidPrinter(printer);
 
     // DeviceID or Name not found
     if (!isValid) return null;
