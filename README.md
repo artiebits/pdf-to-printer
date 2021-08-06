@@ -124,10 +124,6 @@ ptp
   .catch(console.error);
 ```
 
-## More examples
-
-We have a few examples in the [source code](/examples).
-
 ## Contact
 
 Please do not hesitate to report a bug or suggest an idea. You can do it [here](https://github.com/artiebits/pdf-to-printer/issues/new/choose).
