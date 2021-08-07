@@ -1,35 +1,29 @@
 "use strict";
 
-const execAsync = require("../utils/exec-file-async");
+const execFileAsync = require("../utils/exec-file-async");
+const isValidPrinter = require("../utils/windows-printer-valid");
 
 const getDefaultPrinter = () => {
   const stdoutHandler = (stdout) => {
-    const result = stdout
-      .trim()
-      .split(/[\r\n]+/)
-      .map((line) => line.trim().split(/\s{2,}/));
+    const printer = stdout.trim();
 
-    const headers = result[0].reduce((acc, curr, index) => {
-      acc[curr] = index;
-      return acc;
-    }, {});
+    // If stdout is empty, there is no default printer
+    if (!stdout) return null;
 
-    const defaultPrinter = result
-      .slice(1)
-      .find((printerData) => printerData[headers["Default"]] === "TRUE");
+    const { isValid, printerData } = isValidPrinter(printer);
 
-    if (!defaultPrinter) return false;
+    // DeviceID or Name not found
+    if (!isValid) return null;
 
-    return {
-      deviceId: defaultPrinter[headers["DeviceID"]],
-      name: defaultPrinter[headers["Name"]],
-    };
+    return printerData;
   };
 
-  // https://ss64.com/nt/wmic.html#alias_options
-  return execAsync(
-    "wmic",
-    ["printer", "get", "default,deviceid,name"],
+  return execFileAsync(
+    "Powershell.exe",
+    [
+      "-Command",
+      "Get-CimInstance Win32_Printer -Property DeviceID,Name -Filter Default=true",
+    ],
     stdoutHandler
   );
 };
