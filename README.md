@@ -9,8 +9,6 @@ A utility to print PDF files from Node.js and Electron.
 - ✅ Works on Windows and Unix-like operating systems.
 - ✅ Supports label printers such as [Rollo](https://www.rolloprinter.com/) and [Zebra](https://www.zebra.com/us/en/products/printers.html).
 
-1 minute survey 👉 https://86gdqz45kjc.typeform.com/to/h6dXCNqX. Let me know what you think about pdf-to-printer. Your feedback will help me improve it for all users. 
-
 ## Installation
 
 Install using [`yarn`](https://yarnpkg.com/):
