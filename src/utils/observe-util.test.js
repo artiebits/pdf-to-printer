@@ -1,6 +1,10 @@
 "use strict";
 
-import { getRandomJobName, findJobLineByName, findJobLineById } from "./helper";
+import {
+  getRandomJobName,
+  findJobLineByName,
+  findJobLineById,
+} from "./observe-util";
 
 test("getRandomJobName returns string", () => {
   expect(typeof getRandomJobName()).toBe("string");

@@ -3,12 +3,12 @@
 import { existsSync } from "fs";
 import execAsync from "../utils/exec-async";
 import print from "./print";
-import { getRandomJobName, findJobLineByName } from "./helper";
+import { getRandomJobName, findJobLineByName } from "../utils/observe-util";
 
 jest.mock("fs");
 jest.mock("path");
 jest.mock("../utils/exec-async");
-jest.mock("./helper");
+jest.mock("../utils/observe-util");
 
 beforeEach(() => {
   // override the implementations

@@ -3,7 +3,10 @@
 const fs = require("fs");
 const splitArgs = require("../utils/split-args");
 const execAsync = require("../utils/exec-async");
-const { getRandomJobName, findJobLineByName } = require("./helper");
+const {
+  getRandomJobName,
+  findJobLineByName,
+} = require("../utils/observe-util");
 
 async function print(pdf, options = {}) {
   if (!pdf) throw "No PDF specified";
