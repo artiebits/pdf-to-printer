@@ -18,7 +18,6 @@ describe.each([
     expect(printer.print).toBeDefined();
     expect(printer.getDefaultPrinter).toBeDefined();
     expect(printer.getPrinters).toBeDefined();
-    expect(printer.observe).toBeDefined();
   });
 });
 

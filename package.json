@@ -1,6 +1,6 @@
 {
   "name": "pdf-to-printer",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A utility to print PDF files from Node.js and Electron",
   "license": "MIT",
   "author": "artiebits <artur.khusaenov@gmail.com>",
@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "lint": "prettier --write \"src/**/*.{js,ts,json,md}\" \"webpack.production.config.js\" \"examples\"",
+    "lint": "prettier --write \"src/**/*.{js,ts,json,md}\" \"webpack.production.config.js\"",
     "build": "webpack --config webpack.production.config.js",
     "prepare": "npm run lint && npm run test && npm run build"
   },

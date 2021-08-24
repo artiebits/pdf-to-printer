@@ -9,8 +9,6 @@ A utility to print PDF files from Node.js and Electron.
 - ✅ Works on Windows and Unix-like operating systems.
 - ✅ Supports label printers such as [Rollo](https://www.rolloprinter.com/) and [Zebra](https://www.zebra.com/us/en/products/printers.html).
 
-1 minute survey 👉 https://86gdqz45kjc.typeform.com/to/h6dXCNqX. Let me know what you think about pdf-to-printer. Your feedback will help me improve it for all users. 
-
 ## Installation
 
 Install using [`yarn`](https://yarnpkg.com/):
@@ -40,7 +38,7 @@ ptp
 
 ## API
 
-### `.print(pdf[, options]) => Promise<JobId>`
+### `.print(pdf[, options]) => Promise<void>`
 
 **Arguments**
 
@@ -53,7 +51,7 @@ ptp
 
 **Returns**
 
-`Promise<JobId>`: A promise that resolves with string jobId (only unix).
+`Promise<void>`.
 
 **Examples**
 
@@ -123,28 +121,6 @@ ptp
   .then(console.log)
   .catch(console.error);
 ```
-
-### `.observe(jobId, timeout, delay [,options]) => Promise<String>`
-
-This method implemented only for unix yet.
-
-**Returns**
-
-`Promise<String>`: A promise that resolves with the value "complete" if the print job has disappeared from the queue 
-or "outdated" if the timeout has expired.
-
-**Examples**
-
-```javascript
-ptp
-  .observe('354', 60000, 1000)
-  .then(console.log)
-  .catch(console.error);
-```
-
-## More examples
-
-We have a few examples in the [source code](/examples).
 
 ## Contact
 
