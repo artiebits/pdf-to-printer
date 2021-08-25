@@ -29,3 +29,5 @@ export function observe(
   delay?: number,
   options?: Options
 ): Promise<JobStatus>;
+
+export function cancel(jobId: JobId, options?: Options): Promise<void>;
