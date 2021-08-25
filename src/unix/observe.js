@@ -9,10 +9,16 @@ const STATUS_COMPLETED = "completed";
 
 // @see https://www.computerhope.com/unix/ulpstat.htm
 // @see https://www.computerhope.com/unix/ulpq.htm
-const observe = (jobId, timeout = 60000, delay = 1000, options = {}) => {
+const observe = (
+  jobId,
+  timeout = 60000,
+  polingInterval = 1000,
+  options = {}
+) => {
   if (!jobId) throw "No jobId specified";
   if (!Number.isInteger(timeout) || timeout < 0) throw "Invalid timeout";
-  if (!Number.isInteger(delay) || delay < 0) throw "Invalid delay";
+  if (!Number.isInteger(polingInterval) || polingInterval < 0)
+    throw "Invalid polingInterval";
 
   const args = [];
 
@@ -64,7 +70,7 @@ const observe = (jobId, timeout = 60000, delay = 1000, options = {}) => {
           }
         })
         .catch((e) => reject(e));
-    }, delay);
+    }, polingInterval);
   });
 };
 

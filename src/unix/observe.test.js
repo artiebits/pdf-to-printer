@@ -44,7 +44,7 @@ test("throws if delay is invalid", async () => {
   try {
     await observe("123", 60000, "some_string");
   } catch (e) {
-    expect(e).toMatch("Invalid delay");
+    expect(e).toMatch("Invalid polingInterval");
   }
 });
 
@@ -52,7 +52,7 @@ test("throws if delay is negative value", async () => {
   try {
     await observe("123", 60000, -1000);
   } catch (e) {
-    expect(e).toMatch("Invalid delay");
+    expect(e).toMatch("Invalid polingInterval");
   }
 });
 

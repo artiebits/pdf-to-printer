@@ -126,6 +126,17 @@ ptp
 
 This method implemented only for unix yet.
 
+**Arguments**
+
+1. `jobId` (`string`): Printing job id returned by the method `print`.
+2. `timeout` (`number`): How log should we wait the result.
+3. `polingDelay` (`number`): How often should we poll the result.
+4. `options` (`Object` [optional]):
+   - `options.printer`: (`string` [optional]): Specifies the destination printer.
+   - `options.username`: (`string` [optional]): Specifies an alternate username.
+   - `options.hostname`: (`string` [optional]): Specifies an alternate server.
+   - `options.unix`: (`array` [optional]): Since we use **lpq** to cancel jobs on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulpq.htm).
+
 **Returns**
 
 `Promise<String>`: A promise that resolves with the value "complete" if the print job has disappeared from the queue 
