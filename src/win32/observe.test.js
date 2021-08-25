@@ -2,7 +2,7 @@
 
 import observe from "./observe";
 
-test("throws if no jobId specified", async () => {
+test("throws exception on win32", async () => {
   try {
     await observe();
   } catch (e) {
