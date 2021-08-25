@@ -162,7 +162,7 @@ Cancels the specific printing job or all jobs.
    - `options.printer`: (`string` [optional]): Specifies the destination printer.
    - `options.username`: (`string` [optional]): Specifies an alternate username.
    - `options.hostname`: (`string` [optional]): Specifies an alternate server.
-   - `options.unix`: (`array` [optional]): Since we use **lprm** to cancel jobs on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulprm.htm).
+   - `options.unix`: (`array` [optional]): Since we use **lprm** to observe jobs on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulprm.htm).
    
 **Returns**
 
