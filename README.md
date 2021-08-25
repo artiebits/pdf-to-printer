@@ -139,6 +139,39 @@ ptp
   .then(console.log)
   .catch(console.error);
 ```
+### `.cancel(jobId[, options]) => Promise<void>`
+
+Cancels the specific printing job or all jobs.
+**This method implemented only for unix yet.**
+
+**Arguments**
+
+1. `jobId` (`string`): Printing job id. To clear a whole queue you should pass `-`.
+2. `options` (`Object` [optional]):
+   - `options.printer`: (`string` [optional]): Specifies the destination printer.
+   - `options.username`: (`string` [optional]): Specifies an alternate username.
+   - `options.hostname`: (`string` [optional]): Specifies an alternate server.
+   - `options.unix`: (`array` [optional]): Since we use **lprm** to cancel jobs on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulprm.htm).
+   
+**Returns**
+
+`Promise<void>`.
+
+**Examples**
+
+```javascript
+ptp
+  .cancel(jobId)
+  .then(console.log)
+  .catch(console.error);
+
+// cancel all jobs
+ptp
+  .cancel('-')
+  .then(console.log)
+  .catch(console.error);
+```
+
 
 ## More examples
 
