@@ -14,6 +14,7 @@ switch (os.platform()) {
       getPrinters: require("./unix/get-printers"),
       getDefaultPrinter: require("./unix/get-default-printer"),
       observe: require("./unix/observe"),
+      cancel: require("./unix/cancel"),
     };
     break;
   case "win32":
@@ -22,6 +23,7 @@ switch (os.platform()) {
       getPrinters: require("./win32/get-printers"),
       getDefaultPrinter: require("./win32/get-default-printer"),
       observe: require("./win32/observe"),
+      cancel: require("./win32/cancel"),
     };
     break;
   default:
