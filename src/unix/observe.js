@@ -54,7 +54,15 @@ const observe = (
 
       execAsync("lpq", args)
         .then((output) => {
-          const line = findJobLineById(jobId, output);
+          if (output.stderr) {
+            throw new Error(`Failed to run command lpq: "${output.stderr}"`);
+          }
+
+          if (!output.stdout) {
+            throw new Error('Empty stdout for command "lpq"');
+          }
+
+          const line = findJobLineById(jobId, output.stdout);
 
           // if the job is not found in the queue we will consider that it was completed
           if (null === line) {

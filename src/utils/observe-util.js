@@ -7,20 +7,20 @@ const getRandomJobName = () => {
   );
 };
 
-const findJobLineByName = (jobName, output) => {
+const findJobLineByName = (jobName, stdout) => {
   const re = new RegExp(
     "^(\\w+)\\s+(\\w+)\\s+(\\d+)\\s+" + jobName + "\\s+?(\\d+)\\s.+$",
     "gim"
   );
-  return re.exec(output);
+  return re.exec(stdout);
 };
 
-const findJobLineById = (jobId, output) => {
+const findJobLineById = (jobId, stdout) => {
   const re = new RegExp(
     "^(\\w+)\\s+(\\w+)\\s+" + jobId + "\\s+(.+)\\s+?(\\d+)\\s.+$",
     "gim"
   );
-  return re.exec(output);
+  return re.exec(stdout);
 };
 
 module.exports = {

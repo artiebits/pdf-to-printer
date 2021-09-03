@@ -1,5 +1,7 @@
 "use strict";
 
+import print from "./print";
+
 const execAsync = require("../utils/exec-async");
 import observe from "./observe";
 
@@ -8,7 +10,12 @@ jest.mock("../utils/exec-async");
 
 beforeEach(() => {
   // override the implementations
-  execAsync.mockImplementation(() => Promise.resolve());
+  execAsync.mockImplementation(() =>
+    Promise.resolve({
+      stdout: "some normal result that does not matter for most tests",
+      stderr: "",
+    })
+  );
 });
 
 afterEach(() => {
@@ -127,6 +134,38 @@ test("it throws if an error occurred in exec", async () => {
   }
 });
 
+test("throws if lqp stderr is not empty", async () => {
+  execAsync.mockImplementation((cmd) => {
+    return Promise.resolve({
+      stdout: "some normal result that does not matter for most tests",
+      stderr: "error description",
+    });
+  });
+
+  try {
+    await observe("123");
+  } catch (e) {
+    expect(e).toEqual(
+      new Error('Failed to run command lpq: "error description"')
+    );
+  }
+});
+
+test("throws if lqp stdout is empty", async () => {
+  execAsync.mockImplementation((cmd) => {
+    return Promise.resolve({
+      stdout: "",
+      stderr: "",
+    });
+  });
+
+  try {
+    await observe("123");
+  } catch (e) {
+    expect(e).toEqual(new Error('Empty stdout for command "lpq"'));
+  }
+});
+
 test('returns "outdated" if timeout expired and the job still in the queue', async () => {
   // we need wait longer
   jest.setTimeout(10000);
@@ -145,7 +184,9 @@ active  user   302     Команда LPQ              386048 байт
 8th     user   311     66 - Поиск в Google       290816 байт
 10th    user   313     RegExp - JavaScript _ MDN       662528 байт
 `;
-  execAsync.mockImplementation(() => Promise.resolve(output));
+  execAsync.mockImplementation(() =>
+    Promise.resolve({ stdout: output, stderr: "" })
+  );
 
   const res = await observe(307, 2000, 500);
   expect(res).toBe("outdated");
@@ -184,11 +225,15 @@ active  user   302     Команда LPQ              386048 байт
 10th    user   313     RegExp - JavaScript _ MDN       662528 байт
 `;
 
-  execAsync.mockImplementation(() => Promise.resolve(output1));
+  execAsync.mockImplementation(() =>
+    Promise.resolve({ stdout: output1, stderr: "" })
+  );
 
   // disappearance emulation
   setTimeout(() => {
-    execAsync.mockImplementation(() => Promise.resolve(output2));
+    execAsync.mockImplementation(() =>
+      Promise.resolve({ stdout: output2, stderr: "" })
+    );
   }, 3000);
 
   const res = await observe(307, 4500, 500);
