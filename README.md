@@ -38,7 +38,7 @@ ptp
 
 ## API
 
-### `.print(pdf[, options]) => Promise<void>`
+### `.print(pdf[, options]) => Promise<JobId>`
 
 **Arguments**
 
@@ -51,7 +51,7 @@ ptp
 
 **Returns**
 
-`Promise<void>`.
+`Promise<JobId>`: A promise that resolves with string jobId (only unix).
 
 **Examples**
 
@@ -121,6 +121,72 @@ ptp
   .then(console.log)
   .catch(console.error);
 ```
+
+### `.observe(jobId, timeout, delay [,options]) => Promise<String>`
+
+This method implemented only for unix yet.
+
+**Arguments**
+
+1. `jobId` (`string`): Printing job id returned by the method `print`.
+2. `timeout` (`number`): How log should we wait the result.
+3. `polingDelay` (`number`): How often should we poll the result.
+4. `options` (`Object` [optional]):
+   - `options.printer`: (`string` [optional]): Specifies the destination printer.
+   - `options.username`: (`string` [optional]): Specifies an alternate username.
+   - `options.hostname`: (`string` [optional]): Specifies an alternate server.
+   - `options.unix`: (`array` [optional]): Since we use **lpq** to cancel jobs on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulpq.htm).
+
+**Returns**
+
+`Promise<String>`: A promise that resolves with the value "complete" if the print job has disappeared from the queue 
+or "outdated" if the timeout has expired.
+
+**Examples**
+
+```javascript
+ptp
+  .observe('354', 60000, 1000)
+  .then(console.log)
+  .catch(console.error);
+```
+### `.cancel(jobId[, options]) => Promise<void>`
+
+Cancels the specific printing job or all jobs.
+**This method implemented only for unix yet.**
+
+**Arguments**
+
+1. `jobId` (`string`): Printing job id. To clear a whole queue you should pass `-`.
+2. `options` (`Object` [optional]):
+   - `options.printer`: (`string` [optional]): Specifies the destination printer.
+   - `options.username`: (`string` [optional]): Specifies an alternate username.
+   - `options.hostname`: (`string` [optional]): Specifies an alternate server.
+   - `options.unix`: (`array` [optional]): Since we use **lprm** to observe jobs on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulprm.htm).
+   
+**Returns**
+
+`Promise<void>`.
+
+**Examples**
+
+```javascript
+ptp
+  .cancel(jobId)
+  .then(console.log)
+  .catch(console.error);
+
+// cancel all jobs
+ptp
+  .cancel('-')
+  .then(console.log)
+  .catch(console.error);
+```
+
+
+## More examples
+
+We have a few examples in the [source code](/examples).
 
 ## Contact
 
