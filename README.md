@@ -32,8 +32,7 @@ import ptp from "pdf-to-printer";
 
 ptp
   .print("assets/pdf-sample.pdf")
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
 
 ## API
@@ -60,8 +59,7 @@ To print a PDF file to the default printer:
 ```javascript
 ptp
   .print("assets/pdf-sample.pdf")
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
 
 To print to a specific printer, add the device id of the printer to options:
@@ -73,8 +71,7 @@ const options = {
 
 ptp
   .print("assets/pdf-sample.pdf", options)
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
 
 To scale the PDF to fit into the printable area of the paper on both Windows and Unix operating systems:
@@ -88,8 +85,7 @@ const options = {
 
 ptp
   .print("assets/pdf-sample.pdf", options)
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
 
 ### `.getPrinters() => Promise<Printer[]>`
@@ -103,8 +99,7 @@ ptp
 ```javascript
 ptp
   .getPrinters()
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
 
 ### `.getDefaultPrinter() => Promise<Printer> | false`
@@ -118,8 +113,7 @@ ptp
 ```javascript
 ptp
   .getDefaultPrinter()
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
 
 ### `.observe(jobId, timeout, delay [,options]) => Promise<String>`
@@ -147,8 +141,7 @@ or "outdated" if the timeout has expired.
 ```javascript
 ptp
   .observe('354', 60000, 1000)
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
 ### `.cancel(jobId[, options]) => Promise<void>`
 
@@ -173,20 +166,13 @@ Cancels the specific printing job or all jobs.
 ```javascript
 ptp
   .cancel(jobId)
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 
 // cancel all jobs
 ptp
   .cancel('-')
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log);
 ```
-
-
-## More examples
-
-We have a few examples in the [source code](/examples).
 
 ## Contact
 
