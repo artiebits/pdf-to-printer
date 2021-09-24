@@ -9,6 +9,9 @@ function throwNotSupportedError() {
 switch (os.platform()) {
   case "darwin":
   case "linux":
+    console.warn(
+      "Pdf-to-printer will stop supporting Unix-like operating systems by the end of October 2021. Make sure you migrated to unix-print package https://github.com/artiebits/unix-print"
+    );
     module.exports = {
       print: require("./unix/print"),
       getPrinters: require("./unix/get-printers"),
