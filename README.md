@@ -1,5 +1,9 @@
 # Node.js PDF printing
 
+If you rely on this package, please consider supporting it:
+
+<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 [![Build Status](https://api.cirrus-ci.com/github/artiebits/pdf-to-printer.svg)](https://cirrus-ci.com/github/artiebits/pdf-to-printer)
 [![codecov](https://codecov.io/gh/artiebits/pdf-to-printer/branch/master/graph/badge.svg)](https://codecov.io/gh/artiebits/pdf-to-printer)
 ![npm](https://img.shields.io/npm/dw/pdf-to-printer)
@@ -180,7 +184,9 @@ Please do not hesitate to report a bug or suggest an idea. You can do it [here](
 
 ## Sponsor this project
 
-If you rely on this package please consider supporting it https://www.buymeacoffee.com/artiebits. I would appreciate it.
+If you are a company and rely on this package, please consider supporting it:
+
+<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## License
 
