@@ -1,36 +1,28 @@
-"use strict";
-
 jest.mock("os");
 
-describe.each([
-  ["Linux", "linux"],
-  ["Darwin", "darwin"],
-  ["Windows", "win32"],
-])("%i operating system", (_, alias) => {
-  test("has `print`, `getDefaultPrinter` and `getPrinters` methods", () => {
-    jest.resetModules();
+test("has `print`, `getDefaultPrinter` and `getPrinters` methods", () => {
+  jest.resetModules();
 
-    const os = require("os");
-    os.platform.mockImplementation(() => alias);
+  const os = require("os");
+  os.platform.mockImplementation(() => "win32");
 
-    const printer = require("./index");
+  const printer = require("./index");
 
-    expect(printer.print).toBeDefined();
-    expect(printer.getDefaultPrinter).toBeDefined();
-    expect(printer.getPrinters).toBeDefined();
-    expect(printer.observe).toBeDefined();
-  });
+  expect(printer.print).toBeDefined();
+  expect(printer.getDefaultPrinter).toBeDefined();
+  expect(printer.getPrinters).toBeDefined();
 });
 
-describe("Unsupported platform", () => {
-  test("throws on unsupported platforms", () => {
+test.each(["linux", "darwin", "test"])(
+  "throws on unsupported platform %i",
+  (platform) => {
     jest.resetModules();
 
     const os = require("os");
-    os.platform.mockImplementation(() => "test");
+    os.platform.mockImplementation(() => platform);
 
     expect(() => require("./index")).toThrowError(
       new Error("Platform not supported")
     );
-  });
-});
+  }
+);
