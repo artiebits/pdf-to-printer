@@ -58,11 +58,11 @@ print("assets/pdf-sample.pdf").then(console.log);
    You may take a look at [this example](/examples/express-server) if you need to download your PDF file first.
 2. `options` (`Object` [optional]):
    - `options.printer`: (`string` [optional]): Print to the specified printer. Will print to the default printer if device id not specified. If the printer device id mistyped or specified printer does not exist, nothing will print.
-   - `options.win32`: (`array` [optional]): And since we use **SumatraPDF** to print documents on Windows you can pass any available in [this list option](https://www.sumatrapdfreader.org/docs/Command-line-arguments.html).
+   - `options.win32`: (`array` [optional]): Any available option from [this list](https://www.sumatrapdfreader.org/docs/Command-line-arguments.html).
 
 **Returns**
 
-`Promise<void>`: A promise that resolves undefined.
+`Promise<void>`: A promise that resolves with undefined.
 
 **Examples**
 
@@ -86,14 +86,13 @@ const options = {
 print("assets/pdf-sample.pdf", options).then(console.log);
 ```
 
-To scale the PDF to fit into the printable area of the paper on both Windows and Unix operating systems:
+To scale the PDF to fit into the printable area of the paper:
 
 ```javascript
 import { print } from "pdf-to-printer";
 
 const options = {
   printer: "Zebra",
-  unix: ["-o fit-to-page"],
   win32: ['-print-settings "fit"'],
 };
 
@@ -114,11 +113,11 @@ import { getPrinters } from "pdf-to-printer";
 getPrinters().then(console.log);
 ```
 
-### `.getDefaultPrinter() => Promise<Printer> | false`
+### `.getDefaultPrinter() => Promise<Printer | null>`
 
 **Returns**
 
-`Promise<Printer | false>`: Default printer or `false` if there is no default printer.
+`Promise<Printer | null>`: Default printer or `null` if there is no default printer.
 
 **Examples**
 

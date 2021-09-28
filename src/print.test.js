@@ -3,7 +3,7 @@
 import { existsSync } from "fs";
 import { join } from "path";
 import execAsync from "./utils/exec-file-async";
-import { fixPathForAsarUnpack } from "./utils/electron-util";
+import fixPathForAsarUnpack from "./utils/electron-util";
 import print from "./print";
 
 jest.mock("fs");

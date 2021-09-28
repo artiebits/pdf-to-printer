@@ -9,6 +9,8 @@ const isUsingAsar =
   process.mainModule &&
   process.mainModule.filename.includes("app.asar");
 
-exports.fixPathForAsarUnpack = (path) => {
+function fixPathForAsarUnpack(path) {
   return isUsingAsar ? path.replace("app.asar", "app.asar.unpacked") : path;
-};
+}
+
+module.exports = fixPathForAsarUnpack;

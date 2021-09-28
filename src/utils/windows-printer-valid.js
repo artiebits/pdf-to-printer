@@ -13,9 +13,7 @@ module.exports = function isValidPrinter(printer) {
 
     if (lowerLabel === "name") printerData.name = value;
 
-    if (printerData.deviceId && printerData.name) return true;
-
-    return false;
+    return !!(printerData.deviceId && printerData.name);
   });
 
   return {

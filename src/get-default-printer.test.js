@@ -37,3 +37,24 @@ test("no default printer defined", async () => {
 
   expect(result).toStrictEqual(null);
 });
+
+it("when did not find any printer info", async () => {
+  const stdout = `
+  Status                      :
+  Caption                     :
+  Description                 :
+  InstallDate                 :
+  Availability                :
+  CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
+  `;
+  execAsync.mockImplementation(() => Promise.resolve({ stdout }));
+
+  const result = await getDefaultPrinter();
+
+  return expect(result).toBe(null);
+});
+
+it("fails with an error", () => {
+  execAsync.mockImplementation(() => Promise.reject("error"));
+  return expect(getDefaultPrinter()).rejects.toBe("error");
+});

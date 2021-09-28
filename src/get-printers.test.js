@@ -81,6 +81,22 @@ it("returns list of available printers", async () => {
   ]);
 });
 
+it("when did not find any printer info", async () => {
+  const stdout = `
+  Status                      :
+  Caption                     :
+  Description                 :
+  InstallDate                 :
+  Availability                :
+  CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
+  `;
+  execAsync.mockImplementation(() => Promise.resolve({ stdout }));
+
+  const result = await getPrinters();
+
+  return expect(result).toEqual([]);
+});
+
 it("fails with an error", () => {
   execAsync.mockImplementation(() => Promise.reject("error"));
   return expect(getPrinters()).rejects.toBe("error");
