@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "lint": "prettier --write \"src/**/*.{js,ts,json,md}\" \"webpack.production.config.js\"",
+    "lint": "prettier --write \"**/*.{js,ts,json,md,yml}\"",
     "build": "webpack --config webpack.production.config.js",
     "prepare": "npm run lint && npm run test && npm run build"
   },

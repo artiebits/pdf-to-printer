@@ -34,9 +34,7 @@ Print a PDF file to the default printer:
 ```javascript
 import ptp from "pdf-to-printer";
 
-ptp
-  .print("assets/pdf-sample.pdf")
-  .then(console.log);
+ptp.print("assets/pdf-sample.pdf").then(console.log);
 ```
 
 ## API
@@ -61,9 +59,7 @@ ptp
 To print a PDF file to the default printer:
 
 ```javascript
-ptp
-  .print("assets/pdf-sample.pdf")
-  .then(console.log);
+ptp.print("assets/pdf-sample.pdf").then(console.log);
 ```
 
 To print to a specific printer, add the device id of the printer to options:
@@ -73,9 +69,7 @@ const options = {
   printer: "Zebra",
 };
 
-ptp
-  .print("assets/pdf-sample.pdf", options)
-  .then(console.log);
+ptp.print("assets/pdf-sample.pdf", options).then(console.log);
 ```
 
 To scale the PDF to fit into the printable area of the paper on both Windows and Unix operating systems:
@@ -87,9 +81,7 @@ const options = {
   win32: ['-print-settings "fit"'],
 };
 
-ptp
-  .print("assets/pdf-sample.pdf", options)
-  .then(console.log);
+ptp.print("assets/pdf-sample.pdf", options).then(console.log);
 ```
 
 ### `.getPrinters() => Promise<Printer[]>`
@@ -101,9 +93,7 @@ ptp
 **Examples**
 
 ```javascript
-ptp
-  .getPrinters()
-  .then(console.log);
+ptp.getPrinters().then(console.log);
 ```
 
 ### `.getDefaultPrinter() => Promise<Printer> | false`
@@ -115,9 +105,7 @@ ptp
 **Examples**
 
 ```javascript
-ptp
-  .getDefaultPrinter()
-  .then(console.log);
+ptp.getDefaultPrinter().then(console.log);
 ```
 
 ### `.observe(jobId, timeout, delay [,options]) => Promise<String>`
@@ -137,16 +125,15 @@ This method implemented only for unix yet.
 
 **Returns**
 
-`Promise<String>`: A promise that resolves with the value "complete" if the print job has disappeared from the queue 
+`Promise<String>`: A promise that resolves with the value "complete" if the print job has disappeared from the queue
 or "outdated" if the timeout has expired.
 
 **Examples**
 
 ```javascript
-ptp
-  .observe('354', 60000, 1000)
-  .then(console.log);
+ptp.observe("354", 60000, 1000).then(console.log);
 ```
+
 ### `.cancel(jobId[, options]) => Promise<void>`
 
 Cancels the specific printing job or all jobs.
@@ -160,7 +147,7 @@ Cancels the specific printing job or all jobs.
    - `options.username`: (`string` [optional]): Specifies an alternate username.
    - `options.hostname`: (`string` [optional]): Specifies an alternate server.
    - `options.unix`: (`array` [optional]): Since we use **lprm** to observe jobs on Unix-like operating systems you can pass any available in [this list option](https://www.computerhope.com/unix/ulprm.htm).
-   
+
 **Returns**
 
 `Promise<void>`.
@@ -168,14 +155,10 @@ Cancels the specific printing job or all jobs.
 **Examples**
 
 ```javascript
-ptp
-  .cancel(jobId)
-  .then(console.log);
+ptp.cancel(jobId).then(console.log);
 
 // cancel all jobs
-ptp
-  .cancel('-')
-  .then(console.log);
+ptp.cancel("-").then(console.log);
 ```
 
 ## Contact
