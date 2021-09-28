@@ -1,7 +1,7 @@
-import execAsync from "./utils/exec-file-async";
+import execAsync from "../utils/exec-file-async";
 import getDefaultPrinter from "./get-default-printer";
 
-jest.mock("./utils/exec-file-async");
+jest.mock("../utils/exec-file-async");
 
 const mockDefaultPrinterStdout = `
 

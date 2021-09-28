@@ -1,7 +1,7 @@
 "use strict";
 
-const execFileAsync = require("./utils/exec-file-async");
-const isValidPrinter = require("./utils/windows-printer-valid");
+const execFileAsync = require("../utils/exec-file-async");
+const isValidPrinter = require("../utils/windows-printer-valid");
 
 async function getDefaultPrinter() {
   try {

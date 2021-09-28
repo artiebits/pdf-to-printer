@@ -2,14 +2,14 @@
 
 import { existsSync } from "fs";
 import { join } from "path";
-import execAsync from "./utils/exec-file-async";
-import fixPathForAsarUnpack from "./utils/electron-util";
+import execAsync from "../utils/exec-file-async";
+import fixPathForAsarUnpack from "../utils/electron-util";
 import print from "./print";
 
 jest.mock("fs");
 jest.mock("path");
-jest.mock("./utils/exec-file-async");
-jest.mock("./utils/electron-util");
+jest.mock("../utils/exec-file-async");
+jest.mock("../utils/electron-util");
 
 beforeEach(() => {
   // override the implementations

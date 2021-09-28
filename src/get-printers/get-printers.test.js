@@ -1,7 +1,7 @@
-import execAsync from "./utils/exec-file-async";
+import execAsync from "../utils/exec-file-async";
 import getPrinters from "./get-printers";
 
-jest.mock("./utils/exec-file-async");
+jest.mock("../utils/exec-file-async");
 
 afterEach(() => {
   // restore the original implementation

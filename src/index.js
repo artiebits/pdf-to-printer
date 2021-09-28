@@ -7,7 +7,7 @@ if (os.platform() !== "win32") {
 }
 
 module.exports = {
-  print: require("./print"),
-  getPrinters: require("./get-printers"),
-  getDefaultPrinter: require("./get-default-printer"),
+  print: require("./print/print"),
+  getPrinters: require("./get-printers/get-printers"),
+  getDefaultPrinter: require("./get-default-printer/get-default-printer"),
 };
