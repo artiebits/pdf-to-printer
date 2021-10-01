@@ -3,8 +3,8 @@
 const execFileAsync = require("../utils/exec-file-async");
 const isValidPrinter = require("../utils/windows-printer-valid");
 
-const getPrinters = () => {
-  const stdoutHandler = (stdout) => {
+async function getPrinters() {
+  function stdoutHandler(stdout) {
     const printers = [];
 
     stdout
@@ -20,13 +20,17 @@ const getPrinters = () => {
       });
 
     return printers;
-  };
+  }
 
-  return execFileAsync(
-    "Powershell.exe",
-    ["-Command", "Get-CimInstance Win32_Printer -Property DeviceID,Name"],
-    stdoutHandler
-  );
-};
+  try {
+    const { stdout } = await execFileAsync("Powershell.exe", [
+      "-Command",
+      "Get-CimInstance Win32_Printer -Property DeviceID,Name",
+    ]);
+    return stdoutHandler(stdout);
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = getPrinters;

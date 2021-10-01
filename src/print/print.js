@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const splitArgs = require("../utils/split-args");
 const execAsync = require("../utils/exec-file-async");
-const { fixPathForAsarUnpack } = require("../utils/electron-util");
+const fixPathForAsarUnpack = require("../utils/electron-util");
 
 const validDestinationArgs = [
   "-print-to",
@@ -12,13 +12,14 @@ const validDestinationArgs = [
   "-print-dialog",
 ];
 
-const print = (pdf, options = {}) => {
+async function print(pdf, options = {}) {
   if (!pdf) throw "No PDF specified";
   if (typeof pdf !== "string") throw "Invalid PDF name";
   if (!fs.existsSync(pdf)) throw "No such file";
 
-  let file = options.sumatraPdfPath || path.join(__dirname, "SumatraPDF.exe");
-  if (!options.sumatraPdfPath) file = fixPathForAsarUnpack(file);
+  let sumatraPdf =
+    options.sumatraPdfPath || path.join(__dirname, "SumatraPDF.exe");
+  if (!options.sumatraPdfPath) sumatraPdf = fixPathForAsarUnpack(sumatraPdf);
 
   const args = [];
 
@@ -54,7 +55,11 @@ const print = (pdf, options = {}) => {
 
   args.push(pdf);
 
-  return execAsync(file, args);
-};
+  try {
+    await execAsync(sumatraPdf, args);
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = print;
