@@ -27,139 +27,142 @@ afterEach(() => {
   join.mockRestore();
 });
 
-test("throws if no PDF specified", () => {
-  const noPdfSpecified = () => print();
-  expect(noPdfSpecified).toThrowError(new Error("No PDF specified"));
+it("throws when no file is specified.", async () => {
+  await expect(print()).rejects.toMatch("No PDF specified");
 });
 
-test("throws if PDF name is invalid", () => {
-  const invalidName = () => print(123);
-  expect(invalidName).toThrowError(new Error("Invalid PDF name"));
+test("throws when path to the file is invalid", async () => {
+  await expect(print(123)).rejects.toMatch("Invalid PDF name");
 });
 
-test("throws if PDF doesn't exist", () => {
-  const noSuchFile = () => print("assets/no-such-file.pdf");
+it("throws when file not found", async () => {
   existsSync.mockImplementation(() => false);
-  expect(noSuchFile).toThrowError(new Error("No such file"));
+
+  await expect(print("file.txt")).rejects.toMatch("No such file");
 });
 
-test("sends the PDF file to the default printer", () => {
+it("sends the PDF file to the default printer", async () => {
   const filename = "assets/pdf-sample.pdf";
-  return print(filename).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to-default",
-      "-silent",
-      filename,
-    ]);
-  });
+
+  await print(filename);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-to-default",
+    "-silent",
+    filename,
+  ]);
 });
 
-test("sends PDF file to the specific printer", () => {
+it("sends PDF file to the specific printer", async () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
   const options = { printer };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to",
-      printer,
-      "-silent",
-      filename,
-    ]);
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-to",
+    printer,
+    "-silent",
+    filename,
+  ]);
 });
 
-test("sends PDF file to the specific printer with a space in its name", () => {
+it("sends PDF file to the specific printer with a space in its name", async () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Microsoft Print to PDF";
   const options = { printer };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to",
-      printer,
-      "-silent",
-      filename,
-    ]);
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-to",
+    printer,
+    "-silent",
+    filename,
+  ]);
 });
 
-test("allows users to pass OS specific options and a printer", () => {
+it("allows users to pass OS specific options and a printer", async () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
   const options = { printer, win32: ['-print-settings "1,2,fit"'] };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-settings",
-      "1,2,fit",
-      "-print-to",
-      printer,
-      "-silent",
-      filename,
-    ]);
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-settings",
+    "1,2,fit",
+    "-print-to",
+    printer,
+    "-silent",
+    filename,
+  ]);
 });
 
-test("allows users to pass OS specific options without a printer", () => {
+it("allows users to pass OS specific options without a printer", async () => {
   const filename = "assets/pdf-sample.pdf";
   const options = { win32: ['-print-settings "1,3,fit"'] };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-settings",
-      "1,3,fit",
-      "-print-to-default",
-      "-silent",
-      filename,
-    ]);
-  });
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-settings",
+    "1,3,fit",
+    "-print-to-default",
+    "-silent",
+    filename,
+  ]);
 });
 
-test("does not set a printer when -print-dialog is set", () => {
+it("does not set a printer when -print-dialog is set", async () => {
   const filename = "assets/pdf-sample.pdf";
   const options = { win32: ["-print-dialog", '-print-settings "1,4,fit"'] };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-dialog",
-      "-print-settings",
-      "1,4,fit",
-      filename,
-    ]);
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-dialog",
+    "-print-settings",
+    "1,4,fit",
+    filename,
+  ]);
 });
 
-test("ignores the passed printer when -print-dialog is set", () => {
+it("ignores the passed printer when -print-dialog is set", async () => {
   const filename = "assets/pdf-sample.pdf";
   const printer = "Zebra";
   const options = {
     printer,
     win32: ["-print-dialog", '-print-settings "1,4,fit"'],
   };
-  return print(filename, options).then(() => {
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-dialog",
-      "-print-settings",
-      "1,4,fit",
-      filename,
-    ]);
-  });
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-dialog",
+    "-print-settings",
+    "1,4,fit",
+    filename,
+  ]);
 });
 
-test("it throws if OS-specific options passed not as an array.", () => {
+it("throws when options passed not as an array.", async () => {
   const filename = "assets/pdf-sample.pdf";
   const options = { win32: '-print-settings "fit"' };
-  const isNotArray = () => print(filename, options);
-  expect(isNotArray).toThrowError(
-    new Error("options.win32 should be an array")
+  await expect(print(filename, options)).rejects.toMatch(
+    "options.win32 should be an array"
   );
 });
 
-test("it works when custom sumatra path specified", () => {
+it("works when custom SumatraPDF path specified", async () => {
   const mockedSumatraPdfPath = "mocked_SumatraPDF.exe";
   const filename = "assets/pdf-sample.pdf";
 
-  return print(filename, { sumatraPdfPath: mockedSumatraPdfPath }).then(() => {
-    expect(execAsync).toHaveBeenCalledWith(mockedSumatraPdfPath, [
-      "-print-to-default",
-      "-silent",
-      filename,
-    ]);
-  });
+  await print(filename, { sumatraPdfPath: mockedSumatraPdfPath });
+
+  expect(execAsync).toHaveBeenCalledWith(mockedSumatraPdfPath, [
+    "-print-to-default",
+    "-silent",
+    filename,
+  ]);
 });

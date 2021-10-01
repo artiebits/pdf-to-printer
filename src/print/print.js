@@ -12,7 +12,7 @@ const validDestinationArgs = [
   "-print-dialog",
 ];
 
-function print(pdf, options = {}) {
+async function print(pdf, options = {}) {
   if (!pdf) throw "No PDF specified";
   if (typeof pdf !== "string") throw "Invalid PDF name";
   if (!fs.existsSync(pdf)) throw "No such file";
@@ -55,7 +55,11 @@ function print(pdf, options = {}) {
 
   args.push(pdf);
 
-  return execAsync(sumatraPdf, args);
+  try {
+    await execAsync(sumatraPdf, args);
+  } catch (error) {
+    throw error;
+  }
 }
 
 module.exports = print;
