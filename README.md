@@ -7,26 +7,24 @@
 A utility to print PDF files from Node.js and Electron.
 
 - Supports label printers such as [Rollo](https://www.rolloprinter.com/) and [Zebra](https://www.zebra.com/us/en/products/printers.html).
-- Works on Windows only.
-
-If you rely on this package, please consider supporting it.
-
-<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+- Works on Windows only. 
+ 
+If you are looking for a utility that will work on **Unix-like operating systems**, then take a look at https://github.com/artiebits/unix-print.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents** 
 
-- [Node.js PDF printing](#nodejs-pdf-printing)
-    - [Installation](#installation)
-    - [Basic Usage](#basic-usage)
-    - [API](#api)
-        - [`.print(pdf[, options]) => Promise<void>`](#printpdf-options--promisevoid)
-        - [`.getPrinters() => Promise<Printer[]>`](#getprinters--promiseprinter)
-        - [`.getDefaultPrinter() => Promise<Printer | null>`](#getdefaultprinter--promiseprinter--null)
-    - [Contact](#contact)
-    - [Sponsor this project](#sponsor-this-project)
-    - [License](#license)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+- [API](#api)
+    - [`.print(pdf[, options]) => Promise<void>`](#printpdf-options--promisevoid)
+    - [`.getPrinters() => Promise<Printer[]>`](#getprinters--promiseprinter)
+    - [`.getDefaultPrinter() => Promise<Printer | null>`](#getdefaultprinter--promiseprinter--null)
+- [Contact](#contact)
+- [Sponsor this project](#sponsor-this-project)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -132,10 +130,6 @@ import { getDefaultPrinter } from "pdf-to-printer";
 
 getDefaultPrinter().then(console.log);
 ```
-
-## Contact
-
-Please do not hesitate to report a bug or suggest an idea. You can do it [here](https://github.com/artiebits/pdf-to-printer/issues/new/choose).
 
 ## Sponsor this project
 
