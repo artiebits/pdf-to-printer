@@ -7,22 +7,19 @@
 A utility to print PDF files from Node.js and Electron.
 
 - Supports label printers such as [Rollo](https://www.rolloprinter.com/) and [Zebra](https://www.zebra.com/us/en/products/printers.html).
-- Works on Windows only. 
- 
+- Works on Windows only.
+
 If you are looking for a utility that will work on **Unix-like operating systems**, then take a look at https://github.com/artiebits/unix-print.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents** 
-
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [API](#api)
-    - [`.print(pdf[, options]) => Promise<void>`](#printpdf-options--promisevoid)
-    - [`.getPrinters() => Promise<Printer[]>`](#getprinters--promiseprinter)
-    - [`.getDefaultPrinter() => Promise<Printer | null>`](#getdefaultprinter--promiseprinter--null)
-- [Contact](#contact)
+  - [`.print(pdf[, options]) => Promise<void>`](#printpdf-options--promisevoid)
+  - [`.getPrinters() => Promise<Printer[]>`](#getprinters--promiseprinter)
+  - [`.getDefaultPrinter() => Promise<Printer | null>`](#getdefaultprinter--promiseprinter--null)
 - [Sponsor this project](#sponsor-this-project)
 - [License](#license)
 

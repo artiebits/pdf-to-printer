@@ -1,7 +1,6 @@
-"use strict";
-
 import { existsSync } from "fs";
 import { join } from "path";
+import { mocked } from "ts-jest/utils";
 import execAsync from "../utils/exec-file-async";
 import fixPathForAsarUnpack from "../utils/electron-util";
 import print from "./print";
@@ -11,32 +10,39 @@ jest.mock("path");
 jest.mock("../utils/exec-file-async");
 jest.mock("../utils/electron-util");
 
+const mockedFixPathForAsarUnpack = mocked(fixPathForAsarUnpack);
+const mockedExistsSync = mocked(existsSync);
+const mockedExecAsync = mocked(execAsync);
+const mockedJoin = mocked(join);
+
 beforeEach(() => {
   // override the implementations
-  fixPathForAsarUnpack.mockImplementation((path) => path);
-  existsSync.mockImplementation(() => true);
-  execAsync.mockImplementation(() => Promise.resolve());
-  join.mockImplementation((_, filename) => "mocked_path_" + filename);
+  mockedFixPathForAsarUnpack.mockImplementation((path) => path);
+  mockedExistsSync.mockImplementation(() => true);
+  mockedExecAsync.mockResolvedValue({ stdout: "", stderr: "" });
+  mockedJoin.mockImplementation((_, filename) => "mocked_path_" + filename);
 });
 
 afterEach(() => {
   // restore the original implementations
-  fixPathForAsarUnpack.mockRestore();
-  existsSync.mockRestore();
-  execAsync.mockRestore();
-  join.mockRestore();
+  mockedFixPathForAsarUnpack.mockRestore();
+  mockedExistsSync.mockRestore();
+  mockedExecAsync.mockRestore();
+  mockedJoin.mockRestore();
 });
 
 it("throws when no file is specified.", async () => {
+  // @ts-ignore
   await expect(print()).rejects.toMatch("No PDF specified");
 });
 
 test("throws when path to the file is invalid", async () => {
+  // @ts-ignore
   await expect(print(123)).rejects.toMatch("Invalid PDF name");
 });
 
 it("throws when file not found", async () => {
-  existsSync.mockImplementation(() => false);
+  mockedExistsSync.mockImplementation(() => false);
 
   await expect(print("file.txt")).rejects.toMatch("No such file");
 });
@@ -149,6 +155,7 @@ it("ignores the passed printer when -print-dialog is set", async () => {
 it("throws when options passed not as an array.", async () => {
   const filename = "assets/pdf-sample.pdf";
   const options = { win32: '-print-settings "fit"' };
+  // @ts-ignore
   await expect(print(filename, options)).rejects.toMatch(
     "options.win32 should be an array"
   );
@@ -165,4 +172,9 @@ it("works when custom SumatraPDF path specified", async () => {
     "-silent",
     filename,
   ]);
+});
+
+it("fails with an error", () => {
+  mockedExecAsync.mockRejectedValue("error");
+  return expect(print("pdf-sample.pdf")).rejects.toBe("error");
 });

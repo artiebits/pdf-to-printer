@@ -1,7 +1,9 @@
-import execAsync from "../utils/exec-file-async";
+import { mocked } from "ts-jest/utils";
 import getDefaultPrinter from "./get-default-printer";
+import execAsync from "../utils/exec-file-async";
 
 jest.mock("../utils/exec-file-async");
+const mockedExecAsync = mocked(execAsync);
 
 const mockDefaultPrinterStdout = `
 
@@ -18,9 +20,10 @@ CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemPrope
 `;
 
 it("gets the default printer", async () => {
-  execAsync.mockImplementation(() =>
-    Promise.resolve({ stdout: mockDefaultPrinterStdout })
-  );
+  mockedExecAsync.mockResolvedValue({
+    stdout: mockDefaultPrinterStdout,
+    stderr: "",
+  });
 
   const result = await getDefaultPrinter();
 
@@ -30,8 +33,8 @@ it("gets the default printer", async () => {
   });
 });
 
-test("no default printer defined", async () => {
-  execAsync.mockImplementation(() => Promise.resolve({ stdout: "" }));
+it("returns null when default printer is not defined", async () => {
+  mockedExecAsync.mockResolvedValue({ stdout: "", stderr: "" });
 
   const result = await getDefaultPrinter();
 
@@ -47,14 +50,14 @@ it("when did not find any printer info", async () => {
   Availability                :
   CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
   `;
-  execAsync.mockImplementation(() => Promise.resolve({ stdout }));
+  mockedExecAsync.mockResolvedValue({ stdout, stderr: "" });
 
   const result = await getDefaultPrinter();
 
   return expect(result).toBe(null);
 });
 
-it("fails with an error", () => {
-  execAsync.mockImplementation(() => Promise.reject("error"));
+it("throws when execAsync fails", () => {
+  mockedExecAsync.mockRejectedValue("error");
   return expect(getDefaultPrinter()).rejects.toBe("error");
 });

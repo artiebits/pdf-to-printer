@@ -1,11 +1,13 @@
+import { mocked } from "ts-jest/utils";
 import execAsync from "../utils/exec-file-async";
 import getPrinters from "./get-printers";
 
 jest.mock("../utils/exec-file-async");
+const mockedExecAsync = mocked(execAsync);
 
 afterEach(() => {
   // restore the original implementation
-  execAsync.mockRestore();
+  mockedExecAsync.mockRestore();
 });
 
 const mockPrinterListStdout = `
@@ -58,9 +60,10 @@ CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemPrope
 `;
 
 it("returns list of available printers", async () => {
-  execAsync.mockImplementation(() =>
-    Promise.resolve({ stdout: mockPrinterListStdout })
-  );
+  mockedExecAsync.mockResolvedValue({
+    stdout: mockPrinterListStdout,
+    stderr: "",
+  });
 
   const result = await getPrinters();
 
@@ -90,7 +93,7 @@ it("when did not find any printer info", async () => {
   Availability                :
   CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
   `;
-  execAsync.mockImplementation(() => Promise.resolve({ stdout }));
+  mockedExecAsync.mockResolvedValue({ stdout, stderr: "" });
 
   const result = await getPrinters();
 
@@ -98,6 +101,6 @@ it("when did not find any printer info", async () => {
 });
 
 it("fails with an error", () => {
-  execAsync.mockImplementation(() => Promise.reject("error"));
+  mockedExecAsync.mockRejectedValue("error");
   return expect(getPrinters()).rejects.toBe("error");
 });
