@@ -173,3 +173,8 @@ it("works when custom SumatraPDF path specified", async () => {
     filename,
   ]);
 });
+
+it("fails with an error", () => {
+  mockedExecAsync.mockRejectedValue("error");
+  return expect(print("pdf-sample.pdf")).rejects.toBe("error");
+});

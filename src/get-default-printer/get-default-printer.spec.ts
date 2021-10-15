@@ -57,7 +57,7 @@ it("when did not find any printer info", async () => {
   return expect(result).toBe(null);
 });
 
-it("fails with an error", () => {
+it("throws when execAsync fails", () => {
   mockedExecAsync.mockRejectedValue("error");
   return expect(getDefaultPrinter()).rejects.toBe("error");
 });
