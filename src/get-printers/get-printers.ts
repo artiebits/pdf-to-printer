@@ -1,11 +1,10 @@
-"use strict";
+import execFileAsync from "../utils/exec-file-async";
+import isValidPrinter from "../utils/windows-printer-valid";
+import { Printer } from "../get-default-printer/get-default-printer";
 
-const execFileAsync = require("../utils/exec-file-async");
-const isValidPrinter = require("../utils/windows-printer-valid");
-
-async function getPrinters() {
-  function stdoutHandler(stdout) {
-    const printers = [];
+async function getPrinters(): Promise<Printer[]> {
+  function stdoutHandler(stdout: string) {
+    const printers: Printer[] = [];
 
     stdout
       .split(/(\r?\n){2,}/)
@@ -33,4 +32,4 @@ async function getPrinters() {
   }
 }
 
-module.exports = getPrinters;
+export default getPrinters;

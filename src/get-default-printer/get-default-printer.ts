@@ -1,9 +1,12 @@
-"use strict";
+import execFileAsync from "../utils/exec-file-async";
+import isValidPrinter from "../utils/windows-printer-valid";
 
-const execFileAsync = require("../utils/exec-file-async");
-const isValidPrinter = require("../utils/windows-printer-valid");
+export interface Printer {
+  deviceId: string;
+  name: string;
+}
 
-async function getDefaultPrinter() {
+async function getDefaultPrinter(): Promise<Printer | null> {
   try {
     const { stdout } = await execFileAsync("Powershell.exe", [
       "-Command",
@@ -26,4 +29,4 @@ async function getDefaultPrinter() {
   }
 }
 
-module.exports = getDefaultPrinter;
+export default getDefaultPrinter;
