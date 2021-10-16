@@ -101,14 +101,15 @@ const options = {
 print("assets/pdf-sample.pdf", options).then(console.log);
 ```
 
-To scale the PDF to fit into the printable area of the paper:
+Example with multiple print settings. It will print pages 1, 3, 5 and scale them so that they fit into the printable area of the paper.
 
 ```javascript
 import { print } from "pdf-to-printer";
 
 const options = {
   printer: "Zebra",
-  win32: ['-print-settings "fit"'],
+  pages: "1-3,5",
+  scale: "fit",
 };
 
 print("assets/pdf-sample.pdf", options).then(console.log);
