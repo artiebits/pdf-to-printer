@@ -6,10 +6,12 @@
 
 A utility to print PDF files from Node.js and Electron.
 
-- Supports label printers such as [Rollo](https://www.rolloprinter.com/) and [Zebra](https://www.zebra.com/us/en/products/printers.html).
+- Supports label printers such as [Rollo](https://www.rolloprinter.com/)
+  and [Zebra](https://www.zebra.com/us/en/products/printers.html).
 - Works on Windows only.
 
-If you are looking for a utility that will work on **Unix-like operating systems**, then take a look at https://github.com/artiebits/unix-print.
+If you are looking for a utility that will work on **Unix-like operating systems**, then take a look
+at https://github.com/artiebits/unix-print.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -51,15 +53,27 @@ print("assets/pdf-sample.pdf").then(console.log);
 
 ## API
 
+A function to print a PDF document.
+
 ### `.print(pdf[, options]) => Promise<void>`
 
 **Arguments**
 
-1. `pdf` (`string`): PDF file to print. Will throw an error if no PDF specified. **Note**: It must be a path to a PDF existing in the file system.
-   You may take a look at [this example](/examples/express-server) if you need to download your PDF file first.
-2. `options` (`Object` [optional]):
-   - `options.printer`: (`string` [optional]): Print to the specified printer. Will print to the default printer if device id not specified. If the printer device id mistyped or specified printer does not exist, nothing will print.
-   - `options.win32`: (`array` [optional]): Any available option from [this list](https://www.sumatrapdfreader.org/docs/Command-line-arguments.html).
+| Argument            |   Type    | Optional | Description                                                                                                                     |
+| ------------------- | :-------: | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| pdf                 | `string`  | Required | A path to the PDF file you want to print. Will throw an error if PDF not specified or not found.                                |
+| options             | `Object`  | Optional |                                                                                                                                 |
+| options.printer     | `string`  | Optional | Send a file to a specific printer.                                                                                              |
+| options.pages       | `string`  | Optional | Specifies which pages to print in the PDF document.                                                                             |
+| options.subset      | `string`  | Optional | Will print odd pages only when value is `odd`. Will print even pages only when `even`.                                          |
+| options.orientation | `string`  | Optional | Can provide 90 degree rotation of contents (NOT the rotation of paper which must be pre-set by the choice of printer defaults). |
+| options.scale       | `string`  | Optional | Supported names `noscale`, `shrink` and `fit`.                                                                                  |
+| options.monochrome  | `boolean` | Optional | Prints the document in black and white. Default is `false`.                                                                     |
+| options.side        | `string`  | Optional | Supported names `duplex`, `duplexshort`, `duplexlong` and `simplex`.                                                            |
+| options.bin         | `string`  | Optional | Select tray to print to. Number or name.                                                                                        |
+| options.paperSize   | `string`  | Optional | Specifies the paper size. Supported names `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`               |
+| options.silent      | `boolean` | Optional | Silences any error messages related to command line printing.                                                                   |
+| options.printDialog | `boolean` | Optional | displays the Print dialog for all the files indicated on this command line.                                                     |
 
 **Returns**
 
@@ -102,6 +116,8 @@ print("assets/pdf-sample.pdf", options).then(console.log);
 
 ### `.getPrinters() => Promise<Printer[]>`
 
+A function to get a list of available printers.
+
 **Returns**
 
 `Promise<Printer[]>`: List of available printers.
@@ -115,6 +131,8 @@ getPrinters().then(console.log);
 ```
 
 ### `.getDefaultPrinter() => Promise<Printer | null>`
+
+A function to get the default printer info.
 
 **Returns**
 
