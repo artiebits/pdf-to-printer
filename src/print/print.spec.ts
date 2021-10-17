@@ -36,11 +36,6 @@ it("throws when no file is specified.", async () => {
   await expect(print()).rejects.toMatch("No PDF specified");
 });
 
-test("throws when path to the file is invalid", async () => {
-  // @ts-ignore
-  await expect(print(123)).rejects.toMatch("Invalid PDF name");
-});
-
 it("throws when file not found", async () => {
   mockedExistsSync.mockImplementation(() => false);
 
@@ -48,7 +43,7 @@ it("throws when file not found", async () => {
 });
 
 it("sends the PDF file to the default printer", async () => {
-  const filename = "assets/pdf-sample.pdf";
+  const filename = "assets/sample.pdf";
 
   await print(filename);
 
@@ -60,7 +55,7 @@ it("sends the PDF file to the default printer", async () => {
 });
 
 it("sends PDF file to the specific printer", async () => {
-  const filename = "assets/pdf-sample.pdf";
+  const filename = "assets/sample.pdf";
   const printer = "Zebra";
   const options = { printer };
 
@@ -75,7 +70,7 @@ it("sends PDF file to the specific printer", async () => {
 });
 
 it("sends PDF file to the specific printer with a space in its name", async () => {
-  const filename = "assets/pdf-sample.pdf";
+  const filename = "assets/sample.pdf";
   const printer = "Microsoft Print to PDF";
   const options = { printer };
 
@@ -89,81 +84,285 @@ it("sends PDF file to the specific printer with a space in its name", async () =
   ]);
 });
 
-it("allows users to pass OS specific options and a printer", async () => {
-  const filename = "assets/pdf-sample.pdf";
-  const printer = "Zebra";
-  const options = { printer, win32: ['-print-settings "1,2,fit"'] };
-
+it("allows users to specify which pages to print in the document", async () => {
+  const filename = "assets/sample.pdf";
+  const options = { pages: "1,3" };
   await print(filename, options);
 
   expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-settings",
-    "1,2,fit",
-    "-print-to",
-    printer,
-    "-silent",
-    filename,
-  ]);
-});
-
-it("allows users to pass OS specific options without a printer", async () => {
-  const filename = "assets/pdf-sample.pdf";
-  const options = { win32: ['-print-settings "1,3,fit"'] };
-  await print(filename, options);
-
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-settings",
-    "1,3,fit",
     "-print-to-default",
     "-silent",
+    "-print-settings",
+    "1,3",
     filename,
   ]);
 });
 
-it("does not set a printer when -print-dialog is set", async () => {
-  const filename = "assets/pdf-sample.pdf";
-  const options = { win32: ["-print-dialog", '-print-settings "1,4,fit"'] };
+describe("paper size", () => {
+  [
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "letter",
+    "legal",
+    "tabloid",
+    "statement",
+  ].forEach((paperSize) => {
+    it(`allows to set paper size to ${paperSize}`, async () => {
+      const filename = "assets/sample.pdf";
+      const options = { paperSize };
+
+      await print(filename, options);
+
+      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+        "-print-to-default",
+        "-silent",
+        "-print-settings",
+        `paper=${paperSize}`,
+        filename,
+      ]);
+    });
+  });
+
+  it("throws when incorrect paper size provided", () => {
+    const filename = "assets/sample.pdf";
+    const options = {
+      paperSize: "foo",
+    };
+
+    return expect(print(filename, options)).rejects.toBe(
+      "Invalid paper size provided. Valid names: A2, A3, A4, A5, A6, letter, legal, tabloid, statement"
+    );
+  });
+});
+
+describe("orientation", () => {
+  ["portrait", "landscape"].forEach((orientation) => {
+    it("allows to specify orientation", async () => {
+      const filename = "assets/sample.pdf";
+      const options = { orientation };
+
+      await print(filename, options);
+
+      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+        "-print-to-default",
+        "-silent",
+        "-print-settings",
+        orientation,
+        filename,
+      ]);
+    });
+  });
+
+  it("throws when incorrect orientation provided", () => {
+    const filename = "assets/sample.pdf";
+    const options = {
+      orientation: "foo",
+    };
+
+    return expect(print(filename, options)).rejects.toBe(
+      "Invalid orientation provided. Valid names: portrait, landscape"
+    );
+  });
+});
+
+describe("monochrome", () => {
+  it("allows to print in black and white", async () => {
+    const filename = "assets/sample.pdf";
+    const options = {
+      monochrome: true,
+    };
+
+    await print(filename, options);
+
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to-default",
+      "-silent",
+      "-print-settings",
+      "monochrome",
+      filename,
+    ]);
+  });
+
+  it("allows to print in color", async () => {
+    const filename = "assets/sample.pdf";
+    const options = {
+      monochrome: false,
+    };
+
+    await print(filename, options);
+
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to-default",
+      "-silent",
+      "-print-settings",
+      "color",
+      filename,
+    ]);
+  });
+});
+
+describe("subset", () => {
+  ["odd", "even"].forEach((subset) => {
+    it(`allows to print {subset} pages only`, async () => {
+      const filename = "assets/sample.pdf";
+      const options = {
+        subset: "odd",
+      };
+
+      await print(filename, options);
+
+      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+        "-print-to-default",
+        "-silent",
+        "-print-settings",
+        "odd",
+        filename,
+      ]);
+    });
+  });
+
+  it("throws when incorrect subset provided", () => {
+    const filename = "assets/sample.pdf";
+    const options = {
+      subset: "foo",
+    };
+
+    return expect(print(filename, options)).rejects.toBe(
+      "Invalid subset provided. Valid names: odd, even"
+    );
+  });
+});
+
+describe("scale", () => {
+  ["noscale", "shrink", "fit"].forEach((scale) => {
+    it(`allows to set scale to ${scale}`, async () => {
+      const filename = "assets/sample.pdf";
+      const options = { scale };
+
+      await print(filename, options);
+
+      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+        "-print-to-default",
+        "-silent",
+        "-print-settings",
+        scale,
+        filename,
+      ]);
+    });
+  });
+
+  it("throws when incorrect scale provided", () => {
+    const filename = "assets/sample.pdf";
+    const options = {
+      scale: "foo",
+    };
+
+    return expect(print(filename, options)).rejects.toBe(
+      "Invalid scale provided. Valid names: noscale, shrink, fit"
+    );
+  });
+});
+
+describe("side", () => {
+  ["duplex", "duplexshort", "duplexlong", "simplex"].forEach((side) => {
+    it(`allows to set side to ${side}`, async () => {
+      const filename = "assets/sample.pdf";
+      const options = { side };
+
+      await print(filename, options);
+
+      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+        "-print-to-default",
+        "-silent",
+        "-print-settings",
+        side,
+        filename,
+      ]);
+    });
+  });
+
+  it("throws when incorrect side provided", () => {
+    const filename = "assets/sample.pdf";
+    const options = {
+      side: "foo",
+    };
+
+    return expect(print(filename, options)).rejects.toBe(
+      "Invalid side provided. Valid names: duplex, duplexshort, duplexlong, simplex"
+    );
+  });
+});
+
+describe("bin", () => {
+  it("allows to select tray to print to", async () => {
+    const filename = "assets/sample.pdf";
+    const options = { bin: "1" };
+
+    await print(filename, options);
+
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to-default",
+      "-silent",
+      "-print-settings",
+      "bin=1",
+      filename,
+    ]);
+  });
+});
+
+it("does not set a printer when printDialog is set to true", async () => {
+  const filename = "assets/sample.pdf";
+  const options = { printer: "Zebra", printDialog: true };
 
   await print(filename, options);
 
   expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
     "-print-dialog",
-    "-print-settings",
-    "1,4,fit",
     filename,
   ]);
 });
 
-it("ignores the passed printer when -print-dialog is set", async () => {
-  const filename = "assets/pdf-sample.pdf";
-  const printer = "Zebra";
+it("allows to turn on SumatraPDF error messages", async () => {
+  const filename = "assets/sample.pdf";
+  const options = { silent: false };
+
+  await print(filename, options);
+
+  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+    "-print-to-default",
+    filename,
+  ]);
+});
+
+it("allows to set multiple print settings", async () => {
+  const filename = "assets/sample.pdf";
   const options = {
-    printer,
-    win32: ["-print-dialog", '-print-settings "1,4,fit"'],
+    printer: "Zebra",
+    pages: "1-3,5",
+    subset: "odd",
+    scale: "fit",
+    bin: "2",
+    paperSize: "A2",
   };
 
   await print(filename, options);
 
   expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-dialog",
+    "-print-to",
+    "Zebra",
+    "-silent",
     "-print-settings",
-    "1,4,fit",
+    "1-3,5,odd,fit,bin=2,paper=A2",
     filename,
   ]);
 });
 
-it("throws when options passed not as an array.", async () => {
-  const filename = "assets/pdf-sample.pdf";
-  const options = { win32: '-print-settings "fit"' };
-  // @ts-ignore
-  await expect(print(filename, options)).rejects.toMatch(
-    "options.win32 should be an array"
-  );
-});
-
 it("works when custom SumatraPDF path specified", async () => {
   const mockedSumatraPdfPath = "mocked_SumatraPDF.exe";
-  const filename = "assets/pdf-sample.pdf";
+  const filename = "assets/sample.pdf";
 
   await print(filename, { sumatraPdfPath: mockedSumatraPdfPath });
 
@@ -176,5 +375,5 @@ it("works when custom SumatraPDF path specified", async () => {
 
 it("fails with an error", () => {
   mockedExecAsync.mockRejectedValue("error");
-  return expect(print("pdf-sample.pdf")).rejects.toBe("error");
+  return expect(print("sample.pdf")).rejects.toBe("error");
 });
