@@ -59,25 +59,23 @@ A function to print a PDF document.
 
 **Arguments**
 
-| Argument            |   Type    | Optional | Description                                                                                                                     |
-| ------------------- | :-------: | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| pdf                 | `string`  | Required | A path to the PDF file you want to print. Will throw an error if PDF not specified or not found.                                |
-| options             | `Object`  | Optional |                                                                                                                                 |
-| options.printer     | `string`  | Optional | Send a file to a specific printer.                                                                                              |
-| options.pages       | `string`  | Optional | Specifies which pages to print in the PDF document.                                                                             |
-| options.subset      | `string`  | Optional | Will print odd pages only when value is `odd`. Will print even pages only when `even`.                                          |
-| options.orientation | `string`  | Optional | Can provide 90 degree rotation of contents (NOT the rotation of paper which must be pre-set by the choice of printer defaults). |
-| options.scale       | `string`  | Optional | Supported names `noscale`, `shrink` and `fit`.                                                                                  |
-| options.monochrome  | `boolean` | Optional | Prints the document in black and white. Default is `false`.                                                                     |
-| options.side        | `string`  | Optional | Supported names `duplex`, `duplexshort`, `duplexlong` and `simplex`.                                                            |
-| options.bin         | `string`  | Optional | Select tray to print to. Number or name.                                                                                        |
-| options.paperSize   | `string`  | Optional | Specifies the paper size. Supported names `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`               |
-| options.silent      | `boolean` | Optional | Silences any error messages related to command line printing.                                                                   |
-| options.printDialog | `boolean` | Optional | displays the Print dialog for all the files indicated on this command line.                                                     |
+1. `pdf` (`string`, Required): A path to the PDF file you want to print. Will throw an error if PDF not specified or not found.
+2. `options` (`Object`, Optional):
+   - `printer` ( `string`, Optional): Send a file to the specified printer.
+   - `pages` (`string`, Optional): Specifies which pages to print in the PDF document.
+   - `subset` (`string`, Optional): Will print odd pages only when value is `odd`. Will print even pages only when `even`.
+   - `orientation` (`string`, Optional): Can provide 90-degree rotation of contents (NOT the rotation of paper which must be pre-set by the choice of printer defaults).
+   - `scale` (`string`, Optional): Supported names `noscale`, `shrink` and `fit`.
+   - `monochrome` (`boolean`, Optional): Prints the document in black and white. Default is `false`.
+   - `side` (`string`, Optional): Supported names `duplex`, `duplexshort`, `duplexlong` and `simplex`.
+   - `bin` (`string`, Optional): Select tray to print to. Number or name.
+   - `paperSize` (`string`, Optional): Specifies the paper size. Supported names `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`.
+   - `silent` (`boolean`, Optional): Silences SumatraPDF's error messages.
+   - `printDialog` (`boolean`, Optional): displays the Print dialog for all the files indicated on this command line.
 
 **Returns**
 
-`Promise<void>`: A promise that resolves with undefined.
+`Promise<void>`: a Promise that resolves with undefined.
 
 **Examples**
 
@@ -89,7 +87,7 @@ import { print } from "pdf-to-printer";
 print("assets/pdf-sample.pdf").then(console.log);
 ```
 
-To print to a specific printer, add the device id of the printer to options:
+To print to a specific printer:
 
 ```javascript
 import { print } from "pdf-to-printer";
@@ -101,7 +99,7 @@ const options = {
 print("assets/pdf-sample.pdf", options).then(console.log);
 ```
 
-Example with multiple print settings. It will print pages 1, 3, 5 and scale them so that they fit into the printable area of the paper.
+Example with a few print settings. It will print pages 1, 3, 5 and scale them so that they fit into the printable area of the paper.
 
 ```javascript
 import { print } from "pdf-to-printer";
@@ -121,7 +119,7 @@ A function to get a list of available printers.
 
 **Returns**
 
-`Promise<Printer[]>`: List of available printers.
+`Promise<Printer[]>`: a Promise that resolves with a list of available printers.
 
 **Examples**
 
@@ -137,7 +135,7 @@ A function to get the default printer info.
 
 **Returns**
 
-`Promise<Printer | null>`: Default printer or `null` if there is no default printer.
+`Promise<Printer | null>`: a Promise that resolves with the default printer info, or `null` if there is no default printer.
 
 **Examples**
 
