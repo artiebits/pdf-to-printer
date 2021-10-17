@@ -325,7 +325,7 @@ it("does not set a printer when printDialog is set to true", async () => {
   ]);
 });
 
-it("slows to turn on SumatraPDF error messages", async () => {
+it("allows to turn on SumatraPDF error messages", async () => {
   const filename = "assets/sample.pdf";
   const options = { silent: false };
 
