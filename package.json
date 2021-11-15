@@ -9,7 +9,7 @@
     "url": "https://github.com/artiebits/pdf-to-printer.git"
   },
   "main": "dist/bundle.js",
-  "types": "dist/**/*.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
