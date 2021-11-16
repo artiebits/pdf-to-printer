@@ -1,5 +1,5 @@
 container:
-  image: node:latest
+  image: node:16
 
 check_task:
   env:
