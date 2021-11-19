@@ -12,17 +12,3 @@ test("has `print`, `getDefaultPrinter` and `getPrinters` methods", () => {
   expect(printer.getDefaultPrinter).toBeDefined();
   expect(printer.getPrinters).toBeDefined();
 });
-
-test.each(["linux", "darwin", "test"])(
-  "throws on unsupported platform %i",
-  (platform) => {
-    jest.resetModules();
-
-    const os = require("os");
-    os.platform.mockImplementation(() => platform);
-
-    expect(() => require("./index")).toThrowError(
-      new Error("Platform not supported")
-    );
-  }
-);

@@ -9,7 +9,7 @@ jest.mock("fs");
 jest.mock("path");
 jest.mock("../utils/exec-file-async");
 jest.mock("../utils/electron-util");
-
+jest.mock("../utils/throw-if-unsupported-os");
 const mockedFixPathForAsarUnpack = mocked(fixPathForAsarUnpack);
 const mockedExistsSync = mocked(existsSync);
 const mockedExecAsync = mocked(execAsync);
