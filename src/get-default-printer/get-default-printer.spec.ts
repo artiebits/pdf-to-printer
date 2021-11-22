@@ -2,6 +2,7 @@ import { mocked } from "ts-jest/utils";
 import getDefaultPrinter from "./get-default-printer";
 import execAsync from "../utils/exec-file-async";
 
+jest.mock("../utils/throw-if-unsupported-os");
 jest.mock("../utils/exec-file-async");
 const mockedExecAsync = mocked(execAsync);
 

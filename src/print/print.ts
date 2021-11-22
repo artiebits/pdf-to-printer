@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs";
 import execAsync from "../utils/exec-file-async";
 import fixPathForAsarUnpack from "../utils/electron-util";
+import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 
 export interface PrintOptions {
   printer?: string;
@@ -38,6 +39,7 @@ export default async function print(
   pdf: string,
   options: PrintOptions = {}
 ): Promise<void> {
+  throwIfUnsupportedOperatingSystem();
   if (!pdf) throw "No PDF specified";
   if (!fs.existsSync(pdf)) throw "No such file";
 
