@@ -72,6 +72,7 @@ A function to print a PDF document.
    - `paperSize` (`string`, Optional): Specifies the paper size. Supported names `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`.
    - `silent` (`boolean`, Optional): Silences SumatraPDF's error messages.
    - `printDialog` (`boolean`, Optional): displays the Print dialog for all the files indicated on this command line.
+   - `copies`(`number`, Optional): Specifies how many copies will be printed.
 
 **Returns**
 

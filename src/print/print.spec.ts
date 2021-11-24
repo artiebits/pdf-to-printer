@@ -313,6 +313,23 @@ describe("bin", () => {
   });
 });
 
+describe("copies", () => {
+  it("file should be printed a specified amount of times", async () => {
+    const filename = "assets/sample.pdf";
+    const options = { copies: 3 };
+
+    await print(filename, options);
+
+    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
+      "-print-to-default",
+      "-silent",
+      "-print-settings",
+      "3x",
+      filename,
+    ]);
+  });
+});
+
 it("does not set a printer when printDialog is set to true", async () => {
   const filename = "assets/sample.pdf";
   const options = { printer: "Zebra", printDialog: true };
