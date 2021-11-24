@@ -17,6 +17,7 @@ export interface PrintOptions {
   silent?: boolean;
   printDialog?: boolean;
   sumatraPdfPath?: string;
+  copies?: number;
 }
 
 const validSubsets = ["odd", "even"];
@@ -89,6 +90,7 @@ function getPrintSettings(options: PrintOptions): string[] {
     side,
     bin,
     paperSize,
+    copies,
   } = options;
 
   const printSettings = [];
@@ -149,6 +151,10 @@ function getPrintSettings(options: PrintOptions): string[] {
         ", "
       )}`;
     }
+  }
+
+  if (copies) {
+    printSettings.push(`${copies}x`);
   }
 
   return printSettings;
