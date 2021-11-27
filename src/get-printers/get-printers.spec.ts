@@ -1,4 +1,5 @@
 import { mocked } from "ts-jest/utils";
+import { Printer } from "../get-default-printer/get-default-printer";
 import execAsync from "../utils/exec-file-async";
 import getPrinters from "./get-printers";
 
@@ -34,7 +35,7 @@ Caption                     :
 Description                 :
 InstallDate                 :
 Availability                :
-DeviceID                    : Microsoft XPS Document Writer
+DeviceID                    : Microsoft-XPS-Document-Writer
 CimClass                    : root/cimv2:Win32_Printer
 CimInstanceProperties       : {Caption, Description, InstallDate, Name...}
 CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
@@ -43,7 +44,7 @@ CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemPrope
 Status                      :
 Name                        : Microsoft Print to PDF
 Description                 :
-DeviceID                    : Microsoft Print to PDF
+DeviceID                    : Microsoft_Print_to_PDF
 CimClass                    : root/cimv2:Win32_Printer
 CimInstanceProperties       : {Caption, Description, InstallDate, Name...}
 CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemProperties
@@ -66,16 +67,16 @@ it("returns list of available printers", async () => {
     stderr: "",
   });
 
-  const result = await getPrinters();
+  const result: Printer[] = await getPrinters();
 
   expect(result).toStrictEqual([
     { deviceId: "OneNote", name: "OneNote" },
     {
-      deviceId: "Microsoft XPS Document Writer",
+      deviceId: "Microsoft-XPS-Document-Writer",
       name: "Microsoft XPS Document Writer",
     },
     {
-      deviceId: "Microsoft Print to PDF",
+      deviceId: "Microsoft_Print_to_PDF",
       name: "Microsoft Print to PDF",
     },
     {

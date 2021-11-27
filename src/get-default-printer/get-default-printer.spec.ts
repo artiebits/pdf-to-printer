@@ -1,5 +1,5 @@
 import { mocked } from "ts-jest/utils";
-import getDefaultPrinter from "./get-default-printer";
+import getDefaultPrinter, { Printer } from "./get-default-printer";
 import execAsync from "../utils/exec-file-async";
 
 jest.mock("../utils/throw-if-unsupported-os");
@@ -26,7 +26,7 @@ it("gets the default printer", async () => {
     stderr: "",
   });
 
-  const result = await getDefaultPrinter();
+  const result: Printer = await getDefaultPrinter();
 
   expect(result).toStrictEqual({
     deviceId: "Microsoft Print to PDF",
