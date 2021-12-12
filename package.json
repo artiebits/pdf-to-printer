@@ -32,7 +32,7 @@
   "devDependencies": {
     "@babel/cli": "7.12.1",
     "@babel/core": "7.16.0",
-    "@babel/preset-env": "7.10.4",
+    "@babel/preset-env": "7.16.4",
     "@babel/preset-typescript": "^7.15.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.0",
