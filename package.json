@@ -41,7 +41,7 @@
     "copy-webpack-plugin": "^5.1.2",
     "husky": "^4.3.0",
     "jest": "^27.2.5",
-    "lint-staged": "^10.4.2",
+    "lint-staged": "^12.1.2",
     "prettier": "2.5.1",
     "ts-jest": "^27.0.6",
     "ts-loader": "^9.2.6",
