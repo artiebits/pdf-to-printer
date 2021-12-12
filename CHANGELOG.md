@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.1.1...v5.2.0) (2021-12-12)
+
+
+### Features
+
+* add dependabot ([18a9cf6](https://www.github.com/artiebits/pdf-to-printer/commit/18a9cf610e6daf106ad62917df1b1e211b99ad4a))
+
 ### [5.1.1](https://www.github.com/artiebits/pdf-to-printer/compare/v5.1.0...v5.1.1) (2021-11-24)
 
 
