@@ -125,17 +125,6 @@ describe("paper size", () => {
       ]);
     });
   });
-
-  it("throws when incorrect paper size provided", () => {
-    const filename = "assets/sample.pdf";
-    const options = {
-      paperSize: "foo",
-    };
-
-    return expect(print(filename, options)).rejects.toBe(
-      "Invalid paper size provided. Valid names: A2, A3, A4, A5, A6, letter, legal, tabloid, statement"
-    );
-  });
 });
 
 describe("orientation", () => {
