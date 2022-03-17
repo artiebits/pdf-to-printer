@@ -1,4 +1,4 @@
-import { mocked } from "ts-jest/utils";
+import { mocked } from "jest-mock";
 import { Printer } from "../get-default-printer/get-default-printer";
 import execAsync from "../utils/exec-file-async";
 import getPrinters from "./get-printers";

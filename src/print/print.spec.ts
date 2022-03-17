@@ -1,6 +1,6 @@
 import { existsSync } from "fs";
 import { join } from "path";
-import { mocked } from "ts-jest/utils";
+import { mocked } from "jest-mock";
 import execAsync from "../utils/exec-file-async";
 import fixPathForAsarUnpack from "../utils/electron-util";
 import print from "./print";
