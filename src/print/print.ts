@@ -143,14 +143,11 @@ function getPrintSettings(options: PrintOptions): string[] {
     printSettings.push(`bin=${bin}`);
   }
 
+  // paper size is represented by the drop down from your printer preference.
+  // For example if you need 4"x3" labels, you would set papersize to
+  // { paperSize: "4.00\"x3.00\"(102mm x 76mm)" }
   if (paperSize) {
-    if (validPaperSizes.includes(paperSize)) {
-      printSettings.push(`paper=${paperSize}`);
-    } else {
-      throw `Invalid paper size provided. Valid names: ${validPaperSizes.join(
-        ", "
-      )}`;
-    }
+    printSettings.push(`paper=${paperSize}`);
   }
 
   if (copies) {
