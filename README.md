@@ -156,7 +156,7 @@ print("assets/Labeli.pdf", {
 })
 ```
 
-The value in this example of `4.00x3.00(102mm x 76mm)` should exist in your printing preference. settings.
+The value in this example of `4.00x3.00(102mm x 76mm)` should exist in your printing preference settings.
 
 ## Sponsor this project
 
