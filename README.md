@@ -69,7 +69,7 @@ A function to print a PDF document.
    - `monochrome` (`boolean`, Optional): Prints the document in black and white. Default is `false`.
    - `side` (`string`, Optional): Supported names `duplex`, `duplexshort`, `duplexlong` and `simplex`.
    - `bin` (`string`, Optional): Select tray to print to. Number or name.
-   - `paperSize` (`string`, Optional): Specifies the paper size. Supported names `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`.
+   - `paperSize` (`string`, Optional): Specifies the paper size. On windows you can find this as a dropdown selection in your printer preference. Refer to Printer Size note below.
    - `silent` (`boolean`, Optional): Silences SumatraPDF's error messages.
    - `printDialog` (`boolean`, Optional): displays the Print dialog for all the files indicated on this command line.
    - `copies`(`number`, Optional): Specifies how many copies will be printed.
@@ -145,6 +145,17 @@ import { getDefaultPrinter } from "pdf-to-printer";
 
 getDefaultPrinter().then(console.log);
 ```
+
+**Printer Size Notes**
+If you need 4"x3" paper size and assuming it is selectable from your printer preference settings, you can set the following:
+
+```
+print("assets/Labeli.pdf", {
+        paperSize: "4.00\"x3.00\"(102mm x 76mm)"
+})
+```
+
+The value in this example of `4.00x3.00(102mm x 76mm)` should exist in your printing preference. settings.
 
 ## Sponsor this project
 
