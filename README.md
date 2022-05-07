@@ -148,7 +148,7 @@ getDefaultPrinter().then(console.log);
 
 ### Printer Size Notes
 
-If you need 4"x3" paper size and assuming it is selectable from your printer preference settings, you can set the following:
+For example, If you need 4"x3" paper size and assuming it is selectable from your printer preference settings, you can set the following:
 
 ```
 print("assets/Labeli.pdf", {
