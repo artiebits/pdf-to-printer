@@ -2,10 +2,9 @@
 
 ## [5.3.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.2.0...v5.3.0) (2022-03-13)
 
-
 ### Features
 
-* export Printer and PrintOptions types ([f96a82f](https://www.github.com/artiebits/pdf-to-printer/commit/f96a82fecb116f79cfdebbcee189c783ca0ee06a))
+- export Printer and PrintOptions types ([f96a82f](https://www.github.com/artiebits/pdf-to-printer/commit/f96a82fecb116f79cfdebbcee189c783ca0ee06a))
 
 ## [5.2.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.1.1...v5.2.0) (2021-12-12)
 
