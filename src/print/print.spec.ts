@@ -47,11 +47,10 @@ it("sends the PDF file to the default printer", async () => {
 
   await print(filename);
 
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-to-default",
-    "-silent",
-    filename,
-  ]);
+  expect(execAsync).toHaveBeenCalledWith(
+    "mocked_path_SumatraPDF-3.4.6-64.exe",
+    ["-print-to-default", "-silent", filename]
+  );
 });
 
 it("sends PDF file to the specific printer", async () => {
@@ -61,12 +60,10 @@ it("sends PDF file to the specific printer", async () => {
 
   await print(filename, options);
 
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-to",
-    printer,
-    "-silent",
-    filename,
-  ]);
+  expect(execAsync).toHaveBeenCalledWith(
+    "mocked_path_SumatraPDF-3.4.6-64.exe",
+    ["-print-to", printer, "-silent", filename]
+  );
 });
 
 it("sends PDF file to the specific printer with a space in its name", async () => {
@@ -76,12 +73,10 @@ it("sends PDF file to the specific printer with a space in its name", async () =
 
   await print(filename, options);
 
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-to",
-    printer,
-    "-silent",
-    filename,
-  ]);
+  expect(execAsync).toHaveBeenCalledWith(
+    "mocked_path_SumatraPDF-3.4.6-64.exe",
+    ["-print-to", printer, "-silent", filename]
+  );
 });
 
 it("allows users to specify which pages to print in the document", async () => {
@@ -89,13 +84,10 @@ it("allows users to specify which pages to print in the document", async () => {
   const options = { pages: "1,3" };
   await print(filename, options);
 
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-to-default",
-    "-silent",
-    "-print-settings",
-    "1,3",
-    filename,
-  ]);
+  expect(execAsync).toHaveBeenCalledWith(
+    "mocked_path_SumatraPDF-3.4.6-64.exe",
+    ["-print-to-default", "-silent", "-print-settings", "1,3", filename]
+  );
 });
 
 describe("paper size", () => {
@@ -116,13 +108,16 @@ describe("paper size", () => {
 
       await print(filename, options);
 
-      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-        "-print-to-default",
-        "-silent",
-        "-print-settings",
-        `paper=${paperSize}`,
-        filename,
-      ]);
+      expect(execAsync).toHaveBeenCalledWith(
+        "mocked_path_SumatraPDF-3.4.6-64.exe",
+        [
+          "-print-to-default",
+          "-silent",
+          "-print-settings",
+          `paper=${paperSize}`,
+          filename,
+        ]
+      );
     });
   });
 
@@ -146,13 +141,16 @@ describe("orientation", () => {
 
       await print(filename, options);
 
-      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-        "-print-to-default",
-        "-silent",
-        "-print-settings",
-        orientation,
-        filename,
-      ]);
+      expect(execAsync).toHaveBeenCalledWith(
+        "mocked_path_SumatraPDF-3.4.6-64.exe",
+        [
+          "-print-to-default",
+          "-silent",
+          "-print-settings",
+          orientation,
+          filename,
+        ]
+      );
     });
   });
 
@@ -177,13 +175,16 @@ describe("monochrome", () => {
 
     await print(filename, options);
 
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to-default",
-      "-silent",
-      "-print-settings",
-      "monochrome",
-      filename,
-    ]);
+    expect(execAsync).toHaveBeenCalledWith(
+      "mocked_path_SumatraPDF-3.4.6-64.exe",
+      [
+        "-print-to-default",
+        "-silent",
+        "-print-settings",
+        "monochrome",
+        filename,
+      ]
+    );
   });
 
   it("allows to print in color", async () => {
@@ -194,13 +195,10 @@ describe("monochrome", () => {
 
     await print(filename, options);
 
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to-default",
-      "-silent",
-      "-print-settings",
-      "color",
-      filename,
-    ]);
+    expect(execAsync).toHaveBeenCalledWith(
+      "mocked_path_SumatraPDF-3.4.6-64.exe",
+      ["-print-to-default", "-silent", "-print-settings", "color", filename]
+    );
   });
 });
 
@@ -214,13 +212,10 @@ describe("subset", () => {
 
       await print(filename, options);
 
-      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-        "-print-to-default",
-        "-silent",
-        "-print-settings",
-        "odd",
-        filename,
-      ]);
+      expect(execAsync).toHaveBeenCalledWith(
+        "mocked_path_SumatraPDF-3.4.6-64.exe",
+        ["-print-to-default", "-silent", "-print-settings", "odd", filename]
+      );
     });
   });
 
@@ -244,13 +239,10 @@ describe("scale", () => {
 
       await print(filename, options);
 
-      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-        "-print-to-default",
-        "-silent",
-        "-print-settings",
-        scale,
-        filename,
-      ]);
+      expect(execAsync).toHaveBeenCalledWith(
+        "mocked_path_SumatraPDF-3.4.6-64.exe",
+        ["-print-to-default", "-silent", "-print-settings", scale, filename]
+      );
     });
   });
 
@@ -274,13 +266,10 @@ describe("side", () => {
 
       await print(filename, options);
 
-      expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-        "-print-to-default",
-        "-silent",
-        "-print-settings",
-        side,
-        filename,
-      ]);
+      expect(execAsync).toHaveBeenCalledWith(
+        "mocked_path_SumatraPDF-3.4.6-64.exe",
+        ["-print-to-default", "-silent", "-print-settings", side, filename]
+      );
     });
   });
 
@@ -303,13 +292,10 @@ describe("bin", () => {
 
     await print(filename, options);
 
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to-default",
-      "-silent",
-      "-print-settings",
-      "bin=1",
-      filename,
-    ]);
+    expect(execAsync).toHaveBeenCalledWith(
+      "mocked_path_SumatraPDF-3.4.6-64.exe",
+      ["-print-to-default", "-silent", "-print-settings", "bin=1", filename]
+    );
   });
 });
 
@@ -320,13 +306,10 @@ describe("copies", () => {
 
     await print(filename, options);
 
-    expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-      "-print-to-default",
-      "-silent",
-      "-print-settings",
-      "3x",
-      filename,
-    ]);
+    expect(execAsync).toHaveBeenCalledWith(
+      "mocked_path_SumatraPDF-3.4.6-64.exe",
+      ["-print-to-default", "-silent", "-print-settings", "3x", filename]
+    );
   });
 });
 
@@ -336,10 +319,10 @@ it("does not set a printer when printDialog is set to true", async () => {
 
   await print(filename, options);
 
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-dialog",
-    filename,
-  ]);
+  expect(execAsync).toHaveBeenCalledWith(
+    "mocked_path_SumatraPDF-3.4.6-64.exe",
+    ["-print-dialog", filename]
+  );
 });
 
 it("allows to turn on SumatraPDF error messages", async () => {
@@ -348,10 +331,10 @@ it("allows to turn on SumatraPDF error messages", async () => {
 
   await print(filename, options);
 
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-to-default",
-    filename,
-  ]);
+  expect(execAsync).toHaveBeenCalledWith(
+    "mocked_path_SumatraPDF-3.4.6-64.exe",
+    ["-print-to-default", filename]
+  );
 });
 
 it("allows to set multiple print settings", async () => {
@@ -367,14 +350,17 @@ it("allows to set multiple print settings", async () => {
 
   await print(filename, options);
 
-  expect(execAsync).toHaveBeenCalledWith("mocked_path_SumatraPDF.exe", [
-    "-print-to",
-    "Zebra",
-    "-silent",
-    "-print-settings",
-    "1-3,5,odd,fit,bin=2,paper=A2",
-    filename,
-  ]);
+  expect(execAsync).toHaveBeenCalledWith(
+    "mocked_path_SumatraPDF-3.4.6-64.exe",
+    [
+      "-print-to",
+      "Zebra",
+      "-silent",
+      "-print-settings",
+      "1-3,5,odd,fit,bin=2,paper=A2",
+      filename,
+    ]
+  );
 });
 
 it("works when custom SumatraPDF path specified", async () => {
