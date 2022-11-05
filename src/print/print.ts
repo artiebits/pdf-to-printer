@@ -4,26 +4,10 @@ import execAsync from "../utils/exec-file-async";
 import fixPathForAsarUnpack from "../utils/electron-util";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 
-export interface PrintOptions {
-  printer?: string;
-  pages?: string;
-  subset?: string;
-  orientation?: string;
-  scale?: string;
-  monochrome?: boolean;
-  side?: string;
-  bin?: string;
-  paperSize?: string;
-  silent?: boolean;
-  printDialog?: boolean;
-  sumatraPdfPath?: string;
-  copies?: number;
-}
-
-const validSubsets = ["odd", "even"];
-const validOrientations = ["portrait", "landscape"];
-const validScales = ["noscale", "shrink", "fit"];
-const validSides = ["duplex", "duplexshort", "duplexlong", "simplex"];
+const validSubsets = ["odd", "even"] as const;
+const validOrientations = ["portrait", "landscape"] as const;
+const validScales = ["noscale", "shrink", "fit"] as const;
+const validSides = ["duplex", "duplexshort", "duplexlong", "simplex"] as const;
 const validPaperSizes = [
   "A2",
   "A3",
@@ -34,7 +18,23 @@ const validPaperSizes = [
   "legal",
   "tabloid",
   "statement",
-];
+] as const;
+
+export interface PrintOptions {
+  printer?: string;
+  pages?: string;
+  subset?: typeof validSubsets[number];
+  orientation?: typeof validOrientations[number];
+  scale?: typeof validScales[number];
+  monochrome?: boolean;
+  side?: typeof validSides[number];
+  bin?: string;
+  paperSize?: typeof validPaperSizes[number];
+  silent?: boolean;
+  printDialog?: boolean;
+  sumatraPdfPath?: string;
+  copies?: number;
+}
 
 export default async function print(
   pdf: string,
