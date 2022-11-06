@@ -2,10 +2,9 @@
 
 ## [5.4.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.3.0...v5.4.0) (2022-11-01)
 
-
 ### Features
 
-* bump SumatraPDF from 3.3.3 to 3.4.6 ([#404](https://www.github.com/artiebits/pdf-to-printer/issues/404)) ([b8c639c](https://www.github.com/artiebits/pdf-to-printer/commit/b8c639ca47952e91c48f522ec1aba738f1f3a5d2))
+- bump SumatraPDF from 3.3.3 to 3.4.6 ([#404](https://www.github.com/artiebits/pdf-to-printer/issues/404)) ([b8c639c](https://www.github.com/artiebits/pdf-to-printer/commit/b8c639ca47952e91c48f522ec1aba738f1f3a5d2))
 
 ## [5.3.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.2.0...v5.3.0) (2022-03-13)
 
