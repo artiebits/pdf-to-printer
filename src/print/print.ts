@@ -24,17 +24,6 @@ const validSubsets = ["odd", "even"];
 const validOrientations = ["portrait", "landscape"];
 const validScales = ["noscale", "shrink", "fit"];
 const validSides = ["duplex", "duplexshort", "duplexlong", "simplex"];
-const validPaperSizes = [
-  "A2",
-  "A3",
-  "A4",
-  "A5",
-  "A6",
-  "letter",
-  "legal",
-  "tabloid",
-  "statement",
-];
 
 export default async function print(
   pdf: string,
@@ -144,13 +133,7 @@ function getPrintSettings(options: PrintOptions): string[] {
   }
 
   if (paperSize) {
-    if (validPaperSizes.includes(paperSize)) {
-      printSettings.push(`paper=${paperSize}`);
-    } else {
-      throw `Invalid paper size provided. Valid names: ${validPaperSizes.join(
-        ", "
-      )}`;
-    }
+    printSettings.push(`paper=${paperSize}`);
   }
 
   if (copies) {
