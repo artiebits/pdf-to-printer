@@ -1,5 +1,5 @@
 container:
-  image: node:16
+  image: node:latest
 
 check_task:
   env:
@@ -8,10 +8,10 @@ check_task:
   node_modules_cache:
     folder: node_modules
     fingerprint_script: cat package-lock.json
-    populate_script: npm install
+    populate_script: yarn install
 
-  lint_script: npm run lint
+  lint_script: yarn run lint
 
-  test_script: npm run test && bash <(curl -s https://codecov.io/bash)
+  test_script: yarn run test && bash <(curl -s https://codecov.io/bash)
 
-  build_script: npm run build
+  build_script: yarn run build
