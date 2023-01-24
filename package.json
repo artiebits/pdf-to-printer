@@ -1,6 +1,6 @@
 {
   "name": "pdf-to-printer",
-  "version": "5.4.0",
+  "version": "5.5.0",
   "description": "A utility to print PDF files from Node.js and Electron",
   "license": "MIT",
   "repository": {

@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.5.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.4.0...v5.5.0) (2023-01-24)
+
+
+### Features
+
+* allow different paper size options ([#434](https://www.github.com/artiebits/pdf-to-printer/issues/434)) ([a5e3b9d](https://www.github.com/artiebits/pdf-to-printer/commit/a5e3b9d563464b4f16b8722d0d255ec507a9b180))
+* update CirrusCI config ([#437](https://www.github.com/artiebits/pdf-to-printer/issues/437)) ([d9a3a72](https://www.github.com/artiebits/pdf-to-printer/commit/d9a3a72d45022c0d50a660756272a4dffdac58bb))
+
+
+### Bug Fixes
+
+* use SumatraPDF 32 bit build ([#435](https://www.github.com/artiebits/pdf-to-printer/issues/435)) ([71b9d07](https://www.github.com/artiebits/pdf-to-printer/commit/71b9d074f1d35d298d8e7a5afe2885b8bb21867a))
+
 ## [5.4.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.3.0...v5.4.0) (2022-11-01)
 
 ### Features
