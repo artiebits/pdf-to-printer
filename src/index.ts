@@ -3,9 +3,7 @@ export { default as getPrinters } from "./get-printers/get-printers";
 export { default as getDefaultPrinter } from "./get-default-printer/get-default-printer";
 export { PrintOptions } from "./print/print";
 
-export type Printer = Partial<{
-  deviceId: string;
-  name: string;
+export type Printer = { deviceId: string; name: string } & Partial<{
   status: string;
   caption: string;
   description: string;
