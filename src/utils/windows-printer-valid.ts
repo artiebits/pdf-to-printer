@@ -2,7 +2,7 @@ import { defaultProperties, Printer } from "../index";
 
 export default function isValidPrinter(
   printer: string,
-  properties = defaultProperties
+  properties: typeof defaultProperties
 ): {
   isValid: boolean;
   printerData: Printer;
