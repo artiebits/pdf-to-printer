@@ -1,9 +1,14 @@
 import execFileAsync from "../utils/exec-file-async";
 import isValidPrinter from "../utils/windows-printer-valid";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
-import { Printer } from "../get-default-printer/get-default-printer";
 
-async function getPrinters(): Promise<Printer[]> {
+import { defaultProperties, Printer } from "..";
+
+async function getPrinters(
+  properties: typeof defaultProperties = []
+): Promise<Printer[]> {
+  properties = properties.concat(defaultProperties);
+
   function stdoutHandler(stdout: string) {
     const printers: Printer[] = [];
 
@@ -12,7 +17,7 @@ async function getPrinters(): Promise<Printer[]> {
       .map((printer) => printer.trim())
       .filter((printer) => !!printer)
       .forEach((printer) => {
-        const { isValid, printerData } = isValidPrinter(printer);
+        const { isValid, printerData } = isValidPrinter(printer, properties);
 
         if (!isValid) return;
 
@@ -22,11 +27,13 @@ async function getPrinters(): Promise<Printer[]> {
     return printers;
   }
 
+  const props = properties.join(",");
+
   try {
     throwIfUnsupportedOperatingSystem();
     const { stdout } = await execFileAsync("Powershell.exe", [
       "-Command",
-      "Get-CimInstance Win32_Printer -Property DeviceID,Name",
+      `Get-CimInstance Win32_Printer -Property ${props}`,
     ]);
     return stdoutHandler(stdout);
   } catch (error) {
