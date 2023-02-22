@@ -1,5 +1,5 @@
 import { mocked } from "jest-mock";
-import { Printer } from "../get-default-printer/get-default-printer";
+import { Printer } from "..";
 import execAsync from "../utils/exec-file-async";
 import getPrinters from "./get-printers";
 
@@ -61,6 +61,20 @@ CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemPrope
 
 `;
 
+const mockPrinterListWithPropertiesStdout =
+  mockPrinterListStdout +
+  `
+
+Status                      : Unknown
+Name                        : 4BARCODE 4B
+Caption                     : 4BARCODE 4B
+DeviceID                    : 4BARCODE 4B
+PaperSizesSupported         : {1, 1, 1, 1...}
+PortName                    : USB001
+PrinterPaperNames           : {USER, 144mm x 100mm, 2 x 4, 4 x 4...}
+
+`;
+
 it("returns list of available printers", async () => {
   mockedExecAsync.mockResolvedValue({
     stdout: mockPrinterListStdout,
@@ -105,4 +119,38 @@ it("when did not find any printer info", async () => {
 it("fails with an error", () => {
   mockedExecAsync.mockRejectedValue("error");
   return expect(getPrinters()).rejects.toBe("error");
+});
+
+it("returns list of available printers with custom properties", async () => {
+  mockedExecAsync.mockResolvedValue({
+    stdout: mockPrinterListWithPropertiesStdout,
+    stderr: "",
+  });
+
+  const result: Printer[] = await getPrinters([
+    "deviceId",
+    "name",
+    "printerPaperNames",
+  ]);
+
+  expect(result).toStrictEqual([
+    { deviceId: "OneNote", name: "OneNote" },
+    {
+      deviceId: "Microsoft-XPS-Document-Writer",
+      name: "Microsoft XPS Document Writer",
+    },
+    {
+      deviceId: "Microsoft_Print_to_PDF",
+      name: "Microsoft Print to PDF",
+    },
+    {
+      deviceId: "Fax",
+      name: "Fax",
+    },
+    {
+      deviceId: "4BARCODE 4B",
+      name: "4BARCODE 4B",
+      printerPaperNames: ["USER", "144mm x 100mm", "2 x 4", "4 x 4"],
+    },
+  ]);
 });
