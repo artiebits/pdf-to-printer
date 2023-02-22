@@ -1,6 +1,9 @@
-import { Printer } from "../get-default-printer/get-default-printer";
+import { defaultProperties, Printer } from "../index";
 
-export default function isValidPrinter(printer: string): {
+export default function isValidPrinter(
+  printer: string,
+  properties = defaultProperties
+): {
   isValid: boolean;
   printerData: Printer;
 } {
@@ -9,19 +12,34 @@ export default function isValidPrinter(printer: string): {
     name: "",
   };
 
-  const isValid = printer.split(/\r?\n/).some((line) => {
-    const [label, value] = line.split(":").map((el) => el.trim());
+  printer.split(/\r?\n/).forEach((line) => {
+    let [label, value] = line.split(":").map((el) => el.trim());
+
+    // handle array dots
+    if (value.match(/^{(.*)(\.{3})}$/)) {
+      value = value.replace("...}", "}");
+    }
+
+    // handle array returns
+    const matches = value.match(/^{(.*)}$/);
+
+    if (matches && matches[1]) {
+      // @ts-ignore
+      value = matches[1].split(", ");
+    }
 
     const lowerLabel = label.toLowerCase();
+    const key = properties.find((prop) => prop.toLowerCase() === lowerLabel);
+
+    if (!value.length) return;
+
+    if (key === undefined) return;
 
     // @ts-ignore
-    if (lowerLabel === "deviceid") printerData.deviceId = value;
-
-    // @ts-ignore
-    if (lowerLabel === "name") printerData.name = value;
-
-    return !!(printerData.deviceId && printerData.name);
+    printerData[key] = value;
   });
+
+  const isValid = !!(printerData.deviceId && printerData.name);
 
   return {
     isValid,
