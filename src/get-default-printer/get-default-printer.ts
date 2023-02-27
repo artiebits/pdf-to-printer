@@ -2,13 +2,9 @@ import execFileAsync from "../utils/exec-file-async";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 import isValidPrinter from "../utils/windows-printer-valid";
 
-import { defaultProperties, Printer } from "..";
+import { properties, Printer } from "..";
 
-async function getDefaultPrinter(
-  properties: typeof defaultProperties = []
-): Promise<Printer | null> {
-  properties = properties.concat(defaultProperties);
-
+async function getDefaultPrinter(): Promise<Printer | null> {
   try {
     throwIfUnsupportedOperatingSystem();
 
@@ -24,7 +20,7 @@ async function getDefaultPrinter(
     // If stdout is empty, there is no default printer
     if (!stdout) return null;
 
-    const { isValid, printerData } = isValidPrinter(printer, properties);
+    const { isValid, printerData } = isValidPrinter(printer);
 
     // DeviceID or Name not found
     if (!isValid) return null;

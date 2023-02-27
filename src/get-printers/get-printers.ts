@@ -2,13 +2,9 @@ import execFileAsync from "../utils/exec-file-async";
 import isValidPrinter from "../utils/windows-printer-valid";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 
-import { defaultProperties, Printer } from "..";
+import { Printer, properties } from "..";
 
-async function getPrinters(
-  properties: typeof defaultProperties = []
-): Promise<Printer[]> {
-  properties = properties.concat(defaultProperties);
-
+async function getPrinters(): Promise<Printer[]> {
   function stdoutHandler(stdout: string) {
     const printers: Printer[] = [];
 
@@ -17,7 +13,7 @@ async function getPrinters(
       .map((printer) => printer.trim())
       .filter((printer) => !!printer)
       .forEach((printer) => {
-        const { isValid, printerData } = isValidPrinter(printer, properties);
+        const { isValid, printerData } = isValidPrinter(printer);
 
         if (!isValid) return;
 
