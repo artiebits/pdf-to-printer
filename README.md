@@ -1,17 +1,19 @@
-# Node.js PDF printing
+# Node.js printing
 
 [![Build Status](https://api.cirrus-ci.com/github/artiebits/pdf-to-printer.svg)](https://cirrus-ci.com/github/artiebits/pdf-to-printer)
 [![codecov](https://codecov.io/gh/artiebits/pdf-to-printer/branch/master/graph/badge.svg)](https://codecov.io/gh/artiebits/pdf-to-printer)
 ![npm](https://img.shields.io/npm/dw/pdf-to-printer)
 
-A utility to print PDF files from Node.js and Electron.
+A utility for printing PDFs and images from Node.js and Electron.
 
-- Supports label printers such as [Rollo](https://www.rolloprinter.com/)
-  and [Zebra](https://www.zebra.com/us/en/products/printers.html).
-- Works on Windows only.
+- Available only on Windows. The Unix-like operating systems utility can be found on https://github.com/artiebits/unix-print.
+- It supports label printers like Rollo and Zebra.
 
-If you are looking for a utility that will work on **Unix-like operating systems**, then take a look
-at https://github.com/artiebits/unix-print.
+## Support This Project
+
+If you rely on this package, please consider supporting it. Maintaining an open source project takes time and your support would be greatly appreciated.
+
+<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 207px !important;" ></a>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -22,70 +24,69 @@ at https://github.com/artiebits/unix-print.
   - [`.print(pdf[, options]) => Promise<void>`](#printpdf-options--promisevoid)
   - [`.getPrinters() => Promise<Printer[]>`](#getprinters--promiseprinter)
   - [`.getDefaultPrinter() => Promise<Printer | null>`](#getdefaultprinter--promiseprinter--null)
-- [Sponsor this project](#sponsor-this-project)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Installation
 
-Install using [`yarn`](https://yarnpkg.com/):
-
-```bash
-yarn add pdf-to-printer
-```
-
-Or [`npm`](https://www.npmjs.com/):
+You can install the package using `npm`:
 
 ```bash
 npm install --save pdf-to-printer
 ```
 
+Or `yarn`
+
+```bash
+yarn add pdf-to-printer
+```
+
 ## Basic Usage
 
-Print a PDF file to the default printer:
+To print a file to the default printer:
 
 ```javascript
 import { print } from "pdf-to-printer";
 
-print("assets/pdf-sample.pdf").then(console.log);
+print("assets/sample.pdf").then(console.log);
 ```
 
 ## API
 
-A function to print a PDF document.
-
 ### `.print(pdf[, options]) => Promise<void>`
+
+A function that prints your file.
 
 **Arguments**
 
-1. `pdf` (`string`, Required): A path to the PDF file you want to print. Will throw an error if PDF not specified or not found.
-2. `options` (`Object`, Optional):
-   - `printer` ( `string`, Optional): Send a file to the specified printer.
-   - `pages` (`string`, Optional): Specifies which pages to print in the PDF document.
-   - `subset` (`string`, Optional): Will print odd pages only when value is `odd`. Will print even pages only when `even`.
-   - `orientation` (`string`, Optional): Can provide 90-degree rotation of contents (NOT the rotation of paper which must be pre-set by the choice of printer defaults).
-   - `scale` (`string`, Optional): Supported names `noscale`, `shrink` and `fit`.
-   - `monochrome` (`boolean`, Optional): Prints the document in black and white. Default is `false`.
-   - `side` (`string`, Optional): Supported names `duplex`, `duplexshort`, `duplexlong` and `simplex`.
-   - `bin` (`string`, Optional): Select tray to print to. Number or name.
-   - `paperSize` (`string`, Optional): Specifies the paper size. `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`, or a name selectable from your printer settings.
-   - `silent` (`boolean`, Optional): Silences SumatraPDF's error messages.
-   - `printDialog` (`boolean`, Optional): displays the Print dialog for all the files indicated on this command line.
-   - `copies`(`number`, Optional): Specifies how many copies will be printed.
+1. `pdf` (`string`, required): A path to the file you want to print. An error will be thrown if the PDF is not specified or not found.
+2. `options` (`Object`, optional):
+   - `printer` ( `string`, optional): Sends the file to the specified printer.
+   - `pages` (`string`, optional): Specifies which pages to print in the PDF document.
+   - `subset` (`string`, optional): Prints odd pages only when the value is `odd`, and even pages only when it is `even`.
+   - `orientation` (`string`, optional): Provides 90-degree rotation of contents (NOT the rotation of paper which must be pre-set by the choice of printer defaults).
+   - `scale` (`string`, optional): Supported names are `noscale`, `shrink`, and `fit`.
+   - `monochrome` (`boolean`, optional): Prints the document in black and white. The default value is `false`.
+   - `side` (`string`, optional): Supported names are `duplex`, `duplexshort`, `duplexlong`, and `simplex`.
+   - `bin` (`string`, optional): Select tray to print to. Number or name.
+   - `paperSize` (`string`, optional): Specifies the paper size. `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`, or a name selectable from your printer settings.
+   - `silent` (`boolean`, optional): Silences error messages.
+   - `printDialog` (`boolean`, optional): Displays the print dialog for all the files indicated on this command line.
+   - `copies`(`number`, optional): Specifies how many copies will be printed.
 
 **Returns**
 
-`Promise<void>`: a Promise that resolves with undefined.
+`Promise<void>`: A Promise that resolves with `undefined`.
 
 **Examples**
 
-To print a PDF file to the default printer:
+To print a file to the default printer, use the following code:
 
 ```javascript
 import { print } from "pdf-to-printer";
 
-print("assets/pdf-sample.pdf").then(console.log);
+print("assets/sample.pdf").then(console.log);
 ```
 
 To print to a specific printer:
@@ -100,7 +101,7 @@ const options = {
 print("assets/pdf-sample.pdf", options).then(console.log);
 ```
 
-Example with a few print settings. It will print pages 1, 3, 5 and scale them so that they fit into the printable area of the paper.
+Here is an example with a few print settings. It will print pages 1, 3, and 5, and scale them so that they fit into the printable area of the paper.
 
 ```javascript
 import { print } from "pdf-to-printer";
@@ -132,11 +133,11 @@ getPrinters().then(console.log);
 
 ### `.getDefaultPrinter() => Promise<Printer | null>`
 
-A function to get the default printer info.
+A function to get the default printer information.
 
 **Returns**
 
-`Promise<Printer | null>`: a Promise that resolves with the default printer info, or `null` if there is no default printer.
+`Promise<Printer | null>`: a Promise that resolves with the default printer information, or `null` if there is no default printer.
 
 **Examples**
 
@@ -145,12 +146,6 @@ import { getDefaultPrinter } from "pdf-to-printer";
 
 getDefaultPrinter().then(console.log);
 ```
-
-## Sponsor this project
-
-If you rely on this package, please consider supporting it:
-
-<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## License
 
