@@ -10,6 +10,7 @@ export default function isValidPrinter(
   const printerData: Printer = {
     deviceId: "",
     name: "",
+    paperSizes: [],
   };
 
   printer.split(/\r?\n/).forEach((line) => {
