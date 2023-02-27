@@ -130,14 +130,6 @@ import { getPrinters } from "pdf-to-printer";
 getPrinters().then(console.log);
 ```
 
-Get printers paper names list
-
-```javascript
-import { getPrinters } from "pdf-to-printer";
-
-getPrinters(["printerPaperNames"]).then(console.log);
-```
-
 ### `.getDefaultPrinter() => Promise<Printer | null>`
 
 A function to get the default printer info.
