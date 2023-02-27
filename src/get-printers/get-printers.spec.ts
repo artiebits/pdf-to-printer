@@ -84,18 +84,21 @@ it("returns list of available printers", async () => {
   const result: Printer[] = await getPrinters();
 
   expect(result).toStrictEqual([
-    { deviceId: "OneNote", name: "OneNote" },
+    { deviceId: "OneNote", name: "OneNote", paperSizes: [] },
     {
       deviceId: "Microsoft-XPS-Document-Writer",
       name: "Microsoft XPS Document Writer",
+      paperSizes: [],
     },
     {
       deviceId: "Microsoft_Print_to_PDF",
       name: "Microsoft Print to PDF",
+      paperSizes: [],
     },
     {
       deviceId: "Fax",
       name: "Fax",
+      paperSizes: [],
     },
   ]);
 });
@@ -127,30 +130,29 @@ it("returns list of available printers with custom properties", async () => {
     stderr: "",
   });
 
-  const result: Printer[] = await getPrinters([
-    "deviceId",
-    "name",
-    "printerPaperNames",
-  ]);
+  const result: Printer[] = await getPrinters();
 
   expect(result).toStrictEqual([
-    { deviceId: "OneNote", name: "OneNote" },
+    { deviceId: "OneNote", name: "OneNote", paperSizes: [] },
     {
       deviceId: "Microsoft-XPS-Document-Writer",
       name: "Microsoft XPS Document Writer",
+      paperSizes: [],
     },
     {
       deviceId: "Microsoft_Print_to_PDF",
       name: "Microsoft Print to PDF",
+      paperSizes: [],
     },
     {
       deviceId: "Fax",
       name: "Fax",
+      paperSizes: [],
     },
     {
       deviceId: "4BARCODE 4B",
       name: "4BARCODE 4B",
-      printerPaperNames: ["USER", "144mm x 100mm", "2 x 4", "4 x 4"],
+      paperSizes: ["USER", "144mm x 100mm", "2 x 4", "4 x 4"],
     },
   ]);
 });

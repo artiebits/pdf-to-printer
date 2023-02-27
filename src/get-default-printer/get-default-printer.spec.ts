@@ -32,6 +32,7 @@ it("gets the default printer", async () => {
   expect(result).toStrictEqual({
     deviceId: "Microsoft Print to PDF",
     name: "Microsoft Print to PDF",
+    paperSizes: [],
   });
 });
 
@@ -81,17 +82,11 @@ it("gets the default printer with custom and repeated properties", async () => {
     stderr: "",
   });
 
-  const result: Printer | null = await getDefaultPrinter([
-    "deviceId",
-    "name",
-    "printerPaperNames",
-    "deviceId",
-    "name",
-  ]);
+  const result: Printer | null = await getDefaultPrinter();
 
   expect(result).toStrictEqual({
     deviceId: "Microsoft Print to PDF",
     name: "Microsoft Print to PDF",
-    printerPaperNames: ["USER", "144mm x 100mm"],
+    paperSizes: ["USER", "144mm x 100mm"],
   });
 });
