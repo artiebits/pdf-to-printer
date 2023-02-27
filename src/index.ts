@@ -7,4 +7,8 @@ export type Printer = { deviceId: string; name: string } & Partial<{
   printerPaperNames: string[];
 }>;
 
-export const defaultProperties: (keyof Printer)[] = ["deviceId", "name"];
+export const defaultProperties: (keyof Printer)[] = [
+  "deviceId",
+  "name",
+  "printerPaperNames",
+];
