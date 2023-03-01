@@ -1,7 +1,6 @@
 import execFileAsync from "../utils/exec-file-async";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 import isValidPrinter from "../utils/windows-printer-valid";
-
 import { properties, Printer } from "..";
 
 async function getDefaultPrinter(): Promise<Printer | null> {
