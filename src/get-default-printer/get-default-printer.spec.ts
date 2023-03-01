@@ -73,7 +73,7 @@ it("gets the default printer with custom and repeated properties", async () => {
   DeviceID                    : Microsoft Print to PDF
   PaperSizesSupported         : {1, 1, 1, 1...}
   PortName                    : USB001
-  PrinterPaperNames           : {USER, 144mm x 100mm}
+  PrinterPaperNames           : {A4, 144mm x 100mm}
   
   `;
 
@@ -87,6 +87,6 @@ it("gets the default printer with custom and repeated properties", async () => {
   expect(result).toStrictEqual({
     deviceId: "Microsoft Print to PDF",
     name: "Microsoft Print to PDF",
-    paperSizes: ["USER", "144mm x 100mm"],
+    paperSizes: ["A4", "144mm x 100mm"],
   });
 });

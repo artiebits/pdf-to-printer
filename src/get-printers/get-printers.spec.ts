@@ -61,20 +61,6 @@ CimSystemProperties         : Microsoft.Management.Infrastructure.CimSystemPrope
 
 `;
 
-const mockPrinterListWithPropertiesStdout =
-  mockPrinterListStdout +
-  `
-
-Status                      : Unknown
-Name                        : 4BARCODE 4B
-Caption                     : 4BARCODE 4B
-DeviceID                    : 4BARCODE 4B
-PaperSizesSupported         : {1, 1, 1, 1...}
-PortName                    : USB001
-PrinterPaperNames           : {USER, 144mm x 100mm, 2 x 4, 4 x 4...}
-
-`;
-
 it("returns list of available printers", async () => {
   mockedExecAsync.mockResolvedValue({
     stdout: mockPrinterListStdout,
@@ -125,34 +111,30 @@ it("fails with an error", () => {
 });
 
 it("returns list of available printers with custom properties", async () => {
+  const stdout = `
+
+  Status                      : Unknown
+  Name                        : Canon Printer
+  Caption                     : Canon Printer
+  DeviceID                    : Canon-Printer
+  PaperSizesSupported         : {1, 1, 1, 1...}
+  PortName                    : USB001
+  PrinterPaperNames           : {A4, 144mm x 100mm, 2 x 4, 4 x 4...}
+  
+  `;
+
   mockedExecAsync.mockResolvedValue({
-    stdout: mockPrinterListWithPropertiesStdout,
+    stdout,
     stderr: "",
   });
 
   const result: Printer[] = await getPrinters();
 
   expect(result).toStrictEqual([
-    { deviceId: "OneNote", name: "OneNote", paperSizes: [] },
     {
-      deviceId: "Microsoft-XPS-Document-Writer",
-      name: "Microsoft XPS Document Writer",
-      paperSizes: [],
-    },
-    {
-      deviceId: "Microsoft_Print_to_PDF",
-      name: "Microsoft Print to PDF",
-      paperSizes: [],
-    },
-    {
-      deviceId: "Fax",
-      name: "Fax",
-      paperSizes: [],
-    },
-    {
-      deviceId: "4BARCODE 4B",
-      name: "4BARCODE 4B",
-      paperSizes: ["USER", "144mm x 100mm", "2 x 4", "4 x 4"],
+      deviceId: "Canon-Printer",
+      name: "Canon Printer",
+      paperSizes: ["A4", "144mm x 100mm", "2 x 4", "4 x 4"],
     },
   ]);
 });
