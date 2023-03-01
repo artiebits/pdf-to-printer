@@ -1,7 +1,7 @@
 {
   "name": "pdf-to-printer",
   "version": "5.5.0",
-  "description": "A utility to print PDF files from Node.js and Electron",
+  "description": "A utility for printing PDFs and images from Node.js and Electron.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -57,8 +57,6 @@
     "rollo-printer",
     "node.js",
     "electron",
-    "windows",
-    "macos",
-    "linux"
+    "windows"
   ]
 }
