@@ -9,4 +9,9 @@ export type Printer = {
   paperSizes: string[];
 };
 
-export const properties: (keyof Printer)[] = ["deviceId", "name", "paperSizes"];
+// map windows-printer key to final printerData key
+export const properties: { [key: string]: keyof Printer } = {
+  DeviceID: "deviceId",
+  Name: "name",
+  PrinterPaperNames: "paperSizes",
+};

@@ -22,7 +22,7 @@ async function getPrinters(): Promise<Printer[]> {
     return printers;
   }
 
-  const props = properties.join(",");
+  const props = Object.keys(properties).join(",");
 
   try {
     throwIfUnsupportedOperatingSystem();

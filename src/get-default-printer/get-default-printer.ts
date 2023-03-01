@@ -7,7 +7,7 @@ async function getDefaultPrinter(): Promise<Printer | null> {
   try {
     throwIfUnsupportedOperatingSystem();
 
-    const props = properties.join(",");
+    const props = Object.keys(properties).join(",");
 
     const { stdout } = await execFileAsync("Powershell.exe", [
       "-Command",

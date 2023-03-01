@@ -1,10 +1,5 @@
 import { Printer, properties } from "../index";
 
-// map windows-printer key to custom key
-const propertyMapping: { [key: string]: string } = {
-  ["PrinterPaperNames".toLowerCase()]: "paperSizes",
-};
-
 export default function isValidPrinter(printer: string): {
   isValid: boolean;
   printerData: Printer;
@@ -31,11 +26,7 @@ export default function isValidPrinter(printer: string): {
       value = matches[1].split(", ");
     }
 
-    const lowerLabel = label.toLowerCase();
-
-    const key =
-      propertyMapping[lowerLabel] ??
-      properties.find((prop) => prop.toLowerCase() === lowerLabel);
+    const key = properties[label];
 
     if (key === undefined) return;
 
