@@ -1,4 +1,11 @@
-import { Printer, properties } from "../index";
+import { Printer } from "../index";
+
+// map windows-printer key to final printerData key
+const properties: { [key: string]: keyof Printer } = {
+  DeviceID: "deviceId",
+  Name: "name",
+  PrinterPaperNames: "paperSizes",
+};
 
 export default function isValidPrinter(printer: string): {
   isValid: boolean;

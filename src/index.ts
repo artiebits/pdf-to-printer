@@ -8,10 +8,3 @@ export type Printer = {
   name: string;
   paperSizes: string[];
 };
-
-// map windows-printer key to final printerData key
-export const properties: { [key: string]: keyof Printer } = {
-  DeviceID: "deviceId",
-  Name: "name",
-  PrinterPaperNames: "paperSizes",
-};
