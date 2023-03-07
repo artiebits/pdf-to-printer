@@ -1,5 +1,5 @@
 import { mocked } from "jest-mock";
-import { Printer } from "../get-default-printer/get-default-printer";
+import { Printer } from "..";
 import execAsync from "../utils/exec-file-async";
 import getPrinters from "./get-printers";
 
@@ -70,18 +70,21 @@ it("returns list of available printers", async () => {
   const result: Printer[] = await getPrinters();
 
   expect(result).toStrictEqual([
-    { deviceId: "OneNote", name: "OneNote" },
+    { deviceId: "OneNote", name: "OneNote", paperSizes: [] },
     {
       deviceId: "Microsoft-XPS-Document-Writer",
       name: "Microsoft XPS Document Writer",
+      paperSizes: [],
     },
     {
       deviceId: "Microsoft_Print_to_PDF",
       name: "Microsoft Print to PDF",
+      paperSizes: [],
     },
     {
       deviceId: "Fax",
       name: "Fax",
+      paperSizes: [],
     },
   ]);
 });
@@ -105,4 +108,33 @@ it("when did not find any printer info", async () => {
 it("fails with an error", () => {
   mockedExecAsync.mockRejectedValue("error");
   return expect(getPrinters()).rejects.toBe("error");
+});
+
+it("returns list of available printers with custom properties", async () => {
+  const stdout = `
+
+  Status                      : Unknown
+  Name                        : Canon Printer
+  Caption                     : Canon Printer
+  DeviceID                    : Canon-Printer
+  PaperSizesSupported         : {1, 1, 1, 1...}
+  PortName                    : USB001
+  PrinterPaperNames           : {A4, 144mm x 100mm, 2 x 4, 4 x 4...}
+  
+  `;
+
+  mockedExecAsync.mockResolvedValue({
+    stdout,
+    stderr: "",
+  });
+
+  const result: Printer[] = await getPrinters();
+
+  expect(result).toStrictEqual([
+    {
+      deviceId: "Canon-Printer",
+      name: "Canon Printer",
+      paperSizes: ["A4", "144mm x 100mm", "2 x 4", "4 x 4"],
+    },
+  ]);
 });

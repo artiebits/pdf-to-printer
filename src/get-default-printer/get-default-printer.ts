@@ -1,11 +1,7 @@
 import execFileAsync from "../utils/exec-file-async";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 import isValidPrinter from "../utils/windows-printer-valid";
-
-export interface Printer {
-  deviceId: string;
-  name: string;
-}
+import { Printer } from "..";
 
 async function getDefaultPrinter(): Promise<Printer | null> {
   try {
@@ -13,7 +9,7 @@ async function getDefaultPrinter(): Promise<Printer | null> {
 
     const { stdout } = await execFileAsync("Powershell.exe", [
       "-Command",
-      "Get-CimInstance Win32_Printer -Property DeviceID,Name -Filter Default=true",
+      `Get-CimInstance Win32_Printer -Property DeviceID,Name,PrinterPaperNames -Filter Default=true`,
     ]);
 
     const printer = stdout.trim();

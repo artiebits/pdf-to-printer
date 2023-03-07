@@ -1,4 +1,11 @@
-import { Printer } from "../get-default-printer/get-default-printer";
+import { Printer } from "../index";
+
+// map windows-printer key to final printerData key
+const properties: { [key: string]: keyof Printer } = {
+  DeviceID: "deviceId",
+  Name: "name",
+  PrinterPaperNames: "paperSizes",
+};
 
 export default function isValidPrinter(printer: string): {
   isValid: boolean;
@@ -7,21 +14,34 @@ export default function isValidPrinter(printer: string): {
   const printerData: Printer = {
     deviceId: "",
     name: "",
+    paperSizes: [],
   };
 
-  const isValid = printer.split(/\r?\n/).some((line) => {
-    const [label, value] = line.split(":").map((el) => el.trim());
+  printer.split(/\r?\n/).forEach((line) => {
+    let [label, value] = line.split(":").map((el) => el.trim());
 
-    const lowerLabel = label.toLowerCase();
+    // handle array dots
+    if (value.match(/^{(.*)(\.{3})}$/)) {
+      value = value.replace("...}", "}");
+    }
+
+    // handle array returns
+    const matches = value.match(/^{(.*)}$/);
+
+    if (matches && matches[1]) {
+      // @ts-ignore
+      value = matches[1].split(", ");
+    }
+
+    const key = properties[label];
+
+    if (key === undefined) return;
 
     // @ts-ignore
-    if (lowerLabel === "deviceid") printerData.deviceId = value;
-
-    // @ts-ignore
-    if (lowerLabel === "name") printerData.name = value;
-
-    return !!(printerData.deviceId && printerData.name);
+    printerData[key] = value;
   });
+
+  const isValid = !!(printerData.deviceId && printerData.name);
 
   return {
     isValid,
