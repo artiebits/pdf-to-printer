@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.6.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.5.0...v5.6.0) (2023-03-07)
+
+
+### Features
+
+* list paper sizes supported by a specific printer ([#447](https://www.github.com/artiebits/pdf-to-printer/issues/447)) ([7f3d331](https://www.github.com/artiebits/pdf-to-printer/commit/7f3d331413dbc5c98c8b5b245539ba38da038d41))
+
 ## [5.5.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.4.0...v5.5.0) (2023-01-24)
 
 
