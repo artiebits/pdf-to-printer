@@ -70,18 +70,21 @@ it("returns list of available printers", async () => {
   const result: Printer[] = await getPrinters();
 
   expect(result).toStrictEqual([
-    { deviceId: "OneNote", name: "OneNote", paperSizes: [] },
+    { status: "", deviceId: "OneNote", name: "OneNote", paperSizes: [] },
     {
+      status: "",
       deviceId: "Microsoft-XPS-Document-Writer",
       name: "Microsoft XPS Document Writer",
       paperSizes: [],
     },
     {
+      status: "",
       deviceId: "Microsoft_Print_to_PDF",
       name: "Microsoft Print to PDF",
       paperSizes: [],
     },
     {
+      status: "",
       deviceId: "Fax",
       name: "Fax",
       paperSizes: [],
@@ -132,6 +135,7 @@ it("returns list of available printers with custom properties", async () => {
 
   expect(result).toStrictEqual([
     {
+      status: "Unknown",
       deviceId: "Canon-Printer",
       name: "Canon Printer",
       paperSizes: ["A4", "144mm x 100mm", "2 x 4", "4 x 4"],

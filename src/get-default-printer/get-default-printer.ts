@@ -9,7 +9,7 @@ async function getDefaultPrinter(): Promise<Printer | null> {
 
     const { stdout } = await execFileAsync("Powershell.exe", [
       "-Command",
-      `Get-CimInstance Win32_Printer -Property DeviceID,Name,PrinterPaperNames -Filter Default=true`,
+      `Get-CimInstance Win32_Printer -Property Status,DeviceID,Name,PrinterPaperNames -Filter Default=true`,
     ]);
 
     const printer = stdout.trim();

@@ -9,7 +9,7 @@ const mockedExecAsync = mocked(execAsync);
 
 const mockDefaultPrinterStdout = `
 
-Status                      :
+Status                      : Error
 Name                        : Microsoft Print to PDF
 Caption                     :
 Description                 :
@@ -30,6 +30,7 @@ it("gets the default printer", async () => {
   const result: Printer | null = await getDefaultPrinter();
 
   expect(result).toStrictEqual({
+    status: "Error",
     deviceId: "Microsoft Print to PDF",
     name: "Microsoft Print to PDF",
     paperSizes: [],
@@ -46,7 +47,7 @@ it("returns null when default printer is not defined", async () => {
 
 it("when did not find any printer info", async () => {
   const stdout = `
-  Status                      :
+  Status                      : Error
   Caption                     :
   Description                 :
   InstallDate                 :
@@ -67,7 +68,7 @@ it("throws when execAsync fails", () => {
 
 it("gets the default printer with custom and repeated properties", async () => {
   const stdout = `
-
+  Status                      : Error
   Name                        : Microsoft Print to PDF
   Caption                     : Microsoft Print to PDF
   DeviceID                    : Microsoft Print to PDF
@@ -85,6 +86,7 @@ it("gets the default printer with custom and repeated properties", async () => {
   const result: Printer | null = await getDefaultPrinter();
 
   expect(result).toStrictEqual({
+    status: "Error",
     deviceId: "Microsoft Print to PDF",
     name: "Microsoft Print to PDF",
     paperSizes: ["A4", "144mm x 100mm"],
