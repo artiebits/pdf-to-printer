@@ -25,7 +25,7 @@ test("fixes path for Electron apps", () => {
   const fixPathForAsarUnpack = require("./electron-util").default;
 
   expect(fixPathForAsarUnpack(path)).toBe(
-    "/Users/artiebits/My.app/Contents/Resources/app.asar.unpacked/node_modules/foo/binary"
+    "/Users/artiebits/My.app/Contents/Resources/app.asar.unpacked/node_modules/foo/binary",
   );
 });
 

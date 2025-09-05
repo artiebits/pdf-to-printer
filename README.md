@@ -6,14 +6,14 @@
 
 A utility for printing PDFs and images from Node.js and Electron.
 
-- Available only on Windows. The Unix-like operating systems utility can be found on https://github.com/artiebits/unix-print.
+- Available only on Windows. The Unix-like operating systems utility can be found on [unix-print](https://github.com/artiebits/unix-print).
 - It supports label printers like Rollo and Zebra.
 
 ## Support This Project
 
 If you rely on this package, please consider supporting it. Maintaining an open source project takes time and your support would be greatly appreciated.
 
-<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 207px !important;" ></a>
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png)](https://www.buymeacoffee.com/artiebits)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -58,7 +58,7 @@ print("assets/sample.pdf").then(console.log);
 
 A function that prints your file.
 
-**Arguments**
+#### Arguments
 
 1. `pdf` (`string`, required): A path to the file you want to print. An error will be thrown if the PDF is not specified or not found.
 2. `options` (`Object`, optional):
@@ -75,11 +75,11 @@ A function that prints your file.
    - `printDialog` (`boolean`, optional): Displays the print dialog for all the files indicated on this command line.
    - `copies`(`number`, optional): Specifies how many copies will be printed.
 
-**Returns**
+#### Returns for `.print`
 
 `Promise<void>`: A Promise that resolves with `undefined`.
 
-**Examples**
+#### Usage Example
 
 To print a file to the default printer, use the following code:
 
@@ -119,11 +119,11 @@ print("assets/pdf-sample.pdf", options).then(console.log);
 
 A function to get a list of available printers.
 
-**Returns**
+#### Returns
 
 `Promise<Printer[]>`: a Promise that resolves with a list of available printers.
 
-**Examples**
+#### Examples for `.getPrinters`
 
 ```javascript
 import { getPrinters } from "pdf-to-printer";
@@ -135,11 +135,11 @@ getPrinters().then(console.log);
 
 A function to get the default printer information.
 
-**Returns**
+#### Returns for `.getDefaultPrinter`
 
 `Promise<Printer | null>`: a Promise that resolves with the default printer information, or `null` if there is no default printer.
 
-**Examples**
+#### Examples
 
 ```javascript
 import { getDefaultPrinter } from "pdf-to-printer";

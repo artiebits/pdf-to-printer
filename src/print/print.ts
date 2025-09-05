@@ -27,14 +27,14 @@ const validSides = ["duplex", "duplexshort", "duplexlong", "simplex"];
 
 export default async function print(
   pdf: string,
-  options: PrintOptions = {}
+  options: PrintOptions = {},
 ): Promise<void> {
   throwIfUnsupportedOperatingSystem();
   if (!pdf) throw "No PDF specified";
   if (!fs.existsSync(pdf)) throw "No such file";
 
   let sumatraPdf =
-    options.sumatraPdfPath || path.join(__dirname, "SumatraPDF-3.4.6-32.exe");
+    options.sumatraPdfPath || path.join(__dirname, "SumatraPDF-3.5.2-32.exe");
   if (!options.sumatraPdfPath) sumatraPdf = fixPathForAsarUnpack(sumatraPdf);
 
   const args: string[] = [];
@@ -101,7 +101,7 @@ function getPrintSettings(options: PrintOptions): string[] {
       printSettings.push(orientation);
     } else {
       throw `Invalid orientation provided. Valid names: ${validOrientations.join(
-        ", "
+        ", ",
       )}`;
     }
   }

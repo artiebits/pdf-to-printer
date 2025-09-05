@@ -31,7 +31,7 @@ afterEach(() => {
   mockedJoin.mockRestore();
 });
 
-const sumatraPdfPath = "mocked_path_SumatraPDF-3.4.6-32.exe";
+const sumatraPdfPath = "mocked_path_SumatraPDF-3.5.2-32.exe";
 
 it("throws when no file is specified.", async () => {
   // @ts-ignore
@@ -92,8 +92,8 @@ it("allows users to specify which pages to print in the document", async () => {
   await print(filename, options);
 
   expect(execAsync).toHaveBeenCalledWith(
-    "mocked_path_SumatraPDF-3.4.6-32.exe",
-    ["-print-to-default", "-silent", "-print-settings", "1,3", filename]
+    "mocked_path_SumatraPDF-3.5.2-32.exe",
+    ["-print-to-default", "-silent", "-print-settings", "1,3", filename],
   );
 });
 
@@ -151,7 +151,7 @@ describe("orientation", () => {
     };
 
     return expect(print(filename, options)).rejects.toBe(
-      "Invalid orientation provided. Valid names: portrait, landscape"
+      "Invalid orientation provided. Valid names: portrait, landscape",
     );
   });
 });
@@ -219,7 +219,7 @@ describe("subset", () => {
     };
 
     return expect(print(filename, options)).rejects.toBe(
-      "Invalid subset provided. Valid names: odd, even"
+      "Invalid subset provided. Valid names: odd, even",
     );
   });
 });
@@ -249,7 +249,7 @@ describe("scale", () => {
     };
 
     return expect(print(filename, options)).rejects.toBe(
-      "Invalid scale provided. Valid names: noscale, shrink, fit"
+      "Invalid scale provided. Valid names: noscale, shrink, fit",
     );
   });
 });
@@ -279,7 +279,7 @@ describe("side", () => {
     };
 
     return expect(print(filename, options)).rejects.toBe(
-      "Invalid side provided. Valid names: duplex, duplexshort, duplexlong, simplex"
+      "Invalid side provided. Valid names: duplex, duplexshort, duplexlong, simplex",
     );
   });
 });
