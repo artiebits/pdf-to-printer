@@ -4,19 +4,35 @@ import execAsync from "../utils/exec-file-async";
 import fixPathForAsarUnpack from "../utils/electron-util";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 
+/**
+ * Configuration options for printing PDFs
+ */
 export interface PrintOptions {
+  /** Name of the printer to use. If not specified, uses the default printer */
   printer?: string;
+  /** Pages to print (e.g., "1-3,5" or "1,3,5") */
   pages?: string;
-  subset?: string;
-  orientation?: string;
-  scale?: string;
+  /** Print only odd or even pages */
+  subset?: "odd" | "even";
+  /** Page orientation */
+  orientation?: "portrait" | "landscape";
+  /** How to scale the content */
+  scale?: "noscale" | "shrink" | "fit";
+  /** Print in black and white */
   monochrome?: boolean;
-  side?: string;
+  /** Duplex printing options */
+  side?: "duplex" | "duplexshort" | "duplexlong" | "simplex";
+  /** Paper tray/bin to use (number or name) */
   bin?: string;
+  /** Paper size (e.g., "A4", "letter", "legal") */
   paperSize?: string;
+  /** Suppress error messages */
   silent?: boolean;
+  /** Show print dialog instead of printing directly */
   printDialog?: boolean;
+  /** Custom path to SumatraPDF executable */
   sumatraPdfPath?: string;
+  /** Number of copies to print */
   copies?: number;
 }
 
@@ -25,6 +41,28 @@ const validOrientations = ["portrait", "landscape"];
 const validScales = ["noscale", "shrink", "fit"];
 const validSides = ["duplex", "duplexshort", "duplexlong", "simplex"];
 
+/**
+ * Prints a PDF file to a printer
+ *
+ * @param pdf - Path to the PDF file to print
+ * @param options - Printing configuration options
+ * @returns Promise that resolves when printing is complete
+ * @throws {Error} If the PDF file doesn't exist or printing fails
+ *
+ * @example
+ * ```typescript
+ * // Print to default printer
+ * await print("document.pdf");
+ *
+ * // Print to specific printer with options
+ * await print("document.pdf", {
+ *   printer: "HP LaserJet",
+ *   pages: "1-3",
+ *   copies: 2,
+ *   paperSize: "A4"
+ * });
+ * ```
+ */
 export default async function print(
   pdf: string,
   options: PrintOptions = {},
