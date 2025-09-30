@@ -1,12 +1,52 @@
-# Node.js printing
+# PDF to Printer
 
 [![codecov](https://codecov.io/gh/artiebits/pdf-to-printer/branch/master/graph/badge.svg)](https://codecov.io/gh/artiebits/pdf-to-printer)
 ![npm](https://img.shields.io/npm/dw/pdf-to-printer)
 
-A utility for printing PDFs and images from Node.js and Electron.
+A powerful Node.js and Electron utility for printing PDFs and images to Windows printers.
 
-- Available only on Windows. The Unix-like operating systems utility can be found on https://github.com/artiebits/unix-print.
-- It supports label printers like Rollo and Zebra.
+## Features
+
+- **Print PDFs and images** to any Windows printer
+- **Precise control** over printing options (pages, orientation, paper size, etc.)
+- **Label printer support** (Rollo, Zebra, and more)
+- **Printer discovery** - list all available printers
+- **Fast and reliable** using SumatraPDF engine
+- **TypeScript support** with full type definitions
+- **Windows only** - for Unix-like systems, see [unix-print](https://github.com/artiebits/unix-print)
+
+## Installation
+
+```bash
+npm install pdf-to-printer
+# or
+yarn add pdf-to-printer
+```
+
+## Quick Start
+
+```typescript
+import { print, getPrinters, getDefaultPrinter } from "pdf-to-printer";
+
+// Print to default printer
+await print("document.pdf");
+
+// Print with options
+await print("document.pdf", {
+  printer: "HP LaserJet",
+  pages: "1-3",
+  copies: 2,
+  paperSize: "A4",
+});
+
+// List available printers
+const printers = await getPrinters();
+console.log(printers);
+
+// Get default printer
+const defaultPrinter = await getDefaultPrinter();
+console.log(defaultPrinter?.name);
+```
 
 ## Support This Project
 
@@ -14,136 +54,91 @@ If you rely on this package, please consider supporting it. Maintaining an open 
 
 <a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 207px !important;" ></a>
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## API Reference
 
-- [Installation](#installation)
-- [Basic Usage](#basic-usage)
-- [API](#api)
-  - [`.print(pdf[, options]) => Promise<void>`](#printpdf-options--promisevoid)
-  - [`.getPrinters() => Promise<Printer[]>`](#getprinters--promiseprinter)
-  - [`.getDefaultPrinter() => Promise<Printer | null>`](#getdefaultprinter--promiseprinter--null)
-- [License](#license)
+### `print(pdf, options?)`
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+Prints a PDF file to a printer.
 
-## Installation
+**Parameters:**
 
-You can install the package using `npm`:
+- `pdf` (string): Path to the PDF file to print
+- `options` (PrintOptions, optional): Printing configuration options
 
-```bash
-npm install --save pdf-to-printer
-```
+**Returns:** `Promise<void>`
 
-Or `yarn`
+**Throws:** `Error` if the PDF file doesn't exist, the operating system is not supported, or printing fails
 
-```bash
-yarn add pdf-to-printer
-```
+#### PrintOptions
 
-## Basic Usage
+| Option           | Type                                                     | Description                                                  |
+| ---------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| `printer`        | `string`                                                 | Name of the printer to use (default: system default printer) |
+| `pages`          | `string`                                                 | Pages to print (e.g., "1-3,5" or "1,3,5")                    |
+| `subset`         | `string`                                                 | Print only odd or even pages (valid: "odd", "even")          |
+| `orientation`    | `string`                                                 | Page orientation (valid: "portrait", "landscape")            |
+| `scale`          | `string`                                                 | Content scaling (valid: "noscale", "shrink", "fit")          |
+| `monochrome`     | `boolean`                                                | Print in black and white                                     |
+| `side`           | `string`                                                 | Duplex printing (valid: "duplex", "duplexshort", "duplexlong", "simplex") |
+| `bin`            | `string`                                                 | Paper tray/bin to use (number or name)                       |
+| `paperSize`      | `string`                                                 | Paper size (e.g., "A4", "letter", "legal")                   |
+| `silent`         | `boolean`                                                | Suppress error messages                                      |
+| `printDialog`    | `boolean`                                                | Show print dialog instead of printing directly               |
+| `sumatraPdfPath` | `string`                                                 | Custom path to SumatraPDF executable                         |
+| `copies`         | `number`                                                 | Number of copies to print (default: 1)                       |
 
-To print a file to the default printer:
+### `getPrinters()`
 
-```javascript
-import { print } from "pdf-to-printer";
+Gets a list of all available printers on the system.
 
-print("assets/sample.pdf").then(console.log);
-```
+**Returns:** `Promise<Printer[]>`
 
-## API
+**Throws:** `Error` if the operating system is not supported or if the command fails
 
-### `.print(pdf[, options]) => Promise<void>`
+**Example:**
 
-A function that prints your file.
-
-**Arguments**
-
-1. `pdf` (`string`, required): A path to the file you want to print. An error will be thrown if the PDF is not specified or not found.
-2. `options` (`Object`, optional):
-   - `printer` ( `string`, optional): Sends the file to the specified printer.
-   - `pages` (`string`, optional): Specifies which pages to print in the PDF document.
-   - `subset` (`string`, optional): Prints odd pages only when the value is `odd`, and even pages only when it is `even`.
-   - `orientation` (`string`, optional): Provides 90-degree rotation of contents (NOT the rotation of paper which must be pre-set by the choice of printer defaults).
-   - `scale` (`string`, optional): Supported names are `noscale`, `shrink`, and `fit`.
-   - `monochrome` (`boolean`, optional): Prints the document in black and white. The default value is `false`.
-   - `side` (`string`, optional): Supported names are `duplex`, `duplexshort`, `duplexlong`, and `simplex`.
-   - `bin` (`string`, optional): Select tray to print to. Number or name.
-   - `paperSize` (`string`, optional): Specifies the paper size. `A2`, `A3`, `A4`, `A5`, `A6`, `letter`, `legal`, `tabloid`, `statement`, or a name selectable from your printer settings.
-   - `silent` (`boolean`, optional): Silences error messages.
-   - `printDialog` (`boolean`, optional): Displays the print dialog for all the files indicated on this command line.
-   - `copies`(`number`, optional): Specifies how many copies will be printed.
-
-**Returns**
-
-`Promise<void>`: A Promise that resolves with `undefined`.
-
-**Examples**
-
-To print a file to the default printer, use the following code:
-
-```javascript
-import { print } from "pdf-to-printer";
-
-print("assets/sample.pdf").then(console.log);
-```
-
-To print to a specific printer:
-
-```javascript
-import { print } from "pdf-to-printer";
-
-const options = {
-  printer: "Zebra",
-};
-
-print("assets/pdf-sample.pdf", options).then(console.log);
-```
-
-Here is an example with a few print settings. It will print pages 1, 3, and 5, and scale them so that they fit into the printable area of the paper.
-
-```javascript
-import { print } from "pdf-to-printer";
-
-const options = {
-  printer: "Zebra",
-  pages: "1-3,5",
-  scale: "fit",
-};
-
-print("assets/pdf-sample.pdf", options).then(console.log);
-```
-
-### `.getPrinters() => Promise<Printer[]>`
-
-A function to get a list of available printers.
-
-**Returns**
-
-`Promise<Printer[]>`: a Promise that resolves with a list of available printers.
-
-**Examples**
-
-```javascript
+```typescript
 import { getPrinters } from "pdf-to-printer";
 
-getPrinters().then(console.log);
+const printers = await getPrinters();
+console.log(printers);
+// [
+//   { deviceId: "HP_LaserJet", name: "HP LaserJet Pro", paperSizes: ["A4", "Letter"] },
+//   { deviceId: "Canon_Pixma", name: "Canon PIXMA", paperSizes: ["A4", "A3"] }
+// ]
 ```
 
-### `.getDefaultPrinter() => Promise<Printer | null>`
+### `getDefaultPrinter()`
 
-A function to get the default printer information.
+Gets the default printer information.
 
-**Returns**
+**Returns:** `Promise<Printer | null>`
 
-`Promise<Printer | null>`: a Promise that resolves with the default printer information, or `null` if there is no default printer.
+**Throws:** `Error` if the operating system is not supported or if the command fails
 
-**Examples**
+**Example:**
 
-```javascript
+```typescript
 import { getDefaultPrinter } from "pdf-to-printer";
 
-getDefaultPrinter().then(console.log);
+const defaultPrinter = await getDefaultPrinter();
+if (defaultPrinter) {
+  console.log(`Default printer: ${defaultPrinter.name}`);
+  console.log(`Device ID: ${defaultPrinter.deviceId}`);
+  console.log(`Paper sizes: ${defaultPrinter.paperSizes.join(", ")}`);
+} else {
+  console.log("No default printer set");
+}
+```
+
+### `Printer` Type
+
+```typescript
+type Printer = {
+  deviceId: string; // Unique identifier for the printer device
+  name: string; // Human-readable name of the printer
+  paperSizes: string[]; // Array of supported paper sizes
+};
 ```
 
 ## License

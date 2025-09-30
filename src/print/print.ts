@@ -4,6 +4,9 @@ import execAsync from "../utils/exec-file-async";
 import fixPathForAsarUnpack from "../utils/electron-util";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 
+/**
+ * Configuration options for printing PDFs
+ */
 export interface PrintOptions {
   printer?: string;
   pages?: string;
@@ -25,6 +28,28 @@ const validOrientations = ["portrait", "landscape"];
 const validScales = ["noscale", "shrink", "fit"];
 const validSides = ["duplex", "duplexshort", "duplexlong", "simplex"];
 
+/**
+ * Prints a PDF file to a printer
+ *
+ * @param pdf - Path to the PDF file to print
+ * @param options - Printing configuration options
+ * @returns Promise that resolves when printing is complete
+ * @throws {Error} If the PDF file doesn't exist or printing fails
+ *
+ * @example
+ * ```typescript
+ * // Print to default printer
+ * await print("document.pdf");
+ *
+ * // Print to specific printer with options
+ * await print("document.pdf", {
+ *   printer: "HP LaserJet",
+ *   pages: "1-3",
+ *   copies: 2,
+ *   paperSize: "A4"
+ * });
+ * ```
+ */
 export default async function print(
   pdf: string,
   options: PrintOptions = {},
