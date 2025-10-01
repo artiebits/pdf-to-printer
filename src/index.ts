@@ -3,6 +3,16 @@ export { default as getPrinters } from "./get-printers/get-printers";
 export { default as getDefaultPrinter } from "./get-default-printer/get-default-printer";
 export { PrintOptions } from "./print/print";
 
+export {
+  PdfToPrinterError,
+  UnsupportedOperatingSystemError,
+  FileNotFoundError,
+  InvalidPdfPathError,
+  InvalidPrintOptionError,
+  PrintExecutionError,
+  PrinterNotFoundError,
+} from "./types/errors";
+
 /**
  * Represents a printer device
  */

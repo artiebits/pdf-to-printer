@@ -2,6 +2,7 @@ import execFileAsync from "../utils/exec-file-async";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 import isValidPrinter from "../utils/windows-printer-valid";
 import { Printer } from "..";
+import { PrinterNotFoundError } from "../types/errors";
 
 /**
  * Gets the default printer information
@@ -42,7 +43,7 @@ async function getDefaultPrinter(): Promise<Printer | null> {
 
     return printerData;
   } catch (error) {
-    throw error;
+    throw new PrinterNotFoundError(error);
   }
 }
 

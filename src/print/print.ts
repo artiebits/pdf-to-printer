@@ -3,36 +3,29 @@ import fs from "fs";
 import execAsync from "../utils/exec-file-async";
 import fixPathForAsarUnpack from "../utils/electron-util";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
+import {
+  FileNotFoundError,
+  InvalidPdfPathError,
+  InvalidPrintOptionError,
+  PrintExecutionError,
+} from "../types/errors";
 
 /**
  * Configuration options for printing PDFs
  */
 export interface PrintOptions {
-  /** Name of the printer to use. If not specified, uses the default printer */
   printer?: string;
-  /** Pages to print (e.g., "1-3,5" or "1,3,5") */
   pages?: string;
-  /** Print only odd or even pages */
-  subset?: "odd" | "even";
-  /** Page orientation */
-  orientation?: "portrait" | "landscape";
-  /** How to scale the content */
-  scale?: "noscale" | "shrink" | "fit";
-  /** Print in black and white */
+  subset?: string;
+  orientation?: string;
+  scale?: string;
   monochrome?: boolean;
-  /** Duplex printing options */
-  side?: "duplex" | "duplexshort" | "duplexlong" | "simplex";
-  /** Paper tray/bin to use (number or name) */
+  side?: string;
   bin?: string;
-  /** Paper size (e.g., "A4", "letter", "legal") */
   paperSize?: string;
-  /** Suppress error messages */
   silent?: boolean;
-  /** Show print dialog instead of printing directly */
   printDialog?: boolean;
-  /** Custom path to SumatraPDF executable */
   sumatraPdfPath?: string;
-  /** Number of copies to print */
   copies?: number;
 }
 
@@ -68,8 +61,8 @@ export default async function print(
   options: PrintOptions = {},
 ): Promise<void> {
   throwIfUnsupportedOperatingSystem();
-  if (!pdf) throw "No PDF specified";
-  if (!fs.existsSync(pdf)) throw "No such file";
+  if (!pdf) throw new InvalidPdfPathError();
+  if (!fs.existsSync(pdf)) throw new FileNotFoundError(pdf);
 
   let sumatraPdf =
     options.sumatraPdfPath || path.join(__dirname, "SumatraPDF-3.4.6-32.exe");
@@ -103,7 +96,7 @@ export default async function print(
   try {
     await execAsync(sumatraPdf, args);
   } catch (error) {
-    throw error;
+    throw new PrintExecutionError(error);
   }
 }
 
@@ -130,7 +123,7 @@ function getPrintSettings(options: PrintOptions): string[] {
     if (validSubsets.includes(subset)) {
       printSettings.push(subset);
     } else {
-      throw `Invalid subset provided. Valid names: ${validSubsets.join(", ")}`;
+      throw new InvalidPrintOptionError("subset", validSubsets);
     }
   }
 
@@ -138,9 +131,7 @@ function getPrintSettings(options: PrintOptions): string[] {
     if (validOrientations.includes(orientation)) {
       printSettings.push(orientation);
     } else {
-      throw `Invalid orientation provided. Valid names: ${validOrientations.join(
-        ", ",
-      )}`;
+      throw new InvalidPrintOptionError("orientation", validOrientations);
     }
   }
 
@@ -148,7 +139,7 @@ function getPrintSettings(options: PrintOptions): string[] {
     if (validScales.includes(scale)) {
       printSettings.push(scale);
     } else {
-      throw `Invalid scale provided. Valid names: ${validScales.join(", ")}`;
+      throw new InvalidPrintOptionError("scale", validScales);
     }
   }
 
@@ -162,7 +153,7 @@ function getPrintSettings(options: PrintOptions): string[] {
     if (validSides.includes(side)) {
       printSettings.push(side);
     } else {
-      throw `Invalid side provided. Valid names: ${validSides.join(", ")}`;
+      throw new InvalidPrintOptionError("side", validSides);
     }
   }
 

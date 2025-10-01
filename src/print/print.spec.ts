@@ -34,14 +34,13 @@ afterEach(() => {
 const sumatraPdfPath = "mocked_path_SumatraPDF-3.4.6-32.exe";
 
 it("throws when no file is specified.", async () => {
-  // @ts-ignore
-  await expect(print()).rejects.toMatch("No PDF specified");
+  await expect(print(undefined as any)).rejects.toThrow("No PDF specified");
 });
 
 it("throws when file not found", async () => {
   mockedExistsSync.mockImplementation(() => false);
 
-  await expect(print("file.txt")).rejects.toMatch("No such file");
+  await expect(print("file.txt")).rejects.toThrow("No such file: file.txt");
 });
 
 it("sends the PDF file to the default printer", async () => {
@@ -150,7 +149,7 @@ describe("orientation", () => {
       orientation: "foo",
     };
 
-    return expect(print(filename, options)).rejects.toBe(
+    return expect(print(filename, options)).rejects.toThrow(
       "Invalid orientation provided. Valid names: portrait, landscape",
     );
   });
@@ -218,7 +217,7 @@ describe("subset", () => {
       subset: "foo",
     };
 
-    return expect(print(filename, options)).rejects.toBe(
+    return expect(print(filename, options)).rejects.toThrow(
       "Invalid subset provided. Valid names: odd, even",
     );
   });
@@ -248,7 +247,7 @@ describe("scale", () => {
       scale: "foo",
     };
 
-    return expect(print(filename, options)).rejects.toBe(
+    return expect(print(filename, options)).rejects.toThrow(
       "Invalid scale provided. Valid names: noscale, shrink, fit",
     );
   });
@@ -278,7 +277,7 @@ describe("side", () => {
       side: "foo",
     };
 
-    return expect(print(filename, options)).rejects.toBe(
+    return expect(print(filename, options)).rejects.toThrow(
       "Invalid side provided. Valid names: duplex, duplexshort, duplexlong, simplex",
     );
   });
@@ -380,5 +379,7 @@ it("works when custom SumatraPDF path specified", async () => {
 
 it("fails with an error", () => {
   mockedExecAsync.mockRejectedValue("error");
-  return expect(print("sample.pdf")).rejects.toBe("error");
+  return expect(print("sample.pdf")).rejects.toThrow(
+    "Print execution failed: error",
+  );
 });

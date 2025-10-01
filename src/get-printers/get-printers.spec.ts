@@ -107,7 +107,9 @@ it("when did not find any printer info", async () => {
 
 it("fails with an error", () => {
   mockedExecAsync.mockRejectedValue("error");
-  return expect(getPrinters()).rejects.toBe("error");
+  return expect(getPrinters()).rejects.toThrow(
+    "Failed to find printers: error",
+  );
 });
 
 it("returns list of available printers with custom properties", async () => {

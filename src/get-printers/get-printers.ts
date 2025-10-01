@@ -2,6 +2,7 @@ import execFileAsync from "../utils/exec-file-async";
 import isValidPrinter from "../utils/windows-printer-valid";
 import throwIfUnsupportedOperatingSystem from "../utils/throw-if-unsupported-os";
 import { Printer } from "..";
+import { PrinterNotFoundError } from "../types/errors";
 
 /**
  * Gets a list of all available printers on the system
@@ -46,7 +47,7 @@ async function getPrinters(): Promise<Printer[]> {
     ]);
     return stdoutHandler(stdout);
   } catch (error) {
-    throw error;
+    throw new PrinterNotFoundError(error);
   }
 }
 

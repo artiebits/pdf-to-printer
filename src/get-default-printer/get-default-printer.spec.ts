@@ -62,7 +62,9 @@ it("when did not find any printer info", async () => {
 
 it("throws when execAsync fails", () => {
   mockedExecAsync.mockRejectedValue("error");
-  return expect(getDefaultPrinter()).rejects.toBe("error");
+  return expect(getDefaultPrinter()).rejects.toThrow(
+    "Failed to find printers: error",
+  );
 });
 
 it("gets the default printer with custom and repeated properties", async () => {

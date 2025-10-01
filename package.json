@@ -15,8 +15,9 @@
   "scripts": {
     "test": "jest",
     "lint": "prettier --write .",
+    "type-check": "tsc --noEmit",
     "build": "webpack --config webpack.production.config.js",
-    "prepare": "npm run lint && npm run test && npm run build"
+    "prepare": "npm run type-check && npm run lint && npm run test && npm run build"
   },
   "husky": {
     "hooks": {
