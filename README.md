@@ -86,6 +86,7 @@ Prints a PDF file to a printer.
 | `printDialog`    | `boolean`                                                | Show print dialog instead of printing directly               |
 | `sumatraPdfPath` | `string`                                                 | Custom path to SumatraPDF executable                         |
 | `copies`         | `number`                                                 | Number of copies to print (default: 1)                       |
+| `paperkind`      | `number`                                                 | Allow to choose custom paper size by kind                    |
 
 ### `getPrinters()`
 
