@@ -71,22 +71,22 @@ Prints a PDF file to a printer.
 
 #### PrintOptions
 
-| Option           | Type                                                     | Description                                                  |
-| ---------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
-| `printer`        | `string`                                                 | Name of the printer to use (default: system default printer) |
-| `pages`          | `string`                                                 | Pages to print (e.g., "1-3,5" or "1,3,5")                    |
-| `subset`         | `string`                                                 | Print only odd or even pages (valid: "odd", "even")          |
-| `orientation`    | `string`                                                 | Page orientation (valid: "portrait", "landscape")            |
-| `scale`          | `string`                                                 | Content scaling (valid: "noscale", "shrink", "fit")          |
-| `monochrome`     | `boolean`                                                | Print in black and white                                     |
-| `side`           | `string`                                                 | Duplex printing (valid: "duplex", "duplexshort", "duplexlong", "simplex") |
-| `bin`            | `string`                                                 | Paper tray/bin to use (number or name)                       |
-| `paperSize`      | `string`                                                 | Paper size (e.g., "A4", "letter", "legal")                   |
-| `silent`         | `boolean`                                                | Suppress error messages                                      |
-| `printDialog`    | `boolean`                                                | Show print dialog instead of printing directly               |
-| `sumatraPdfPath` | `string`                                                 | Custom path to SumatraPDF executable                         |
-| `copies`         | `number`                                                 | Number of copies to print (default: 1)                       |
-| `paperkind`      | `number`                                                 | Allow to choose custom paper size by kind                    |
+| Option           | Type      | Description                                                               |
+| ---------------- | --------- | ------------------------------------------------------------------------- |
+| `printer`        | `string`  | Name of the printer to use (default: system default printer)              |
+| `pages`          | `string`  | Pages to print (e.g., "1-3,5" or "1,3,5")                                 |
+| `subset`         | `string`  | Print only odd or even pages (valid: "odd", "even")                       |
+| `orientation`    | `string`  | Page orientation (valid: "portrait", "landscape")                         |
+| `scale`          | `string`  | Content scaling (valid: "noscale", "shrink", "fit")                       |
+| `monochrome`     | `boolean` | Print in black and white                                                  |
+| `side`           | `string`  | Duplex printing (valid: "duplex", "duplexshort", "duplexlong", "simplex") |
+| `bin`            | `string`  | Paper tray/bin to use (number or name)                                    |
+| `paperSize`      | `string`  | Paper size (e.g., "A4", "letter", "legal")                                |
+| `silent`         | `boolean` | Suppress error messages                                                   |
+| `printDialog`    | `boolean` | Show print dialog instead of printing directly                            |
+| `sumatraPdfPath` | `string`  | Custom path to SumatraPDF executable                                      |
+| `copies`         | `number`  | Number of copies to print (default: 1)                                    |
+| `paperkind`      | `number`  | Allow to choose custom paper size by kind                                 |
 
 ### `getPrinters()`
 
