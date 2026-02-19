@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.7.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.6.0...v5.7.0) (2026-02-19)
+
+
+### Features
+
+* support paperkind parameter ([#521](https://www.github.com/artiebits/pdf-to-printer/issues/521)) ([cd76e76](https://www.github.com/artiebits/pdf-to-printer/commit/cd76e76dd62ea17ba5274fc93ac9149a4268a579))
+
 ## [5.6.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.5.0...v5.6.0) (2023-03-07)
 
 ### Features
