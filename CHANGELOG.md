@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.8.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.7.0...v5.8.0) (2026-04-25)
+
+### Improvements
+
+- improve typing for `PrintOptions` fields (`subset`, `orientation`, `scale`, `side`) with specific string literal unions ([12caa69](https://www.github.com/artiebits/pdf-to-printer/commit/12caa69))
+- throw proper `Error` objects instead of plain strings ([12caa69](https://www.github.com/artiebits/pdf-to-printer/commit/12caa69))
+
 ## [5.7.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.6.0...v5.7.0) (2026-02-19)
 
 ### Features

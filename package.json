@@ -1,6 +1,6 @@
 {
   "name": "pdf-to-printer",
-  "version": "5.7.0",
+  "version": "5.8.0",
   "description": "Print PDF files and images to Windows printers from Node.js and Electron. Supports Zebra, Rollo, and other label printers with duplex, paper size, tray selection, and silent printing.",
   "license": "MIT",
   "repository": {
