@@ -1,5 +1,12 @@
 # Changelog
 
+### [5.7.1](https://www.github.com/artiebits/pdf-to-printer/compare/v5.7.0...v5.7.1) (2026-08-30)
+
+
+### Bug Fixes
+
+* force utf-8 output encoding for non-ascii printer names ([#552](https://www.github.com/artiebits/pdf-to-printer/issues/552)) ([7482ffe](https://www.github.com/artiebits/pdf-to-printer/commit/7482ffe6d7240b53a0c457231826e9c1b5b487c7))
+
 ## [5.8.0](https://www.github.com/artiebits/pdf-to-printer/compare/v5.7.0...v5.8.0) (2026-04-25)
 
 ### Improvements
