@@ -47,7 +47,7 @@
     "ts-loader": "^9.5.1",
     "typescript": "^5.9.2",
     "webpack": "^5.97.1",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^7.2.3"
   },
   "keywords": [
     "pdf",
